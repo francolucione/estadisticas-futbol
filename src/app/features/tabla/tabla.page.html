@@ -1,0 +1,166 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Gallo League</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/admin" aria-label="Panel de administracion">
+        <ion-icon slot="icon-only" name="build-outline" />
+        @if (hayCorrecciones()) {
+          <span class="punto-aviso" aria-hidden="true"></span>
+        }
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <nav class="segmento" aria-label="Vista de la tabla">
+    @for (v of vistas; track v.clave) {
+      <button [class.activo]="vista() === v.clave" (click)="cambiarVista(v.clave)">
+        {{ v.etiqueta }}
+      </button>
+    }
+  </nav>
+
+  @if (vista() === 'posiciones') {
+    <!-- ------------------------------------------- tabla de posiciones -->
+    <div class="contenido">
+      <div class="barra-seccion">
+        <h2>Tabla de posiciones</h2>
+        <span class="nota">3 por ganado, 1 por empatado</span>
+      </div>
+
+      <div class="panel">
+        <div class="tabla-scroll">
+          <table class="tabla-densa">
+            <thead>
+              <tr>
+                <th class="col-puesto">#</th>
+                <th class="col-nombre">Jugador</th>
+                <th class="resaltada">Pts</th>
+                <th>PJ</th>
+                <th>G</th>
+                <th>E</th>
+                <th>P</th>
+                <th>GF</th>
+                <th>GC</th>
+                <th>DG</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (j of posiciones(); track j.nombre; let i = $index) {
+                <tr [class.zona-podio]="i < 3" [class.zona-fondo]="i >= posiciones().length - 3">
+                  <td class="col-puesto">{{ i + 1 }}</td>
+                  <td class="col-nombre">
+                    <a [routerLink]="['jugador', j.nombre]">{{ j.nombre }}</a>
+                  </td>
+                  <td class="resaltada">{{ j.puntos }}</td>
+                  <td>{{ j.PJ }}</td>
+                  <td>{{ j.PG }}</td>
+                  <td>{{ j.PE }}</td>
+                  <td>{{ j.PP }}</td>
+                  <td>{{ j.GF }}</td>
+                  <td>{{ j.GC }}</td>
+                  <td [class.negativo]="j.DG < 0" [class.positivo]="j.DG > 0">
+                    {{ j.DG > 0 ? '+' : '' }}{{ j.DG }}
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p class="explica">
+        Solo jugadores con {{ minimo }} partidos o mas. La banda cyan marca el podio;
+        la roja, los ultimos tres.
+      </p>
+    </div>
+  } @else {
+    <!-- --------------------------------------------- rankings por metrica -->
+    <nav class="segmento metricas" aria-label="Metrica">
+      @for (m of metricasDeFamilia(); track m.clave) {
+        <button [class.activo]="clave() === m.clave" (click)="clave.set(m.clave)">
+          {{ m.etiqueta }}
+        </button>
+      }
+    </nav>
+
+    <div class="contenido">
+      <div class="barra-seccion">
+        <h2>{{ metrica().etiqueta }}</h2>
+        <label class="filtro">
+          <input
+            type="checkbox"
+            [checked]="soloHabituales()"
+            (change)="soloHabituales.set($any($event.target).checked)"
+          />
+          Solo {{ minimo }}+ PJ
+        </label>
+      </div>
+
+      <div class="panel">
+        <div class="tabla-scroll">
+          <table class="tabla-densa">
+            <thead>
+              <tr>
+                <th class="col-puesto">#</th>
+                <th class="col-nombre">Jugador</th>
+                <th [class.resaltada]="resaltada('goles')">Goles</th>
+                <th [class.resaltada]="resaltada('asistencias')">Asist</th>
+                <th [class.resaltada]="resaltada('influencias')">Infl</th>
+                <th [class.resaltada]="resaltada('PJ')">PJ</th>
+                <th [class.resaltada]="resaltada('PG')">PG</th>
+                <th [class.resaltada]="resaltada('PE')">PE</th>
+                <th [class.resaltada]="resaltada('PP')">PP</th>
+                <th [class.resaltada]="resaltada('GF')">GF</th>
+                <th [class.resaltada]="resaltada('GC')">GC</th>
+                <th [class.resaltada]="resaltada('DG')">DG</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (j of filas(); track j.nombre; let i = $index) {
+                <tr>
+                  <td class="col-puesto">{{ i + 1 }}</td>
+                  <td class="col-nombre">
+                    <a [routerLink]="['jugador', j.nombre]">{{ j.nombre }}</a>
+                  </td>
+                  <td [class.resaltada]="resaltada('goles')">
+                    {{ j.goles }} <span class="sub">({{ promedio(j.goles, j.PJ) }})</span>
+                  </td>
+                  <td [class.resaltada]="resaltada('asistencias')">
+                    {{ j.asistencias }} <span class="sub">({{ promedio(j.asistencias, j.PJ) }})</span>
+                  </td>
+                  <td [class.resaltada]="resaltada('influencias')">
+                    {{ j.influencias }} <span class="sub">({{ promedio(j.influencias, j.PJ) }})</span>
+                  </td>
+                  <td [class.resaltada]="resaltada('PJ')">{{ j.PJ }}</td>
+                  <td [class.resaltada]="resaltada('PG')">
+                    {{ j.PG }} <span class="sub">({{ porcentaje(j.PG, j.PJ) }})</span>
+                  </td>
+                  <td [class.resaltada]="resaltada('PE')">{{ j.PE }}</td>
+                  <td [class.resaltada]="resaltada('PP')">
+                    {{ j.PP }} <span class="sub">({{ porcentaje(j.PP, j.PJ) }})</span>
+                  </td>
+                  <td [class.resaltada]="resaltada('GF')">{{ j.GF }}</td>
+                  <td [class.resaltada]="resaltada('GC')">{{ j.GC }}</td>
+                  <td
+                    [class.resaltada]="resaltada('DG')"
+                    [class.negativo]="j.DG < 0"
+                    [class.positivo]="j.DG > 0"
+                  >
+                    {{ j.DG > 0 ? '+' : '' }}{{ j.DG }}
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p class="explica">
+        {{ filas().length }} jugadores, ordenados por {{ metrica().etiqueta }}.
+        Toca un nombre para ver su ficha.
+      </p>
+    </div>
+  }
+</ion-content>

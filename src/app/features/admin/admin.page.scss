@@ -1,0 +1,118 @@
+.contenido {
+  padding: 10px 10px 24px;
+}
+
+.mensaje {
+  margin: 0 0 10px;
+  padding: 8px 10px;
+  font-size: 0.76rem;
+  color: var(--acento);
+  border: 1px solid var(--acento-borde);
+  background: var(--acento-tenue);
+  border-radius: 4px;
+}
+
+.estado {
+  .titulo {
+    margin: 0 0 4px;
+    font-size: 0.88rem;
+    font-weight: 700;
+  }
+
+  &.pendiente {
+    border-color: var(--acento-borde);
+
+    .titulo {
+      color: var(--acento);
+    }
+  }
+}
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.aviso {
+  margin: 0 0 6px;
+  font-size: 0.76rem;
+  color: var(--viz-derrota);
+}
+
+/* ----------------------------------------------------------------- alias */
+
+.alta-alias {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+
+  .flecha {
+    color: var(--tinta-3);
+  }
+
+  .bt {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------------------------------------------------------------- fechas */
+
+.fechas-admin {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: grid;
+    grid-template-columns: 2.4rem auto auto 1fr;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    font-size: 0.76rem;
+  }
+
+  li + li {
+    border-top: 1px solid var(--metal-borde);
+  }
+
+  li:nth-child(even) {
+    background: var(--metal-fila);
+  }
+
+  .num {
+    color: var(--tinta-2);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .marcador {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cuenta {
+    color: var(--tinta-2);
+    font-size: 0.7rem;
+  }
+
+  .tag {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--acento);
+    border: 1px solid var(--acento-borde);
+    background: var(--acento-tenue);
+    border-radius: 3px;
+    padding: 1px 5px;
+  }
+
+  .botones {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+}

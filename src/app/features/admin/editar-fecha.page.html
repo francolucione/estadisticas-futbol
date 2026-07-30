@@ -1,0 +1,156 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin" text="Admin" />
+    </ion-buttons>
+    <ion-title>
+      {{ esNueva() ? 'Nueva fecha' : 'Fecha ' + borrador()?.id }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if (borrador(); as b) {
+    <div class="contenido">
+      <!-- Marcador en vivo -->
+      <div class="panel marcador-vivo">
+        <span class="lado naranja">Naranja</span>
+        <span class="cifras">{{ marcador().naranja }} - {{ marcador().azul }}</span>
+        <span class="lado azul">Azul</span>
+      </div>
+
+      @if (problemas().length) {
+        <div class="panel problemas">
+          <div class="panel-cuerpo">
+            @for (p of problemas(); track p) {
+              <p>{{ p }}</p>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Formaciones -->
+      @for (eq of ['naranja', 'azul']; track eq) {
+        <div class="barra-seccion">
+          <h2>{{ eq === 'naranja' ? 'Naranja' : 'Azul' }}</h2>
+          <button class="bt mini" (click)="agregarJugador($any(eq))">+ Jugador</button>
+        </div>
+
+        <div class="panel">
+          <ul class="filas">
+            <li class="encabezado">
+              <span>Jugador</span>
+              <span>G</span>
+              <span>A</span>
+              <span></span>
+            </li>
+            @for (x of jugadoresDe($any(eq)); track x.i) {
+              <li>
+                <input
+                  list="nombres-conocidos"
+                  placeholder="Nombre"
+                  [value]="x.j.nombre"
+                  (input)="cambiarNombre(x.i, $any($event.target).value)"
+                />
+                <input
+                  type="number"
+                  min="0"
+                  [value]="x.j.goles"
+                  (input)="cambiarNumero(x.i, 'goles', $any($event.target).value)"
+                  aria-label="Goles"
+                />
+                <input
+                  type="number"
+                  min="0"
+                  [value]="x.j.asistencias"
+                  (input)="cambiarNumero(x.i, 'asistencias', $any($event.target).value)"
+                  aria-label="Asistencias"
+                />
+                <span class="acciones-fila">
+                  <button
+                    class="bt mini cambiar"
+                    (click)="cambiarEquipo(x.i, x.j.equipo === 'naranja' ? 'azul' : 'naranja')"
+                    [title]="'Pasar al equipo ' + (x.j.equipo === 'naranja' ? 'azul' : 'naranja')"
+                  >
+                    &rlarr;
+                  </button>
+                  <button class="bt mini peligro-suave" (click)="quitarJugador(x.i)" title="Quitar">
+                    &times;
+                  </button>
+                </span>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+
+      <datalist id="nombres-conocidos">
+        @for (n of nombresConocidos(); track n) {
+          <option [value]="n"></option>
+        }
+      </datalist>
+
+      <!-- Goles en contra -->
+      <div class="barra-seccion">
+        <h2>Goles en contra</h2>
+        <button class="bt mini" (click)="agregarGolEnContra()">+ Agregar</button>
+      </div>
+
+      <div class="panel">
+        <div class="panel-cuerpo">
+          @if (b.golesEnContra?.length) {
+            <ul class="contras">
+              @for (g of b.golesEnContra; track $index) {
+                <li>
+                  <span class="et">A favor de</span>
+                  <select
+                    [value]="g.favorA"
+                    (change)="cambiarGolEnContra($index, 'favorA', $any($event.target).value)"
+                  >
+                    <option value="naranja">Naranja</option>
+                    <option value="azul">Azul</option>
+                  </select>
+                  <input
+                    type="number"
+                    min="0"
+                    [value]="g.cantidad"
+                    (input)="cambiarGolEnContra($index, 'cantidad', $any($event.target).value)"
+                    aria-label="Cantidad"
+                  />
+                  <button class="bt mini peligro-suave" (click)="quitarGolEnContra($index)">
+                    &times;
+                  </button>
+                </li>
+              }
+            </ul>
+          } @else {
+            <p class="explica">
+              Sin goles en contra. Suman al marcador del equipo pero no se le atribuyen a
+              ningun jugador.
+            </p>
+          }
+        </div>
+      </div>
+
+      <!-- Acciones -->
+      <div class="acciones-final">
+        <button class="bt primario" [disabled]="!puedeGuardar()" (click)="guardar()">
+          Guardar
+        </button>
+        <button class="bt" (click)="cancelar()">Cancelar</button>
+        @if (fueEditada()) {
+          <button class="bt peligro-suave" (click)="restaurar()">Restaurar original</button>
+        }
+      </div>
+
+      @if (!puedeGuardar()) {
+        <p class="explica">
+          Para guardar, todos los jugadores necesitan un nombre y no puede haber nombres
+          repetidos.
+        </p>
+      }
+    </div>
+  } @else {
+    <p class="vacio">No existe esa fecha.</p>
+  }
+</ion-content>

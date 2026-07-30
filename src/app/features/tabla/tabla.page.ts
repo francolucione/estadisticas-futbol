@@ -1,78 +1,73 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
+  IonButton,
+  IonButtons,
   IonContent,
   IonHeader,
-  IonItem,
-  IonLabel,
-  IonNote,
-  IonSegment,
-  IonSegmentButton,
+  IonIcon,
   IonTitle,
-  IonToggle,
   IonToolbar,
 } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { buildOutline } from 'ionicons/icons';
 import { ClaveMetrica, METRICAS, Metrica, StatsJugador } from '../../core/models/stats.model';
 import { StatsService } from '../../core/services/stats.service';
+import { PartidosService } from '../../core/services/partidos.service';
 import { MIN_PARTIDOS_RANKING } from '../../core/services/stats.engine';
 import { formatearValor } from '../../shared/formato';
 
-type Familia = Metrica['familia'];
+type Vista = 'posiciones' | Metrica['familia'];
 
 @Component({
-  selector: 'app-ranking',
+  selector: 'app-tabla',
   standalone: true,
-  imports: [
-    RouterLink,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonContent,
-    IonSegment,
-    IonSegmentButton,
-    IonLabel,
-    IonItem,
-    IonToggle,
-    IonNote,
-  ],
-  templateUrl: './ranking.page.html',
-  styleUrl: './ranking.page.scss',
+  imports: [RouterLink, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon],
+  templateUrl: './tabla.page.html',
+  styleUrl: './tabla.page.scss',
 })
-export class RankingPage {
+export class TablaPage {
   private readonly statsSvc = inject(StatsService);
+  private readonly partidosSvc = inject(PartidosService);
 
   readonly minimo = MIN_PARTIDOS_RANKING;
-  readonly familias: { clave: Familia; etiqueta: string }[] = [
+
+  readonly vistas: { clave: Vista; etiqueta: string }[] = [
+    { clave: 'posiciones', etiqueta: 'Posiciones' },
     { clave: 'ataque', etiqueta: 'Ataque' },
     { clave: 'resultados', etiqueta: 'Resultados' },
     { clave: 'goles', etiqueta: 'Goles' },
   ];
 
-  readonly familia = signal<Familia>('ataque');
+  readonly vista = signal<Vista>('posiciones');
   readonly clave = signal<ClaveMetrica>('goles');
   readonly soloHabituales = signal(true);
 
-  readonly metricasDeFamilia = computed(() =>
-    METRICAS.filter((m) => m.familia === this.familia())
-  );
+  readonly posiciones = this.statsSvc.posiciones;
+  readonly hayCorrecciones = this.partidosSvc.hayCorrecciones;
 
-  readonly metrica = computed(
-    () => METRICAS.find((m) => m.clave === this.clave()) ?? METRICAS[0]
-  );
+  readonly metricasDeFamilia = computed(() => {
+    const v = this.vista();
+    return v === 'posiciones' ? [] : METRICAS.filter((m) => m.familia === v);
+  });
+
+  readonly metrica = computed(() => METRICAS.find((m) => m.clave === this.clave()) ?? METRICAS[0]);
 
   readonly filas = computed(() => {
     const clave = this.clave();
     const base = this.soloHabituales() ? this.statsSvc.habituales() : this.statsSvc.stats();
     // GC y PP se leen al reves: cuanto mas bajo, mejor.
     const menorEsMejor = clave === 'GC' || clave === 'PP' || clave === 'ppPorcentaje';
-    return [...base].sort((a, b) =>
-      menorEsMejor ? a[clave] - b[clave] : b[clave] - a[clave]
-    );
+    return [...base].sort((a, b) => (menorEsMejor ? a[clave] - b[clave] : b[clave] - a[clave]));
   });
 
-  cambiarFamilia(familia: Familia): void {
-    this.familia.set(familia);
-    const primera = METRICAS.find((m) => m.familia === familia);
+  constructor() {
+    addIcons({ buildOutline });
+  }
+
+  cambiarVista(vista: Vista): void {
+    this.vista.set(vista);
+    const primera = METRICAS.find((m) => m.familia === vista);
     if (primera) this.clave.set(primera.clave);
   }
 

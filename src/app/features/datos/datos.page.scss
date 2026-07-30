@@ -1,0 +1,140 @@
+.contenido {
+  padding: 0 10px 24px;
+}
+
+/* Escala divergente: los dos equipos en los extremos, el empate al medio. */
+.apilada {
+  display: flex;
+  height: 22px;
+  border-radius: 4px;
+  overflow: hidden;
+  /* 2px de superficie entre tramos, como pide la guia de marcas. */
+  gap: 2px;
+  background: var(--metal-panel);
+}
+
+.tramo {
+  height: 100%;
+
+  &.naranja {
+    background: var(--viz-naranja);
+  }
+
+  &.empate {
+    background: var(--viz-neutro);
+  }
+
+  &.azul {
+    background: var(--viz-azul);
+  }
+}
+
+.leyenda {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 16px;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+  }
+
+  .punto {
+    width: 9px;
+    height: 9px;
+    border-radius: 2px;
+
+    &.naranja {
+      background: var(--viz-naranja);
+    }
+
+    &.empate {
+      background: var(--viz-neutro);
+    }
+
+    &.azul {
+      background: var(--viz-azul);
+    }
+  }
+
+  .et {
+    color: var(--tinta-2);
+  }
+
+  .pct {
+    color: var(--tinta-2);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.reparto {
+  margin-top: 10px;
+}
+
+.detalle {
+  margin: 10px 0 0;
+  font-size: 0.78rem;
+  color: var(--tinta-2);
+  line-height: 1.5;
+}
+
+/* ---------------------------------------------------------- curiosidades */
+
+.curiosidades {
+  display: grid;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.curiosidad {
+  .panel-cabecera h3 {
+    margin: 0;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--tinta);
+  }
+
+  /* El numero grande es el gancho de la tarjeta. */
+  .valor {
+    font-size: 1.25rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--acento);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .panel-cuerpo .detalle {
+    margin: 0;
+    color: var(--tinta);
+    font-size: 0.8rem;
+  }
+
+  a {
+    color: var(--acento);
+    text-decoration: none;
+    font-weight: 600;
+  }
+}
+
+.nota-curiosidad {
+  margin: 8px 0 0;
+  padding-top: 8px;
+  border-top: 1px solid var(--metal-borde);
+  font-size: 0.72rem;
+  color: var(--tinta-2);
+  line-height: 1.45;
+}
+
+.aviso {
+  margin: 0 0 6px;
+  font-size: 0.76rem;
+  color: var(--viz-derrota);
+}

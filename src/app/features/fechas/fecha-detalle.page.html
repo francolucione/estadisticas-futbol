@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/fechas" text="Fechas" />
+    </ion-buttons>
+    <ion-title>Fecha {{ id() }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/admin/fecha', id()]" aria-label="Corregir esta fecha">
+        <ion-icon slot="icon-only" name="create-outline" />
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if (partido(); as p) {
+    <div class="contenido">
+      @if (editada()) {
+        <p class="aviso-editada">Esta fecha tiene correcciones locales sin exportar.</p>
+      }
+
+      <!-- Marcador -->
+      @if (marcador(); as m) {
+        <div class="panel tanteador">
+          <div class="lado">
+            <span class="pill naranja">Naranja</span>
+            <span class="goles" [class.gano]="m.naranja > m.azul">{{ m.naranja }}</span>
+          </div>
+          <span class="vs">vs</span>
+          <div class="lado">
+            <span class="goles" [class.gano]="m.azul > m.naranja">{{ m.azul }}</span>
+            <span class="pill azul">Azul</span>
+          </div>
+        </div>
+      }
+
+      @if (figura(); as f) {
+        <p class="figura-fecha">
+          Figura de la fecha:
+          <a [routerLink]="['/tabs/jugadores/jugador', f.nombre]">{{ f.nombre }}</a>
+          <span class="sub">{{ f.goles }}G {{ f.asistencias }}A</span>
+        </p>
+      }
+
+      <!-- Formaciones -->
+      @for (eq of ['naranja', 'azul']; track eq) {
+        <div class="barra-seccion">
+          <h2>{{ eq === 'naranja' ? 'Naranja' : 'Azul' }}</h2>
+          <span class="nota">{{ formacion($any(eq)).length }} jugadores</span>
+        </div>
+
+        <div class="panel">
+          <div class="tabla-scroll">
+            <table class="tabla-densa">
+              <thead>
+                <tr>
+                  <th class="col-nombre">Jugador</th>
+                  <th>Goles</th>
+                  <th>Asist</th>
+                  <th>Infl</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (j of formacion($any(eq)); track j.nombre) {
+                  <tr>
+                    <td class="col-nombre">
+                      <a [routerLink]="['/tabs/jugadores/jugador', j.nombre]">{{ j.nombre }}</a>
+                    </td>
+                    <td>{{ j.goles }}</td>
+                    <td>{{ j.asistencias }}</td>
+                    <td class="resaltada">{{ j.goles + j.asistencias }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      }
+
+      @if (golesEnContra().length) {
+        <div class="barra-seccion"><h2>Goles en contra</h2></div>
+        <div class="panel">
+          <div class="panel-cuerpo">
+            <ul class="lista-datos">
+              @for (g of golesEnContra(); track $index) {
+                <li>
+                  <span class="k">A favor de {{ g.favorA }}</span>
+                  <span class="v">{{ g.cantidad }}</span>
+                </li>
+              }
+            </ul>
+          </div>
+        </div>
+        <p class="explica">
+          Suman al marcador del equipo pero no se le atribuyen a ningun jugador.
+        </p>
+      }
+    </div>
+  } @else {
+    <p class="vacio">No existe la fecha {{ id() }}.</p>
+  }
+</ion-content>

@@ -1,121 +1,81 @@
 .ficha {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 16px;
+  gap: 12px;
+  padding: 14px 12px;
+  background: var(--metal-degradado);
+  border-bottom: 1px solid var(--metal-borde);
+
+  > div {
+    flex: 1;
+    min-width: 0;
+  }
 
   h1 {
     margin: 0;
-    font-size: 1.35rem;
-    font-weight: 700;
+    font-size: 1.2rem;
+    font-weight: 800;
   }
 
   .sub {
     margin: 2px 0 0;
-    color: var(--ion-color-medium);
-    font-size: 0.85rem;
+    color: var(--tinta-2);
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
   }
 
   .aviso {
-    margin: 6px 0 0;
-    font-size: 0.75rem;
-    color: var(--ion-color-warning-shade);
+    margin: 5px 0 0;
+    font-size: 0.7rem;
+    color: var(--acento);
   }
 }
 
 .avatar {
   flex: none;
-  width: 52px;
-  height: 52px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: var(--ion-color-primary);
-  color: var(--ion-color-primary-contrast);
-  font-weight: 700;
-  font-size: 1.1rem;
+  background: var(--acento);
+  color: #06202a;
+  font-weight: 800;
+  font-size: 1rem;
 }
 
 .seccion {
-  padding: 4px 16px 18px;
+  padding: 0 12px 16px;
 
   h2 {
-    margin: 12px 0 8px;
-    font-size: 0.78rem;
+    margin: 16px 0 8px;
+    font-size: 0.72rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--ion-color-medium);
-  }
-
-  & + .seccion {
-    border-top: 1px solid var(--viz-grid);
-    padding-top: 8px;
-  }
-}
-
-.explica {
-  margin: 0 0 10px;
-  font-size: 0.78rem;
-  color: var(--ion-color-medium);
-  line-height: 1.4;
-}
-
-.tiles {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
-  gap: 10px;
-}
-
-.tile {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  padding: 12px 14px;
-  border-radius: 12px;
-  background: var(--viz-tarjeta);
-  color: var(--viz-ink);
-  /* Sin esto el texto largo del pie ensancha la columna y desborda. */
-  min-width: 0;
-
-  .valor {
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 1.1;
-
-    &.negativo {
-      color: var(--viz-negativo);
-    }
-  }
-
-  .rotulo {
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-
-  .pie {
-    font-size: 0.72rem;
-    color: var(--ion-color-medium);
+    letter-spacing: 0.08em;
+    color: var(--tinta);
+    border-left: 3px solid var(--acento);
+    padding-left: 8px;
   }
 }
 
 .forma {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   flex-wrap: wrap;
 }
 
-/* La letra V/E/D acompana siempre al color: nunca informa el color solo. */
+/* La letra V/E/D acompana siempre al color: el color nunca informa solo. */
 .chip {
-  width: 26px;
-  height: 26px;
-  border-radius: 7px;
-  display: grid;
+  display: inline-grid;
   place-items: center;
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: #fff;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #0b0b0e;
   background: var(--viz-empate);
 
   &.v {
@@ -124,51 +84,61 @@
 
   &.d {
     background: var(--viz-derrota);
+    color: #fff;
   }
 }
 
 .racha {
   margin-left: 6px;
-  font-size: 0.8rem;
-  color: var(--ion-color-medium);
+  font-size: 0.76rem;
+  color: var(--tinta-2);
 }
 
 .detalle {
   margin: 10px 0 0;
-  font-size: 0.78rem;
-  color: var(--ion-color-medium);
+  font-size: 0.75rem;
+  color: var(--tinta-2);
 }
 
 .records {
   list-style: none;
   margin: 0;
   padding: 0;
+  border: 1px solid var(--metal-borde);
+  border-radius: 6px;
+  box-shadow: inset 0 1px 0 var(--metal-filo);
+  overflow: hidden;
 
   li {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
     gap: 12px;
-    padding: 8px 0;
-    font-size: 0.85rem;
+    padding: 8px 10px;
+    font-size: 0.8rem;
+    background: var(--metal-panel);
+  }
 
-    & + li {
-      border-top: 1px solid var(--viz-grid);
-    }
+  li:nth-child(even) {
+    background: var(--metal-fila);
+  }
+
+  li + li {
+    border-top: 1px solid var(--metal-borde);
   }
 
   .k {
-    color: var(--ion-color-medium);
+    color: var(--tinta-2);
   }
 
   .v {
-    font-weight: 600;
+    font-weight: 700;
     text-align: right;
     font-variant-numeric: tabular-nums;
   }
 
   .sub {
-    color: var(--ion-color-medium);
+    color: var(--tinta-2);
     font-weight: 400;
   }
 }
@@ -176,15 +146,5 @@
 .vacio {
   padding: 32px 16px;
   text-align: center;
-  color: var(--ion-color-medium);
-}
-
-/* Texto solo para lectores de pantalla. */
-.sr {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
+  color: var(--tinta-2);
 }

@@ -1,0 +1,40 @@
+.contenido {
+  padding: 0 10px 24px;
+}
+
+.metricas {
+  /* La segunda fila de segmento va mas apretada que la de familias. */
+  button {
+    font-size: 0.68rem;
+    padding: 7px 9px;
+  }
+}
+
+.filtro {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  color: var(--tinta-2);
+  cursor: pointer;
+  user-select: none;
+
+  input {
+    accent-color: var(--acento);
+    width: 14px;
+    height: 14px;
+    margin: 0;
+  }
+}
+
+/* Punto sobre el engranaje cuando hay correcciones sin exportar. */
+.punto-aviso {
+  position: absolute;
+  top: 6px;
+  right: 4px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--acento);
+  box-shadow: 0 0 0 2px var(--metal-panel-alto);
+}

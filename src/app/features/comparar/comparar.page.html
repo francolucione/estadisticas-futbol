@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="'/tabs/jugadores/jugador/' + nombreA()" text="Volver" />
+    </ion-buttons>
+    <ion-title>Cabeza a cabeza</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="contenido">
+    @if (comparacion(); as c) {
+      <!-- Cabecera enfrentada -->
+      <div class="panel duelo">
+        <div class="jugador">
+          <span class="avatar a">{{ iniciales(c.a.nombre) }}</span>
+          <a [routerLink]="['/tabs/jugadores/jugador', c.a.nombre]">{{ c.a.nombre }}</a>
+          <span class="pj">{{ c.a.PJ }} PJ</span>
+        </div>
+        <div class="marcador">
+          <span class="cifra">{{ marcadorMetricas().a }}</span>
+          <span class="et">metricas</span>
+          <span class="cifra">{{ marcadorMetricas().b }}</span>
+        </div>
+        <div class="jugador">
+          <span class="avatar b">{{ iniciales(c.b.nombre) }}</span>
+          <a [routerLink]="['/tabs/jugadores/jugador', c.b.nombre]">{{ c.b.nombre }}</a>
+          <span class="pj">{{ c.b.PJ }} PJ</span>
+        </div>
+      </div>
+
+      <!-- Registro directo -->
+      <div class="barra-seccion">
+        <h2>Cuando se cruzan</h2>
+      </div>
+
+      <div class="panel">
+        <div class="panel-cuerpo">
+          @if (c.registro.enfrentados.PJ > 0) {
+            <p class="registro">
+              Se enfrentaron <strong>{{ c.registro.enfrentados.PJ }}</strong> veces:
+              <strong>{{ c.registro.enfrentados.ganoA }}</strong> las gano {{ c.a.nombre }},
+              <strong>{{ c.registro.enfrentados.ganoB }}</strong> {{ c.b.nombre }}, y
+              <strong>{{ c.registro.enfrentados.empates }}</strong> terminaron empatadas.
+            </p>
+          } @else {
+            <p class="registro apagado">Nunca se enfrentaron.</p>
+          }
+
+          @if (c.registro.juntos.PJ > 0) {
+            <p class="registro">
+              Del mismo lado jugaron <strong>{{ c.registro.juntos.PJ }}</strong> partidos, con
+              <strong>{{ c.registro.juntos.PG }}</strong> victorias,
+              <strong>{{ c.registro.juntos.PE }}</strong> empates y
+              <strong>{{ c.registro.juntos.PP }}</strong> derrotas.
+            </p>
+          } @else {
+            <p class="registro apagado">Nunca jugaron en el mismo equipo.</p>
+          }
+        </div>
+      </div>
+
+      <!-- Metricas enfrentadas -->
+      <div class="barra-seccion">
+        <h2>Numeros</h2>
+        <span class="nota">el ganador en cyan</span>
+      </div>
+
+      <div class="panel">
+        <ul class="metricas">
+          @for (f of filas(); track f.etiqueta) {
+            <li>
+              <span class="v" [class.gana]="f.ganaA">{{ f.a }}</span>
+              <span class="et">{{ f.etiqueta }}</span>
+              <span class="v der" [class.gana]="f.ganaB">{{ f.b }}</span>
+              <span class="barra" aria-hidden="true">
+                <span class="parte a" [style.width.%]="f.pesoA"></span>
+                <span class="parte b" [style.width.%]="100 - f.pesoA"></span>
+              </span>
+            </li>
+          }
+        </ul>
+      </div>
+    } @else {
+      <!-- Elegir con quien comparar -->
+      <div class="barra-seccion">
+        <h2>Comparar a {{ nombreA() }} con</h2>
+      </div>
+
+      <div class="panel">
+        <ul class="candidatos">
+          @for (j of candidatos(); track j.nombre) {
+            <li>
+              <a [routerLink]="['/tabs/jugadores/comparar', nombreA(), j.nombre]">
+                <span class="avatar">{{ iniciales(j.nombre) }}</span>
+                <span class="nombre">{{ j.nombre }}</span>
+                <span class="datos">{{ j.PJ }} PJ &middot; {{ j.goles }}G {{ j.asistencias }}A</span>
+              </a>
+            </li>
+          } @empty {
+            <li class="vacio">No hay con quien comparar todavia.</li>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+</ion-content>

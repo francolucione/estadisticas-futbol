@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Fechas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="contenido">
+    <div class="barra-seccion">
+      <h2>Todos los partidos</h2>
+      <span class="nota">{{ resumen() }}</span>
+    </div>
+
+    <div class="panel">
+      <ul class="fechas">
+        @for (f of fechas(); track f.id) {
+          <li>
+            <a [routerLink]="[f.id]">
+              <span class="num">F{{ f.id }}</span>
+
+              <span class="equipo naranja" [class.gano]="f.ganador === 'naranja'">Naranja</span>
+              <span class="marcador">
+                <b [class.gano]="f.ganador === 'naranja'">{{ f.naranja }}</b>
+                <i>-</i>
+                <b [class.gano]="f.ganador === 'azul'">{{ f.azul }}</b>
+              </span>
+              <span class="equipo azul" [class.gano]="f.ganador === 'azul'">Azul</span>
+
+              <span class="figura">
+                @if (f.mvp) {
+                  {{ f.mvp.nombre }}
+                  <span class="sub">{{ f.mvp.goles }}G {{ f.mvp.asistencias }}A</span>
+                }
+              </span>
+
+              @if (f.editada) {
+                <span class="editada" title="Tiene correcciones locales">editada</span>
+              }
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <p class="explica">
+      El nombre de la derecha es la figura de la fecha: el que sumo mas goles mas
+      asistencias. Toca una fecha para ver las formaciones.
+    </p>
+  </div>
+</ion-content>

@@ -1,0 +1,141 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tabla" text="Volver" />
+    </ion-buttons>
+    <ion-title>Panel admin</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="contenido">
+    @if (mensaje()) {
+      <p class="mensaje" role="status">{{ mensaje() }}</p>
+    }
+
+    <!-- ------------------------------------------------------- exportar -->
+    <div class="panel estado" [class.pendiente]="hayCorrecciones()">
+      <div class="panel-cuerpo">
+        @if (hayCorrecciones()) {
+          <p class="titulo">
+            Tenes {{ cantidad() }}
+            {{ cantidad() === 1 ? 'correccion' : 'correcciones' }} sin exportar
+          </p>
+          <p class="explica">
+            Viven solo en este navegador. Para que queden de verdad hay que exportar el
+            JSON y reemplazar el del repositorio.
+          </p>
+        } @else {
+          <p class="titulo">Sin correcciones pendientes</p>
+          <p class="explica">
+            Los datos son identicos a los del archivo del repositorio.
+          </p>
+        }
+
+        <div class="acciones">
+          <button class="bt primario" (click)="descargar()">Descargar JSON</button>
+          <button class="bt" (click)="copiar()">Copiar</button>
+          @if (hayCorrecciones()) {
+            @if (confirmandoDescarte()) {
+              <button class="bt peligro" (click)="descartarTodo()">Confirmar descarte</button>
+              <button class="bt" (click)="confirmandoDescarte.set(false)">Cancelar</button>
+            } @else {
+              <button class="bt peligro-suave" (click)="confirmandoDescarte.set(true)">
+                Descartar todo
+              </button>
+            }
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- --------------------------------------------------------- avisos -->
+    @if (avisos().length) {
+      <div class="barra-seccion"><h2>Revisar</h2></div>
+      <div class="panel">
+        <div class="panel-cuerpo">
+          @for (a of avisos(); track a) {
+            <p class="aviso">{{ a }}</p>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- ---------------------------------------------------------- alias -->
+    <div class="barra-seccion">
+      <h2>Alias</h2>
+      <span class="nota">fusionar dos nombres</span>
+    </div>
+
+    <div class="panel">
+      <div class="panel-cuerpo">
+        <p class="explica">
+          Si una misma persona quedo cargada con dos nombres distintos, aca se unen sin
+          tocar las fechas.
+        </p>
+
+        @if (alias().length) {
+          <ul class="lista-datos">
+            @for (a of alias(); track a[0]) {
+              <li>
+                <span class="k">{{ a[0] }} &rarr; <strong>{{ a[1] }}</strong></span>
+                <button class="bt mini peligro-suave" (click)="quitarAlias(a[0])">Quitar</button>
+              </li>
+            }
+          </ul>
+        }
+
+        <div class="alta-alias">
+          <input
+            list="nombres-conocidos"
+            placeholder="Nombre a reemplazar"
+            [value]="aliasDe()"
+            (input)="aliasDe.set($any($event.target).value)"
+          />
+          <span class="flecha">&rarr;</span>
+          <input
+            list="nombres-conocidos"
+            placeholder="Pasa a ser"
+            [value]="aliasA()"
+            (input)="aliasA.set($any($event.target).value)"
+          />
+          <button class="bt primario" (click)="agregarAlias()">Agregar</button>
+        </div>
+
+        <datalist id="nombres-conocidos">
+          @for (n of nombres(); track n) {
+            <option [value]="n"></option>
+          }
+        </datalist>
+      </div>
+    </div>
+
+    <!-- --------------------------------------------------------- fechas -->
+    <div class="barra-seccion">
+      <h2>Fechas</h2>
+      <button class="bt mini primario" (click)="nuevaFecha()">Nueva fecha</button>
+    </div>
+
+    <div class="panel">
+      <ul class="fechas-admin">
+        @for (f of fechas(); track f.id) {
+          <li>
+            <span class="num">F{{ f.id }}</span>
+            <span class="marcador">{{ f.marcador }}</span>
+            <span class="cuenta">{{ f.jugadores }} jug.</span>
+            @if (f.editada) {
+              <span class="tag">editada</span>
+            }
+            <span class="botones">
+              <a class="bt mini" [routerLink]="['/admin/fecha', f.id]">Editar</a>
+              @if (f.editada) {
+                <button class="bt mini" (click)="restaurarFecha(f.id)">Restaurar</button>
+              }
+              <button class="bt mini peligro-suave" (click)="borrarFecha(f.id)">Borrar</button>
+            </span>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</ion-content>

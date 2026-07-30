@@ -25,11 +25,15 @@ historica y no se toca.
 - `golesEnContra` es opcional: goles que suman al marcador de un equipo pero
   no se le atribuyen a nadie.
 
-### Cargar una fecha nueva
+### Cargar o corregir una fecha
 
-Agregar un objeto al final de `partidos` con el `id` siguiente y los 10
-jugadores. La app valida sola que los equipos esten parejos y avisa en la
-pestana **Liga** si algo no cierra.
+Lo comodo es el **panel admin** (engranaje en la pestana Tabla, o `/admin`):
+edita, valida en vivo y despues exporta el JSON ya corregido para pisar este
+archivo. Ver el README.
+
+A mano tambien se puede: agregar un objeto al final de `partidos` con el `id`
+siguiente y los 10 jugadores. La app valida sola que los equipos esten parejos
+y avisa en la pestana **Datos** si algo no cierra.
 
 ### Fusionar dos nombres que son la misma persona
 
@@ -38,6 +42,8 @@ Editar `alias` sin tocar los partidos:
 ```json
 "alias": { "Martin2": "Martin" }
 ```
+
+Tambien se hace desde el panel admin, en la seccion Alias.
 
 Si un alias hiciera que dos jugadores del mismo partido pasen a llamarse
 igual, la app lanza un error explicito en vez de fusionarlos en silencio.
@@ -104,9 +110,17 @@ agregale al partido 10 un `"golesEnContra": [{ "favorA": "...", "cantidad": 1 }]
 
 ### `Martin` y `Martin2`
 
-Figuran como jugadores distintos, igual que en la version anterior. `Martin`
-aparece hasta la fecha 26 y `Martin2` desde la 32, lo que da que pensar. Si
-son la misma persona, alcanza con poner `"alias": { "Martin2": "Martin" }`.
+Figuran como jugadores distintos, igual que en la version anterior.
+
+Lo que averiguamos despues: **nunca coincidieron en una misma fecha**. `Martin`
+juega de la 1 a la 26 y `Martin2` de la 32 a la 47, sin una sola superposicion
+y con un hueco limpio de cinco fechas en el medio. Es evidencia fuerte de que
+son la misma persona cargada dos veces, pero no es prueba.
+
+La app lo muestra sola: aparece como curiosidad en la pestana **Datos**, bajo
+el titulo "Sospechosamente parecidos". Si confirmas que son el mismo, se
+resuelve desde el panel admin en la seccion Alias, o a mano con
+`"alias": { "Martin2": "Martin" }`.
 
 ### Invitados sueltos
 

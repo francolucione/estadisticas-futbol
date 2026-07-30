@@ -1,9 +1,7 @@
 import { Routes } from '@angular/router';
 
-const jugador = {
-  path: 'jugador/:nombre',
-  loadComponent: () => import('./features/jugador/jugador.page').then((m) => m.JugadorPage),
-};
+const jugador = () => import('./features/jugador/jugador.page').then((m) => m.JugadorPage);
+const comparar = () => import('./features/comparar/comparar.page').then((m) => m.CompararPage);
 
 export const routes: Routes = [
   {
@@ -11,23 +9,50 @@ export const routes: Routes = [
     loadComponent: () => import('./tabs/tabs.page').then((m) => m.TabsPage),
     children: [
       {
-        path: 'ranking',
-        loadComponent: () => import('./features/ranking/ranking.page').then((m) => m.RankingPage),
+        path: 'tabla',
+        loadComponent: () => import('./features/tabla/tabla.page').then((m) => m.TablaPage),
       },
-      { path: 'ranking/jugador/:nombre', loadComponent: jugador.loadComponent },
+      { path: 'tabla/jugador/:nombre', loadComponent: jugador },
+
+      {
+        path: 'fechas',
+        loadComponent: () => import('./features/fechas/fechas.page').then((m) => m.FechasPage),
+      },
+      {
+        path: 'fechas/:id',
+        loadComponent: () =>
+          import('./features/fechas/fecha-detalle.page').then((m) => m.FechaDetallePage),
+      },
+
       {
         path: 'jugadores',
         loadComponent: () =>
           import('./features/jugadores/jugadores.page').then((m) => m.JugadoresPage),
       },
-      { path: 'jugadores/jugador/:nombre', loadComponent: jugador.loadComponent },
+      { path: 'jugadores/jugador/:nombre', loadComponent: jugador },
+      { path: 'jugadores/comparar/:a/:b', loadComponent: comparar },
+      { path: 'jugadores/comparar/:a', loadComponent: comparar },
+
       {
-        path: 'liga',
-        loadComponent: () => import('./features/liga/liga.page').then((m) => m.LigaPage),
+        path: 'datos',
+        loadComponent: () => import('./features/datos/datos.page').then((m) => m.DatosPage),
       },
-      { path: '', redirectTo: 'ranking', pathMatch: 'full' },
+
+      { path: '', redirectTo: 'tabla', pathMatch: 'full' },
     ],
   },
-  { path: '', redirectTo: 'tabs/ranking', pathMatch: 'full' },
-  { path: '**', redirectTo: 'tabs/ranking' },
+
+  // El panel admin vive fuera de las pestanas: es una herramienta, no una vista.
+  {
+    path: 'admin',
+    loadComponent: () => import('./features/admin/admin.page').then((m) => m.AdminPage),
+  },
+  {
+    path: 'admin/fecha/:id',
+    loadComponent: () =>
+      import('./features/admin/editar-fecha.page').then((m) => m.EditarFechaPage),
+  },
+
+  { path: '', redirectTo: 'tabs/tabla', pathMatch: 'full' },
+  { path: '**', redirectTo: 'tabs/tabla' },
 ];

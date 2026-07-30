@@ -1,53 +1,69 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>Jugadores</ion-title>
-  </ion-toolbar>
-  <ion-toolbar>
-    <ion-searchbar
-      placeholder="Buscar jugador"
-      [value]="busqueda()"
-      (ionInput)="busqueda.set($any($event.target).value ?? '')"
-    />
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  @if (!habituales().length && !esporadicos().length) {
-    <ion-note class="vacio">Ningun jugador coincide con "{{ busqueda() }}".</ion-note>
-  }
+  <div class="contenido">
+    <input
+      class="buscador"
+      type="text"
+      placeholder="Buscar jugador"
+      [value]="busqueda()"
+      (input)="busqueda.set($any($event.target).value)"
+      aria-label="Buscar jugador"
+    />
 
-  @if (habituales().length) {
-    <ion-item-group>
-      <ion-item-divider sticky>
-        <ion-label>Habituales &middot; {{ minimo }}+ partidos</ion-label>
-      </ion-item-divider>
-      @for (j of habituales(); track j.nombre) {
-        <ion-item button [routerLink]="['jugador', j.nombre]" detail="true">
-          <ion-avatar slot="start" class="inicial">{{ iniciales(j.nombre) }}</ion-avatar>
-          <ion-label>
-            <h2>{{ j.nombre }}</h2>
-            <p>{{ j.PJ }} PJ &middot; {{ j.goles }} G &middot; {{ j.asistencias }} A</p>
-          </ion-label>
-          <ion-note slot="end">{{ (j.pgPorcentaje * 100).toFixed(0) }}% PG</ion-note>
-        </ion-item>
-      }
-    </ion-item-group>
-  }
+    @if (!habituales().length && !esporadicos().length) {
+      <p class="explica">Ningun jugador coincide con "{{ busqueda() }}".</p>
+    }
 
-  @if (esporadicos().length) {
-    <ion-item-group>
-      <ion-item-divider sticky>
-        <ion-label>Esporadicos e invitados</ion-label>
-      </ion-item-divider>
-      @for (j of esporadicos(); track j.nombre) {
-        <ion-item button [routerLink]="['jugador', j.nombre]" detail="true">
-          <ion-avatar slot="start" class="inicial tenue">{{ iniciales(j.nombre) }}</ion-avatar>
-          <ion-label>
-            <h2>{{ j.nombre }}</h2>
-            <p>{{ j.PJ }} PJ &middot; {{ j.goles }} G &middot; {{ j.asistencias }} A</p>
-          </ion-label>
-        </ion-item>
-      }
-    </ion-item-group>
-  }
+    @if (habituales().length) {
+      <div class="barra-seccion">
+        <h2>Habituales</h2>
+        <span class="nota">{{ minimo }}+ partidos</span>
+      </div>
+
+      <div class="panel">
+        <ul class="jugadores">
+          @for (j of habituales(); track j.nombre) {
+            <li>
+              <a [routerLink]="['jugador', j.nombre]">
+                <span class="avatar">{{ iniciales(j.nombre) }}</span>
+                <span class="nombre">{{ j.nombre }}</span>
+                <span class="datos">
+                  {{ j.PJ }} PJ &middot; {{ j.goles }}G &middot; {{ j.asistencias }}A
+                </span>
+                <span class="pg">{{ (j.pgPorcentaje * 100).toFixed(0) }}%</span>
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+
+    @if (esporadicos().length) {
+      <div class="barra-seccion">
+        <h2>Esporadicos e invitados</h2>
+        <span class="nota">menos de {{ minimo }}</span>
+      </div>
+
+      <div class="panel">
+        <ul class="jugadores">
+          @for (j of esporadicos(); track j.nombre) {
+            <li>
+              <a [routerLink]="['jugador', j.nombre]">
+                <span class="avatar tenue">{{ iniciales(j.nombre) }}</span>
+                <span class="nombre">{{ j.nombre }}</span>
+                <span class="datos">
+                  {{ j.PJ }} PJ &middot; {{ j.goles }}G &middot; {{ j.asistencias }}A
+                </span>
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  </div>
 </ion-content>

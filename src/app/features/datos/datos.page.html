@@ -1,0 +1,115 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Datos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="contenido">
+    <!-- ------------------------------------------------ globales de liga -->
+    <div class="barra-seccion">
+      <h2>La liga en numeros</h2>
+    </div>
+
+    <div class="tiles">
+      <div class="tile">
+        <span class="valor">{{ liga().partidos }}</span>
+        <span class="rotulo">Fechas jugadas</span>
+      </div>
+      <div class="tile">
+        <span class="valor">{{ liga().golesTotales }}</span>
+        <span class="rotulo">Goles en total</span>
+        <span class="pie">{{ liga().promedioGolesPorPartido.toFixed(1) }} por partido</span>
+      </div>
+    </div>
+
+    <div class="panel reparto">
+      <div class="panel-cuerpo">
+        <div
+          class="apilada"
+          role="img"
+          [attr.aria-label]="
+            liga().victoriasNaranjas + ' victorias de naranja, ' +
+            liga().empates + ' empates y ' +
+            liga().victoriasAzules + ' victorias de azul'
+          "
+        >
+          @for (t of reparto(); track t.clave) {
+            <span class="tramo" [class]="t.clave" [style.width.%]="t.pct"></span>
+          }
+        </div>
+        <ul class="leyenda">
+          @for (t of reparto(); track t.clave) {
+            <li>
+              <span class="punto" [class]="t.clave"></span>
+              <span class="et">{{ t.etiqueta }}</span>
+              <strong>{{ t.valor }}</strong>
+              <span class="pct">{{ t.pct.toFixed(0) }}%</span>
+            </li>
+          }
+        </ul>
+        <p class="detalle">
+          Goles naranja <strong>{{ liga().golesNaranjas }}</strong> &middot;
+          goles azul <strong>{{ liga().golesAzules }}</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- ---------------------------------------------------- curiosidades -->
+    <div class="barra-seccion">
+      <h2>Datos curiosos</h2>
+      <span class="nota">{{ curiosidades().length }}</span>
+    </div>
+
+    <nav class="segmento" aria-label="Categoria">
+      <button [class.activo]="filtro() === 'todas'" (click)="filtro.set('todas')">Todas</button>
+      @for (c of categorias; track c.clave) {
+        <button [class.activo]="filtro() === c.clave" (click)="filtro.set(c.clave)">
+          {{ c.etiqueta }}
+        </button>
+      }
+    </nav>
+
+    <div class="curiosidades">
+      @for (c of curiosidades(); track c.id) {
+        <article class="panel curiosidad">
+          <div class="panel-cabecera">
+            <h3>{{ c.titular }}</h3>
+            <span class="valor">{{ c.valor }}</span>
+          </div>
+          <div class="panel-cuerpo">
+            <p class="detalle">
+              @for (t of trozos(c.detalle, c.jugadores); track $index) {
+                @if (t.jugador) {
+                  <a [routerLink]="['/tabs/jugadores/jugador', t.texto]">{{ t.texto }}</a>
+                } @else {
+                  {{ t.texto }}
+                }
+              }
+            </p>
+            @if (c.nota) {
+              <p class="nota-curiosidad">{{ c.nota }}</p>
+            }
+          </div>
+        </article>
+      } @empty {
+        <p class="explica">No hay curiosidades en esta categoria.</p>
+      }
+    </div>
+
+    <!-- ---------------------------------------------------------- avisos -->
+    @if (avisos().length) {
+      <div class="barra-seccion"><h2>Avisos sobre los datos</h2></div>
+      <div class="panel">
+        <div class="panel-cuerpo">
+          @for (a of avisos(); track a) {
+            <p class="aviso">{{ a }}</p>
+          }
+          <p class="explica">
+            Se corrigen desde el panel admin, con el engranaje en la pestana Tabla.
+          </p>
+        </div>
+      </div>
+    }
+  </div>
+</ion-content>

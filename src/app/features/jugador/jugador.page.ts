@@ -1,15 +1,12 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { map } from 'rxjs';
 import {
   IonBackButton,
   IonButtons,
   IonContent,
   IonHeader,
-  IonSegment,
-  IonSegmentButton,
-  IonLabel,
   IonTitle,
   IonToolbar,
 } from '@ionic/angular/standalone';
@@ -25,15 +22,13 @@ type Orden = 'mejores' | 'peores';
   selector: 'app-jugador',
   standalone: true,
   imports: [
+    RouterLink,
     IonHeader,
     IonToolbar,
     IonTitle,
     IonButtons,
     IonBackButton,
     IonContent,
-    IonSegment,
-    IonSegmentButton,
-    IonLabel,
     GraficoEvolucionComponent,
     BarrasDeltaComponent,
   ],
@@ -64,8 +59,8 @@ export class JugadorPage {
    * sentido.
    */
   readonly enlaceBase = computed(() =>
-    this.router.url.startsWith('/tabs/ranking')
-      ? '/tabs/ranking/jugador'
+    this.router.url.startsWith('/tabs/tabla')
+      ? '/tabs/tabla/jugador'
       : '/tabs/jugadores/jugador'
   );
 

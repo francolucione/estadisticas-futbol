@@ -1,0 +1,164 @@
+.contenido {
+  padding: 10px 10px 32px;
+}
+
+.marcador-vivo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 12px;
+  background: var(--metal-degradado);
+
+  .lado {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    &::before {
+      content: '';
+      width: 9px;
+      height: 9px;
+      border-radius: 2px;
+    }
+
+    &.naranja::before {
+      background: var(--viz-naranja);
+    }
+
+    &.azul::before {
+      background: var(--viz-azul);
+    }
+  }
+
+  .cifras {
+    font-size: 1.5rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.problemas {
+  margin-top: 10px;
+  border-color: rgba(239, 68, 68, 0.4);
+
+  p {
+    margin: 0 0 4px;
+    font-size: 0.75rem;
+    color: var(--viz-derrota);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+/* --------------------------------------------------------- filas de edicion */
+
+.filas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: grid;
+    /*
+     * La ultima columna va con ancho fijo y no `auto`: en la fila de
+     * encabezado esta vacia, y con `auto` colapsaba a cero corriendo los
+     * rotulos G y A fuera de sus columnas.
+     */
+    grid-template-columns: 1fr 3.2rem 3.2rem 4.6rem;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+  }
+
+  li + li {
+    border-top: 1px solid var(--metal-borde);
+  }
+
+  .encabezado {
+    background: var(--metal-panel-alto);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--tinta-2);
+    font-weight: 700;
+    padding: 5px 8px;
+
+    span:nth-child(2),
+    span:nth-child(3) {
+      text-align: center;
+    }
+  }
+
+  /* La fila de encabezado no lleva el fondo alterno de las filas de datos. */
+  li.encabezado + li {
+    border-top: 0;
+  }
+}
+
+.acciones-fila {
+  display: flex;
+  gap: 4px;
+
+  .cambiar {
+    /* Mueve al jugador al otro equipo sin tener que borrarlo y recargarlo. */
+    font-size: 0.9rem;
+    line-height: 1;
+    padding: 4px 7px;
+  }
+}
+
+/* ------------------------------------------------------------ goles en contra */
+
+.contras {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: grid;
+    grid-template-columns: auto 1fr 3.2rem auto;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 0;
+  }
+
+  .et {
+    font-size: 0.74rem;
+    color: var(--tinta-2);
+  }
+
+  select {
+    background: var(--metal-plano);
+    border: 1px solid var(--metal-borde);
+    border-radius: 4px;
+    color: var(--tinta);
+    font: inherit;
+    font-size: 0.78rem;
+    padding: 6px 8px;
+
+    &:focus {
+      outline: none;
+      border-color: var(--acento);
+    }
+  }
+}
+
+.acciones-final {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 16px;
+}
+
+.vacio {
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--tinta-2);
+}

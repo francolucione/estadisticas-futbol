@@ -1,0 +1,93 @@
+.contenido {
+  padding: 10px 10px 24px;
+}
+
+.tanteador {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 16px 12px;
+  background: var(--metal-degradado);
+}
+
+.lado {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+
+  &:first-child {
+    justify-content: flex-end;
+  }
+}
+
+.pill {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 3px;
+  color: #0b0b0e;
+
+  &.naranja {
+    background: var(--viz-naranja);
+  }
+
+  &.azul {
+    background: var(--viz-azul);
+  }
+}
+
+.goles {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--tinta-2);
+  font-variant-numeric: tabular-nums;
+
+  &.gano {
+    color: var(--tinta);
+  }
+}
+
+.vs {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  color: var(--tinta-3);
+  letter-spacing: 0.1em;
+}
+
+.figura-fecha {
+  margin: 12px 0 0;
+  font-size: 0.8rem;
+  color: var(--tinta-2);
+
+  a {
+    color: var(--acento);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .sub {
+    margin-left: 6px;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.aviso-editada {
+  margin: 0 0 10px;
+  font-size: 0.72rem;
+  color: var(--acento);
+  border: 1px solid var(--acento-borde);
+  background: var(--acento-tenue);
+  border-radius: 4px;
+  padding: 6px 10px;
+}
+
+.vacio {
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--tinta-2);
+}

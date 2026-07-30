@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/ranking" text="Volver" />
+      <ion-back-button defaultHref="/tabs/tabla" text="Volver" />
     </ion-buttons>
     <ion-title>{{ nombre() }}</ion-title>
   </ion-toolbar>
@@ -24,6 +24,9 @@
           </p>
         }
       </div>
+      <a class="bt mini" [routerLink]="['/tabs/jugadores/comparar', p.stats.nombre]">
+        Comparar
+      </a>
     </header>
 
     <!-- Resumen -->
@@ -97,13 +100,20 @@
         Cuanto le rinde jugar con cada companero, comparado con sus otros partidos.
         Minimo {{ minimoPar }} partidos juntos.
       </p>
-      <ion-segment
-        [value]="ordenCompaneros()"
-        (ionChange)="ordenCompaneros.set($any($event.detail.value))"
-      >
-        <ion-segment-button value="mejores"><ion-label>Mejores</ion-label></ion-segment-button>
-        <ion-segment-button value="peores"><ion-label>Peores</ion-label></ion-segment-button>
-      </ion-segment>
+      <nav class="segmento" aria-label="Orden de companeros">
+        <button
+          [class.activo]="ordenCompaneros() === 'mejores'"
+          (click)="ordenCompaneros.set('mejores')"
+        >
+          Mejores
+        </button>
+        <button
+          [class.activo]="ordenCompaneros() === 'peores'"
+          (click)="ordenCompaneros.set('peores')"
+        >
+          Peores
+        </button>
+      </nav>
       <app-barras-delta
         [pares]="p.companeros"
         [minimo]="minimoPar"
@@ -123,13 +133,14 @@
       <p class="explica">
         Lo mismo, pero enfrentandolo. Minimo {{ minimoPar }} partidos en veredas opuestas.
       </p>
-      <ion-segment
-        [value]="ordenRivales()"
-        (ionChange)="ordenRivales.set($any($event.detail.value))"
-      >
-        <ion-segment-button value="mejores"><ion-label>Le gana a</ion-label></ion-segment-button>
-        <ion-segment-button value="peores"><ion-label>Le cuesta con</ion-label></ion-segment-button>
-      </ion-segment>
+      <nav class="segmento" aria-label="Orden de rivales">
+        <button [class.activo]="ordenRivales() === 'mejores'" (click)="ordenRivales.set('mejores')">
+          Le gana a
+        </button>
+        <button [class.activo]="ordenRivales() === 'peores'" (click)="ordenRivales.set('peores')">
+          Le cuesta con
+        </button>
+      </nav>
       <app-barras-delta
         [pares]="p.rivales"
         [minimo]="minimoPar"

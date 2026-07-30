@@ -1,0 +1,123 @@
+.contenido {
+  padding: 0 10px 24px;
+}
+
+.fechas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li + li {
+    border-top: 1px solid var(--metal-borde);
+  }
+
+  li:nth-child(even) {
+    background: var(--metal-fila);
+  }
+
+  a {
+    display: grid;
+    grid-template-columns: 2.2rem 1fr auto 1fr minmax(4.5rem, auto);
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    text-decoration: none;
+    color: var(--tinta);
+    font-size: 0.78rem;
+  }
+}
+
+.num {
+  color: var(--tinta-2);
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.equipo {
+  font-size: 0.72rem;
+  color: var(--tinta-2);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    flex: none;
+  }
+
+  &.naranja {
+    justify-content: flex-end;
+    text-align: right;
+  }
+
+  &.naranja::before {
+    background: var(--viz-naranja);
+    order: 2;
+  }
+
+  &.azul::before {
+    background: var(--viz-azul);
+  }
+
+  &.gano {
+    color: var(--tinta);
+    font-weight: 600;
+  }
+}
+
+.marcador {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-variant-numeric: tabular-nums;
+
+  b {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--tinta-2);
+  }
+
+  b.gano {
+    color: var(--tinta);
+    font-weight: 800;
+  }
+
+  i {
+    font-style: normal;
+    color: var(--tinta-3);
+    opacity: 0.6;
+  }
+}
+
+.figura {
+  text-align: right;
+  font-size: 0.72rem;
+  color: var(--acento);
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  .sub {
+    display: block;
+    color: var(--tinta-2);
+    font-weight: 400;
+    font-size: 0.92em;
+  }
+}
+
+.editada {
+  grid-column: 1 / -1;
+  justify-self: start;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--acento);
+  border: 1px solid var(--acento-borde);
+  background: var(--acento-tenue);
+  border-radius: 3px;
+  padding: 1px 5px;
+}
