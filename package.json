@@ -1,0 +1,14 @@
+{
+  "name": "estadisticas-futbol",
+  "version": "0.1.0",
+  "description": "Análisis y visualización de estadísticas de fútbol",
+  "main": "index.js",
+  "scripts": {
+    "start": "echo 'Development server'",
+    "build": "echo 'Build'",
+    "test": "echo 'Tests'"
+  },
+  "keywords": ["futbol", "estadisticas", "analisis"],
+  "author": "",
+  "license": "MIT"
+}
