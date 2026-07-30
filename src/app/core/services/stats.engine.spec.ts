@@ -24,6 +24,38 @@ const DIFERENCIAS_ESPERADAS = {
 
 const CAMPOS = ['goles', 'asistencias', 'influencias', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DG'] as const;
 
+type Campo = (typeof CAMPOS)[number];
+
+/**
+ * Tercera correccion declarada: en la fecha 9, Adri B figuraba en el bloque
+ * naranja pero cargado como azul, y los equipos quedaban 4 contra 6. Ahora son
+ * 5 contra 5 y el 5-13 pasa a ser un 9-9.
+ *
+ * Cambia quien gano, no cuantos goles hubo: la fecha sigue sumando 18, asi que
+ * los totales de goles, asistencias, influencias y PJ no se mueven. El fixture
+ * legacy se deja intacto a proposito; es el volcado del agregador viejo y
+ * regenerarlo convertiria este test en una comparacion contra si mismo.
+ */
+const CORRECCION_FECHA_9: { nombres: string[]; delta: Partial<Record<Campo, number>> }[] = [
+  {
+    // Perdian 5-13, ahora empatan 9-9.
+    nombres: ['Adri R', 'Dario', 'Edu', 'Fede'],
+    delta: { PP: -1, PE: 1, GF: 4, GC: -4, DG: 8 },
+  },
+  {
+    // Ganaban 13-5, ahora empatan 9-9. Adri B entra en este grupo porque el
+    // motor viejo lo contaba del lado azul.
+    nombres: ['Adri B', 'Lucio', 'Bruno', 'Rodri', 'Gaby', 'Fer L'],
+    delta: { PG: -1, PE: 1, GF: -4, GC: 4, DG: -8 },
+  },
+];
+
+/** Cuanto debe diferir un jugador del fixture legacy en un campo dado. */
+function deltaEsperado(nombre: string, campo: Campo): number {
+  const grupo = CORRECCION_FECHA_9.find((g) => g.nombres.includes(nombre));
+  return grupo?.delta[campo] ?? 0;
+}
+
 describe('paridad con el agregador original', () => {
   const stats = calcularStats(partidos);
   const legacy = totalesLegacy as Record<string, Record<string, number>>;
@@ -40,7 +72,7 @@ describe('paridad con el agregador original', () => {
     );
   });
 
-  it('reproduce exactamente los totales de cada jugador', () => {
+  it('reproduce los totales de cada jugador, salvo el delta de la fecha 9', () => {
     const comparables = stats.filter((s) => !DIFERENCIAS_ESPERADAS.soloEnNuevo.includes(s.nombre));
     expect(comparables.length).toBe(33);
 
@@ -50,9 +82,37 @@ describe('paridad con el agregador original', () => {
       for (const campo of CAMPOS) {
         expect(s[campo])
           .withContext(`${s.nombre} -> ${campo}`)
-          .toBe(esperado[campo]);
+          .toBe(esperado[campo] + deltaEsperado(s.nombre, campo));
       }
     }
+  });
+
+  it('no toca a los jugadores que no estuvieron en la fecha 9', () => {
+    // Si el delta se aplicara de mas, este test lo caza: 23 de los 33
+    // comparables tienen que seguir clavados al fixture original.
+    const enLaFecha9 = new Set(CORRECCION_FECHA_9.flatMap((g) => g.nombres));
+    const ajenos = stats.filter(
+      (s) => legacy[s.nombre] !== undefined && !enLaFecha9.has(s.nombre)
+    );
+    expect(ajenos.length).toBe(23);
+
+    for (const s of ajenos) {
+      for (const campo of CAMPOS) {
+        expect(s[campo]).withContext(`${s.nombre} -> ${campo}`).toBe(legacy[s.nombre][campo]);
+      }
+    }
+  });
+
+  it('corrige la fecha 9: equipos parejos y empate 9-9', () => {
+    const f9 = partidos.find((p) => p.id === 9)!;
+    const naranja = f9.jugadores.filter((j) => j.equipo === 'naranja');
+    const azul = f9.jugadores.filter((j) => j.equipo === 'azul');
+
+    expect(naranja.length).toBe(5);
+    expect(azul.length).toBe(5);
+    expect(naranja.map((j) => j.nombre)).toContain('Adri B');
+    // El motor viejo la daba 5-13 con equipos 4 contra 6.
+    expect(marcadorDe(f9)).toEqual({ naranja: 9, azul: 9 });
   });
 
   it('deja de contar el gol en contra como un partido jugado', () => {
@@ -87,10 +147,18 @@ describe('marcador', () => {
 });
 
 describe('validacion de datos', () => {
-  it('reporta la fecha 9, que quedo con equipos desparejos', () => {
-    const avisos = validar(partidos);
+  it('no encuentra ninguna fecha con equipos desparejos', () => {
+    // La 9 era la ultima que quedaba, y ya esta corregida.
+    expect(validar(partidos)).toEqual([]);
+  });
+
+  it('sigue detectando una fecha despareja si la hubiera', () => {
+    const roto = partidos.map((p) =>
+      p.id === 1 ? { ...p, jugadores: p.jugadores.slice(0, 9) } : p
+    );
+    const avisos = validar(roto);
     expect(avisos.length).toBe(1);
-    expect(avisos[0]).toContain('Fecha 9');
+    expect(avisos[0]).toContain('Fecha 1');
   });
 
   it('rechaza un alias que haga coincidir dos jugadores del mismo partido', () => {

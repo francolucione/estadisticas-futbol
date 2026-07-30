@@ -17,12 +17,15 @@ import { addIcons } from 'ionicons';
 import { createOutline } from 'ionicons/icons';
 import { Equipo } from '../../core/models/partido.model';
 import { PartidosService, marcadorDe } from '../../core/services/partidos.service';
+import { ContadorDirective } from '../../shared/contador.directive';
+import { ContadorService } from '../../shared/contador.service';
 
 @Component({
   selector: 'app-fecha-detalle',
   standalone: true,
   imports: [
     RouterLink,
+    ContadorDirective,
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -38,6 +41,11 @@ import { PartidosService, marcadorDe } from '../../core/services/partidos.servic
 export class FechaDetallePage {
   private readonly route = inject(ActivatedRoute);
   private readonly partidosSvc = inject(PartidosService);
+  private readonly contadores = inject(ContadorService);
+
+  ionViewWillEnter(): void {
+    this.contadores.reiniciar();
+  }
 
   readonly id = toSignal(this.route.paramMap.pipe(map((p) => Number(p.get('id')))), {
     initialValue: 0,

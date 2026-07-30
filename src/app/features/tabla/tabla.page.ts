@@ -16,19 +16,32 @@ import { StatsService } from '../../core/services/stats.service';
 import { PartidosService } from '../../core/services/partidos.service';
 import { MIN_PARTIDOS_RANKING } from '../../core/services/stats.engine';
 import { formatearValor } from '../../shared/formato';
+import { ContadorDirective } from '../../shared/contador.directive';
+import { ContadorService } from '../../shared/contador.service';
 
 type Vista = 'posiciones' | Metrica['familia'];
 
 @Component({
   selector: 'app-tabla',
   standalone: true,
-  imports: [RouterLink, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon],
+  imports: [
+    RouterLink,
+    ContadorDirective,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButtons,
+    IonButton,
+    IonIcon,
+  ],
   templateUrl: './tabla.page.html',
   styleUrl: './tabla.page.scss',
 })
 export class TablaPage {
   private readonly statsSvc = inject(StatsService);
   private readonly partidosSvc = inject(PartidosService);
+  private readonly contadores = inject(ContadorService);
 
   readonly minimo = MIN_PARTIDOS_RANKING;
 
@@ -63,6 +76,11 @@ export class TablaPage {
 
   constructor() {
     addIcons({ buildOutline });
+  }
+
+  /** Ionic la llama en cada entrada a la vista, tambien al volver a la pestana. */
+  ionViewWillEnter(): void {
+    this.contadores.reiniciar();
   }
 
   cambiarVista(vista: Vista): void {

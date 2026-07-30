@@ -24,11 +24,11 @@
         <div class="panel tanteador">
           <div class="lado">
             <span class="pill naranja">Naranja</span>
-            <span class="goles" [class.gano]="m.naranja > m.azul">{{ m.naranja }}</span>
+            <span class="goles" [class.gano]="m.naranja > m.azul" [appContador]="m.naranja"></span>
           </div>
           <span class="vs">vs</span>
           <div class="lado">
-            <span class="goles" [class.gano]="m.azul > m.naranja">{{ m.azul }}</span>
+            <span class="goles" [class.gano]="m.azul > m.naranja" [appContador]="m.azul"></span>
             <span class="pill azul">Azul</span>
           </div>
         </div>
@@ -66,9 +66,9 @@
                     <td class="col-nombre">
                       <a [routerLink]="['/tabs/jugadores/jugador', j.nombre]">{{ j.nombre }}</a>
                     </td>
-                    <td>{{ j.goles }}</td>
-                    <td>{{ j.asistencias }}</td>
-                    <td class="resaltada">{{ j.goles + j.asistencias }}</td>
+                    <td><span [appContador]="j.goles"></span></td>
+                    <td><span [appContador]="j.asistencias"></span></td>
+                    <td class="resaltada"><span [appContador]="j.goles + j.asistencias"></span></td>
                   </tr>
                 }
               </tbody>

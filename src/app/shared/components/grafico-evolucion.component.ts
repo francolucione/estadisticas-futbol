@@ -1,5 +1,5 @@
 import { Component, computed, input, signal } from '@angular/core';
-import { PartidoDeJugador } from '../../core/models/stats.model';
+import { PartidoDeJugador, Resultado } from '../../core/models/stats.model';
 
 interface Punto {
   i: number;
@@ -8,6 +8,8 @@ interface Punto {
   mediaMovil: number;
   goles: number;
   asistencias: number;
+  /** V, E o D: es lo que pinta la barra. */
+  res: Resultado;
   resultado: string;
   x: number;
   ancho: number;
@@ -36,6 +38,19 @@ const M = { arriba: 12, abajo: 22, izq: 24, der: 10 };
         <span class="pista">media de 5</span>
       </figcaption>
 
+      <!--
+        La letra acompana al color, como en los chips de Forma: el color de
+        resultado nunca informa solo.
+      -->
+      <ul class="leyenda">
+        @for (l of LEYENDA; track l.res) {
+          <li>
+            <span [class]="'chip ' + l.res.toLowerCase()" aria-hidden="true">{{ l.res }}</span>
+            {{ l.etiqueta }}
+          </li>
+        }
+      </ul>
+
       <svg
         [attr.viewBox]="'0 0 ' + W + ' ' + H"
         role="img"
@@ -52,6 +67,9 @@ const M = { arriba: 12, abajo: 22, izq: 24, der: 10 };
         @for (p of puntos(); track p.partidoId) {
           <rect
             class="barra"
+            [class.v]="p.res === 'V'"
+            [class.e]="p.res === 'E'"
+            [class.d]="p.res === 'D'"
             [class.activa]="activo() === p.i"
             [attr.x]="p.x"
             [attr.y]="p.y"
@@ -95,6 +113,12 @@ export class GraficoEvolucionComponent {
   readonly H = H;
   readonly M = M;
 
+  readonly LEYENDA: { res: Resultado; etiqueta: string }[] = [
+    { res: 'V', etiqueta: 'ganado' },
+    { res: 'E', etiqueta: 'empatado' },
+    { res: 'D', etiqueta: 'perdido' },
+  ];
+
   readonly activo = signal<number | null>(null);
 
   private readonly maximo = computed(() =>
@@ -122,6 +146,7 @@ export class GraficoEvolucionComponent {
         mediaMovil: medias[i] ?? 0,
         goles: h.goles,
         asistencias: h.asistencias,
+        res: h.resultado,
         resultado: h.resultado === 'V' ? 'Ganado' : h.resultado === 'E' ? 'Empatado' : 'Perdido',
         // 2px de aire entre barras, como pide la guia de marcas.
         x: M.izq + i * paso + 1,
@@ -163,7 +188,12 @@ export class GraficoEvolucionComponent {
   readonly resumenAccesible = computed(() => {
     const ps = this.puntos();
     const total = ps.reduce((a, p) => a + p.influencias, 0);
-    return `Influencias por fecha en ${ps.length} partidos, ${total} en total, maximo ${this.maximo()}.`;
+    const cuenta = (r: Resultado) => ps.filter((p) => p.res === r).length;
+    return (
+      `Influencias por fecha en ${ps.length} partidos, ${total} en total, ` +
+      `maximo ${this.maximo()}. ${cuenta('V')} ganados, ${cuenta('E')} empatados ` +
+      `y ${cuenta('D')} perdidos.`
+    );
   });
 
   radio(ancho: number): number {

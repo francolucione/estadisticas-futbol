@@ -20,9 +20,9 @@
 
               <span class="equipo naranja" [class.gano]="f.ganador === 'naranja'">Naranja</span>
               <span class="marcador">
-                <b [class.gano]="f.ganador === 'naranja'">{{ f.naranja }}</b>
+                <b [class.gano]="f.ganador === 'naranja'" [appContador]="f.naranja"></b>
                 <i>-</i>
-                <b [class.gano]="f.ganador === 'azul'">{{ f.azul }}</b>
+                <b [class.gano]="f.ganador === 'azul'" [appContador]="f.azul"></b>
               </span>
               <span class="equipo azul" [class.gano]="f.ganador === 'azul'">Azul</span>
 

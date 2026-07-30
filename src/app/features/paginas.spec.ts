@@ -4,6 +4,7 @@ import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/route
 import { provideIonicAngular } from '@ionic/angular/standalone';
 import { of } from 'rxjs';
 import { CLAVE_PARCHES } from '../core/services/partidos.service';
+import { ContadorService } from '../shared/contador.service';
 import { TablaPage } from './tabla/tabla.page';
 import { FechasPage } from './fechas/fechas.page';
 import { FechaDetallePage } from './fechas/fecha-detalle.page';
@@ -240,9 +241,11 @@ describe('DatosPage', () => {
     expect(trozos.map((t) => t.texto).join('')).toBe('Lucio le gana a Guido');
   });
 
-  it('expone el aviso de la fecha 9', () => {
+  it('no tiene avisos que mostrar: los datos quedaron limpios', () => {
+    // La fecha 9 era el unico aviso y ya esta corregida, asi que la seccion
+    // "Avisos sobre los datos" no se renderiza.
     const fixture = montar(DatosPage);
-    expect(fixture.componentInstance.avisos().length).toBe(1);
+    expect(fixture.componentInstance.avisos()).toEqual([]);
   });
 });
 
@@ -268,4 +271,38 @@ describe('AdminPage', () => {
     expect(fixture.componentInstance.alias()).toEqual([]);
     expect(fixture.componentInstance.hayCorrecciones()).toBeFalse();
   });
+});
+
+describe('contadores al entrar a una pantalla', () => {
+  /**
+   * Ionic llama ionViewWillEnter por nombre, no por interfaz: si a una pagina
+   * se le cae el metodo en un refactor nada explota, simplemente sus numeros
+   * dejan de animarse. Por eso se verifica que las siete lo tengan.
+   */
+  const conNumeros: [string, Type<unknown>, Record<string, string>][] = [
+    ['TablaPage', TablaPage, {}],
+    ['FechasPage', FechasPage, {}],
+    ['FechaDetallePage', FechaDetallePage, { id: '9' }],
+    ['JugadoresPage', JugadoresPage, {}],
+    ['JugadorPage', JugadorPage, { nombre: 'Lucio' }],
+    ['CompararPage', CompararPage, { a: 'Lucio', b: 'Adri R' }],
+    ['DatosPage', DatosPage, {}],
+  ];
+
+  for (const [nombre, pagina, params] of conNumeros) {
+    it(`${nombre} reinicia los contadores al entrar en vista`, () => {
+      const fixture = montar(pagina, params);
+      const instancia = fixture.componentInstance as { ionViewWillEnter?: () => void };
+
+      expect(typeof instancia.ionViewWillEnter)
+        .withContext(`${nombre} no declara ionViewWillEnter`)
+        .toBe('function');
+
+      // Es la misma instancia raiz que inyecto la pagina al construirse.
+      const espia = spyOn(TestBed.inject(ContadorService), 'reiniciar');
+      instancia.ionViewWillEnter!();
+
+      expect(espia).withContext(`${nombre} no larga la animacion`).toHaveBeenCalled();
+    });
+  }
 });

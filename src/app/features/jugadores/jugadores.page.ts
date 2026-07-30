@@ -5,16 +5,23 @@ import { StatsJugador } from '../../core/models/stats.model';
 import { StatsService } from '../../core/services/stats.service';
 import { MIN_PARTIDOS_RANKING } from '../../core/services/stats.engine';
 import { iniciales } from '../../shared/formato';
+import { ContadorDirective } from '../../shared/contador.directive';
+import { ContadorService } from '../../shared/contador.service';
 
 @Component({
   selector: 'app-jugadores',
   standalone: true,
-  imports: [RouterLink, IonHeader, IonToolbar, IonTitle, IonContent],
+  imports: [RouterLink, ContadorDirective, IonHeader, IonToolbar, IonTitle, IonContent],
   templateUrl: './jugadores.page.html',
   styleUrl: './jugadores.page.scss',
 })
 export class JugadoresPage {
   private readonly statsSvc = inject(StatsService);
+  private readonly contadores = inject(ContadorService);
+
+  ionViewWillEnter(): void {
+    this.contadores.reiniciar();
+  }
 
   readonly minimo = MIN_PARTIDOS_RANKING;
   readonly busqueda = signal('');

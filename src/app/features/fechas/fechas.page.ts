@@ -3,17 +3,24 @@ import { RouterLink } from '@angular/router';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { PartidosService, marcadorDe } from '../../core/services/partidos.service';
 import { StatsService } from '../../core/services/stats.service';
+import { ContadorDirective } from '../../shared/contador.directive';
+import { ContadorService } from '../../shared/contador.service';
 
 @Component({
   selector: 'app-fechas',
   standalone: true,
-  imports: [RouterLink, IonHeader, IonToolbar, IonTitle, IonContent],
+  imports: [RouterLink, ContadorDirective, IonHeader, IonToolbar, IonTitle, IonContent],
   templateUrl: './fechas.page.html',
   styleUrl: './fechas.page.scss',
 })
 export class FechasPage {
   private readonly partidosSvc = inject(PartidosService);
   private readonly statsSvc = inject(StatsService);
+  private readonly contadores = inject(ContadorService);
+
+  ionViewWillEnter(): void {
+    this.contadores.reiniciar();
+  }
 
   /** De la mas reciente a la mas vieja, que es como se quiere mirar. */
   readonly fechas = computed(() => {

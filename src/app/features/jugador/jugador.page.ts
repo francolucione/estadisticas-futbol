@@ -15,6 +15,8 @@ import { MIN_PARTIDOS_PAR, MIN_PARTIDOS_RANKING } from '../../core/services/stat
 import { GraficoEvolucionComponent } from '../../shared/components/grafico-evolucion.component';
 import { BarrasDeltaComponent } from '../../shared/components/barras-delta.component';
 import { iniciales } from '../../shared/formato';
+import { ContadorDirective } from '../../shared/contador.directive';
+import { ContadorService } from '../../shared/contador.service';
 
 type Orden = 'mejores' | 'peores';
 
@@ -23,6 +25,7 @@ type Orden = 'mejores' | 'peores';
   standalone: true,
   imports: [
     RouterLink,
+    ContadorDirective,
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -39,6 +42,11 @@ export class JugadorPage {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly statsSvc = inject(StatsService);
+  private readonly contadores = inject(ContadorService);
+
+  ionViewWillEnter(): void {
+    this.contadores.reiniciar();
+  }
 
   readonly minimoPar = MIN_PARTIDOS_PAR;
   readonly minimoRanking = MIN_PARTIDOS_RANKING;

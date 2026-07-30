@@ -34,6 +34,39 @@ body {
   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
 
+/* ------------------------------------------------------------- cabecera */
+
+/*
+ * El mismo acabado que la barra de tabs de abajo, espejado: filo claro contra
+ * el borde oscuro. Sin esto la cabecera queda como un rectangulo plano al lado
+ * de un pie que si tiene relieve.
+ */
+ion-toolbar {
+  --background: var(--metal-degradado);
+  --border-color: var(--metal-borde);
+  --border-width: 0 0 1px 0;
+  --color: var(--tinta);
+  box-shadow: inset 0 1px 0 var(--metal-filo);
+}
+
+ion-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* ----------------------------------------------------------- ancho util */
+
+/*
+ * En el telefono no cambia nada. En un navegador ancho evita que la tabla se
+ * estire hasta perder la relacion entre el nombre y su fila.
+ */
+.contenido,
+.segmento {
+  max-width: 720px;
+  margin-inline: auto;
+}
+
 /* ---------------------------------------------------------------- panel */
 
 /*
@@ -113,11 +146,22 @@ body {
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 
+  /*
+   * Dos pesos distintos a proposito: la linea de fila (--metal-borde) se lee
+   * antes que la de columna (--metal-borde-suave), asi el ojo sigue recorriendo
+   * filas y la grilla no se impone. Con las dos iguales quedaba cuadriculado.
+   */
   th,
   td {
     padding: 6px 8px;
     text-align: right;
     border-bottom: 1px solid var(--metal-borde);
+    border-right: 1px solid var(--metal-borde-suave);
+  }
+
+  th:last-child,
+  td:last-child {
+    border-right: 0;
   }
 
   thead th {
@@ -164,6 +208,8 @@ body {
     max-width: 9rem;
     overflow: hidden;
     text-overflow: ellipsis;
+    /* Mas marcada que las otras: es el borde de lo que queda quieto. */
+    border-right: 1px solid var(--metal-borde);
   }
 
   thead .col-nombre {
@@ -299,7 +345,11 @@ body {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+  /* Con fondo propio lee como barra; suelto sobre el plano parecian botones
+     flotando. */
+  background: var(--metal-degradado);
   border-bottom: 1px solid var(--metal-borde);
+  padding: 0 6px;
 
   &::-webkit-scrollbar {
     display: none;

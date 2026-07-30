@@ -81,9 +81,15 @@ describe('curiosidades', () => {
   });
 
   it('encuentra la mejor y la peor dupla', () => {
+    // Adri R y Lucio ganaron 11 de los 15 que jugaron juntos (73.3%).
+    // Antes de corregir la fecha 9 la mejor era Adri B con Lucio: en esa fecha
+    // los dos figuraban de azul, asi que contaba como partido juntos y ganado.
+    // Con Adri B pasado a naranja quedaron enfrentados, y la dupla cayo a 8 de
+    // 11 (72.7%), apenas por debajo.
     const mejor = buscar('mejor-dupla')!;
-    expect(mejor.jugadores.sort()).toEqual(['Adri B', 'Lucio']);
-    expect(mejor.valor).toBe('75%');
+    expect(mejor.jugadores.sort()).toEqual(['Adri R', 'Lucio']);
+    expect(mejor.valor).toBe('73%');
+    expect(mejor.detalle).toContain('11 de los 15');
 
     const peor = buscar('peor-dupla')!;
     expect(peor.jugadores.sort()).toEqual(['Fer L', 'Hernan']);
@@ -124,7 +130,8 @@ describe('curiosidades', () => {
   });
 
   it('cuenta los empates de la liga', () => {
-    expect(buscar('empates')!.valor).toBe('3');
+    // Cuatro desde que la fecha 9 dejo de ser un 5-13 para ser un 9-9.
+    expect(buscar('empates')!.valor).toBe('4');
   });
 
   it('no explota con pocos datos', () => {

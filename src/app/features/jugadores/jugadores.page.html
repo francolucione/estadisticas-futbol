@@ -6,14 +6,18 @@
 
 <ion-content [fullscreen]="true">
   <div class="contenido">
-    <input
-      class="buscador"
-      type="text"
-      placeholder="Buscar jugador"
-      [value]="busqueda()"
-      (input)="busqueda.set($any($event.target).value)"
-      aria-label="Buscar jugador"
-    />
+    <div class="panel">
+      <div class="panel-cuerpo">
+        <input
+          class="buscador"
+          type="text"
+          placeholder="Buscar jugador"
+          [value]="busqueda()"
+          (input)="busqueda.set($any($event.target).value)"
+          aria-label="Buscar jugador"
+        />
+      </div>
+    </div>
 
     @if (!habituales().length && !esporadicos().length) {
       <p class="explica">Ningun jugador coincide con "{{ busqueda() }}".</p>
@@ -35,7 +39,7 @@
                 <span class="datos">
                   {{ j.PJ }} PJ &middot; {{ j.goles }}G &middot; {{ j.asistencias }}A
                 </span>
-                <span class="pg">{{ (j.pgPorcentaje * 100).toFixed(0) }}%</span>
+                <span class="pg" [appContador]="j.pgPorcentaje * 100" sufijo="%"></span>
               </a>
             </li>
           }

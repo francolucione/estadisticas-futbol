@@ -13,11 +13,11 @@
 
     <div class="tiles">
       <div class="tile">
-        <span class="valor">{{ liga().partidos }}</span>
+        <span class="valor" [appContador]="liga().partidos"></span>
         <span class="rotulo">Fechas jugadas</span>
       </div>
       <div class="tile">
-        <span class="valor">{{ liga().golesTotales }}</span>
+        <span class="valor" [appContador]="liga().golesTotales"></span>
         <span class="rotulo">Goles en total</span>
         <span class="pie">{{ liga().promedioGolesPorPartido.toFixed(1) }} por partido</span>
       </div>
@@ -43,7 +43,7 @@
             <li>
               <span class="punto" [class]="t.clave"></span>
               <span class="et">{{ t.etiqueta }}</span>
-              <strong>{{ t.valor }}</strong>
+              <strong [appContador]="t.valor"></strong>
               <span class="pct">{{ t.pct.toFixed(0) }}%</span>
             </li>
           }

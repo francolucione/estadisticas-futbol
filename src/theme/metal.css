@@ -23,6 +23,12 @@
   --metal-fila: #17171a;
   --metal-panel-alto: #1c1c22;
   --metal-borde: #26262e;
+  /*
+   * Mas apagado que --metal-borde. Separa columnas dentro de una tabla sin
+   * competir con la linea de fila, que tiene que seguir leyendose primero:
+   * si las dos pesaran igual quedaria una cuadricula.
+   */
+  --metal-borde-suave: #1f1f26;
   /* El filo de arriba es lo que hace que lea como chapa y no como gris. */
   --metal-filo: #34343f;
   --metal-degradado: linear-gradient(180deg, #1c1c22 0%, #141419 100%);

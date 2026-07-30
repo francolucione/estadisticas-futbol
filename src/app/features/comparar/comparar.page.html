@@ -18,9 +18,9 @@
           <span class="pj">{{ c.a.PJ }} PJ</span>
         </div>
         <div class="marcador">
-          <span class="cifra">{{ marcadorMetricas().a }}</span>
+          <span class="cifra" [appContador]="marcadorMetricas().a"></span>
           <span class="et">metricas</span>
-          <span class="cifra">{{ marcadorMetricas().b }}</span>
+          <span class="cifra" [appContador]="marcadorMetricas().b"></span>
         </div>
         <div class="jugador">
           <span class="avatar b">{{ iniciales(c.b.nombre) }}</span>
@@ -70,9 +70,21 @@
         <ul class="metricas">
           @for (f of filas(); track f.etiqueta) {
             <li>
-              <span class="v" [class.gana]="f.ganaA">{{ f.a }}</span>
+              <span
+                class="v"
+                [class.gana]="f.ganaA"
+                [appContador]="f.a"
+                [decimales]="f.decimales"
+                [sufijo]="f.sufijo"
+              ></span>
               <span class="et">{{ f.etiqueta }}</span>
-              <span class="v der" [class.gana]="f.ganaB">{{ f.b }}</span>
+              <span
+                class="v der"
+                [class.gana]="f.ganaB"
+                [appContador]="f.b"
+                [decimales]="f.decimales"
+                [sufijo]="f.sufijo"
+              ></span>
               <span class="barra" aria-hidden="true">
                 <span class="parte a" [style.width.%]="f.pesoA"></span>
                 <span class="parte b" [style.width.%]="100 - f.pesoA"></span>

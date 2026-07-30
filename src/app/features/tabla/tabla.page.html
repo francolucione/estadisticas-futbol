@@ -53,15 +53,15 @@
                   <td class="col-nombre">
                     <a [routerLink]="['jugador', j.nombre]">{{ j.nombre }}</a>
                   </td>
-                  <td class="resaltada">{{ j.puntos }}</td>
-                  <td>{{ j.PJ }}</td>
-                  <td>{{ j.PG }}</td>
-                  <td>{{ j.PE }}</td>
-                  <td>{{ j.PP }}</td>
-                  <td>{{ j.GF }}</td>
-                  <td>{{ j.GC }}</td>
+                  <td class="resaltada"><span [appContador]="j.puntos"></span></td>
+                  <td><span [appContador]="j.PJ"></span></td>
+                  <td><span [appContador]="j.PG"></span></td>
+                  <td><span [appContador]="j.PE"></span></td>
+                  <td><span [appContador]="j.PP"></span></td>
+                  <td><span [appContador]="j.GF"></span></td>
+                  <td><span [appContador]="j.GC"></span></td>
                   <td [class.negativo]="j.DG < 0" [class.positivo]="j.DG > 0">
-                    {{ j.DG > 0 ? '+' : '' }}{{ j.DG }}
+                    <span [appContador]="j.DG" [signo]="true"></span>
                   </td>
                 </tr>
               }
@@ -125,30 +125,35 @@
                     <a [routerLink]="['jugador', j.nombre]">{{ j.nombre }}</a>
                   </td>
                   <td [class.resaltada]="resaltada('goles')">
-                    {{ j.goles }} <span class="sub">({{ promedio(j.goles, j.PJ) }})</span>
+                    <span [appContador]="j.goles"></span>
+                    <span class="sub">({{ promedio(j.goles, j.PJ) }})</span>
                   </td>
                   <td [class.resaltada]="resaltada('asistencias')">
-                    {{ j.asistencias }} <span class="sub">({{ promedio(j.asistencias, j.PJ) }})</span>
+                    <span [appContador]="j.asistencias"></span>
+                    <span class="sub">({{ promedio(j.asistencias, j.PJ) }})</span>
                   </td>
                   <td [class.resaltada]="resaltada('influencias')">
-                    {{ j.influencias }} <span class="sub">({{ promedio(j.influencias, j.PJ) }})</span>
+                    <span [appContador]="j.influencias"></span>
+                    <span class="sub">({{ promedio(j.influencias, j.PJ) }})</span>
                   </td>
-                  <td [class.resaltada]="resaltada('PJ')">{{ j.PJ }}</td>
+                  <td [class.resaltada]="resaltada('PJ')"><span [appContador]="j.PJ"></span></td>
                   <td [class.resaltada]="resaltada('PG')">
-                    {{ j.PG }} <span class="sub">({{ porcentaje(j.PG, j.PJ) }})</span>
+                    <span [appContador]="j.PG"></span>
+                    <span class="sub">({{ porcentaje(j.PG, j.PJ) }})</span>
                   </td>
-                  <td [class.resaltada]="resaltada('PE')">{{ j.PE }}</td>
+                  <td [class.resaltada]="resaltada('PE')"><span [appContador]="j.PE"></span></td>
                   <td [class.resaltada]="resaltada('PP')">
-                    {{ j.PP }} <span class="sub">({{ porcentaje(j.PP, j.PJ) }})</span>
+                    <span [appContador]="j.PP"></span>
+                    <span class="sub">({{ porcentaje(j.PP, j.PJ) }})</span>
                   </td>
-                  <td [class.resaltada]="resaltada('GF')">{{ j.GF }}</td>
-                  <td [class.resaltada]="resaltada('GC')">{{ j.GC }}</td>
+                  <td [class.resaltada]="resaltada('GF')"><span [appContador]="j.GF"></span></td>
+                  <td [class.resaltada]="resaltada('GC')"><span [appContador]="j.GC"></span></td>
                   <td
                     [class.resaltada]="resaltada('DG')"
                     [class.negativo]="j.DG < 0"
                     [class.positivo]="j.DG > 0"
                   >
-                    {{ j.DG > 0 ? '+' : '' }}{{ j.DG }}
+                    <span [appContador]="j.DG" [signo]="true"></span>
                   </td>
                 </tr>
               }

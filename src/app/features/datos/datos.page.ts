@@ -4,19 +4,26 @@ import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/stan
 import { CATEGORIAS, CategoriaCuriosidad } from '../../core/models/curiosidad.model';
 import { StatsService } from '../../core/services/stats.service';
 import { PartidosService } from '../../core/services/partidos.service';
+import { ContadorDirective } from '../../shared/contador.directive';
+import { ContadorService } from '../../shared/contador.service';
 
 type Filtro = 'todas' | CategoriaCuriosidad;
 
 @Component({
   selector: 'app-datos',
   standalone: true,
-  imports: [RouterLink, IonHeader, IonToolbar, IonTitle, IonContent],
+  imports: [RouterLink, ContadorDirective, IonHeader, IonToolbar, IonTitle, IonContent],
   templateUrl: './datos.page.html',
   styleUrl: './datos.page.scss',
 })
 export class DatosPage {
   private readonly statsSvc = inject(StatsService);
   private readonly partidosSvc = inject(PartidosService);
+  private readonly contadores = inject(ContadorService);
+
+  ionViewWillEnter(): void {
+    this.contadores.reiniciar();
+  }
 
   readonly categorias = CATEGORIAS;
   readonly filtro = signal<Filtro>('todas');

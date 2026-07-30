@@ -13,18 +13,34 @@ import {
 import { StatsJugador } from '../../core/models/stats.model';
 import { StatsService } from '../../core/services/stats.service';
 import { METRICAS_COMPARACION } from '../../core/services/comparacion.engine';
-import { formatearValor, iniciales } from '../../shared/formato';
+import { iniciales } from '../../shared/formato';
+import { ContadorDirective } from '../../shared/contador.directive';
+import { ContadorService } from '../../shared/contador.service';
 
 @Component({
   selector: 'app-comparar',
   standalone: true,
-  imports: [RouterLink, IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent],
+  imports: [
+    RouterLink,
+    ContadorDirective,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonButtons,
+    IonBackButton,
+    IonContent,
+  ],
   templateUrl: './comparar.page.html',
   styleUrl: './comparar.page.scss',
 })
 export class CompararPage {
   private readonly route = inject(ActivatedRoute);
   private readonly statsSvc = inject(StatsService);
+  private readonly contadores = inject(ContadorService);
+
+  ionViewWillEnter(): void {
+    this.contadores.reiniciar();
+  }
 
   readonly metricas = METRICAS_COMPARACION;
   iniciales = iniciales;
@@ -47,7 +63,12 @@ export class CompararPage {
     this.statsSvc.habituales().filter((s) => s.nombre !== this.nombreA())
   );
 
-  /** Las filas de la comparacion, con quien gana cada una ya resuelto. */
+  /**
+   * Las filas de la comparacion, con quien gana cada una ya resuelto.
+   *
+   * Los valores van crudos y con las pistas de formato al lado, no ya
+   * convertidos a texto: el contador necesita el numero para poder subirlo.
+   */
   readonly filas = computed(() => {
     const c = this.comparacion();
     if (!c) return [];
@@ -55,10 +76,13 @@ export class CompararPage {
       const va = c.a[m.clave] as number;
       const vb = c.b[m.clave] as number;
       const iguales = Math.abs(va - vb) < 1e-9;
+      const pinta = comoSeMuestra(m.formato);
       return {
         etiqueta: m.etiqueta,
-        a: formatearValor(va, m.formato),
-        b: formatearValor(vb, m.formato),
+        a: va * pinta.factor,
+        b: vb * pinta.factor,
+        decimales: pinta.decimales,
+        sufijo: pinta.sufijo,
         ganaA: !iguales && (m.mayorEsMejor ? va > vb : va < vb),
         ganaB: !iguales && (m.mayorEsMejor ? vb > va : vb < va),
         pesoA: reparto(va, vb),
@@ -74,6 +98,25 @@ export class CompararPage {
 
   jugadorA(): StatsJugador | undefined {
     return this.statsSvc.buscar(this.nombreA());
+  }
+}
+
+/**
+ * Traduce el formato declarado por la metrica a lo que necesita el contador.
+ * Tiene que dar lo mismo que formatearValor(), que es como se venia mostrando.
+ */
+function comoSeMuestra(formato: (typeof METRICAS_COMPARACION)[number]['formato']): {
+  factor: number;
+  decimales: number;
+  sufijo: string;
+} {
+  switch (formato) {
+    case 'porcentaje':
+      return { factor: 100, decimales: 1, sufijo: '%' };
+    case 'decimal':
+      return { factor: 1, decimales: 2, sufijo: '' };
+    default:
+      return { factor: 1, decimales: 0, sufijo: '' };
   }
 }
 

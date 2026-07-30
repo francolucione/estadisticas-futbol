@@ -17,7 +17,11 @@
 
   a {
     display: grid;
-    grid-template-columns: 2.2rem 1fr auto 1fr minmax(4.5rem, auto);
+    /*
+     * La columna del marcador va fija: con "auto" cambiaba de ancho segun
+     * los digitos y los nombres de los equipos se corrian de fila en fila.
+     */
+    grid-template-columns: 2.2rem 1fr 4.6rem 1fr minmax(4.5rem, auto);
     align-items: center;
     gap: 8px;
     padding: 8px 10px;
@@ -68,16 +72,33 @@
   }
 }
 
+/*
+ * Los goles quedan encerrados en su columna: cada cifra contra el guion del
+ * centro, asi el 9-9 y el 16-14 caen en el mismo lugar. Los filos laterales
+ * son los que la hacen leer como columna y no como texto suelto.
+ */
 .marcador {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: baseline;
   gap: 4px;
+  padding: 2px 8px;
+  border-left: 1px solid var(--metal-borde-suave);
+  border-right: 1px solid var(--metal-borde-suave);
   font-variant-numeric: tabular-nums;
 
   b {
     font-size: 0.95rem;
     font-weight: 600;
     color: var(--tinta-2);
+  }
+
+  b:first-of-type {
+    text-align: right;
+  }
+
+  b:last-of-type {
+    text-align: left;
   }
 
   b.gano {

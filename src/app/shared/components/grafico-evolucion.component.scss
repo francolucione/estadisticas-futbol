@@ -28,7 +28,7 @@
       content: '';
       width: 14px;
       height: 0;
-      border-top: 2px solid var(--viz-ink-2);
+      border-top: 2px solid var(--viz-ink);
     }
   }
 
@@ -71,23 +71,79 @@
 }
 
 .barra {
-  fill: var(--viz-azul);
+  fill: var(--viz-neutro);
   cursor: pointer;
 
+  &.v {
+    fill: var(--viz-victoria);
+  }
+
+  &.e {
+    fill: var(--viz-empate);
+  }
+
+  &.d {
+    fill: var(--viz-derrota);
+  }
+
+  /*
+   * La seleccion se marca con un anillo, no cambiando el relleno: pisarlo
+   * borraria el resultado justo en la barra que se esta mirando.
+   */
   &.activa {
-    /* Anillo de 2px del color de la superficie, como marca de solapamiento. */
-    stroke: var(--viz-surface);
+    stroke: var(--viz-ink);
     stroke-width: 2;
-    fill: var(--viz-ink-2);
   }
 }
 
+/*
+ * Blanca, no gris: el gris de la linea y el del empate estaban a un paso uno
+ * del otro y ahora se tocan.
+ */
 .media {
   fill: none;
-  stroke: var(--viz-ink-2);
+  stroke: var(--viz-ink);
   stroke-width: 2;
   stroke-linejoin: round;
   stroke-linecap: round;
+}
+
+.leyenda {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: 0 0 8px;
+  padding: 0;
+  font-size: 0.7rem;
+  color: var(--viz-muted);
+
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .chip {
+    display: inline-grid;
+    place-items: center;
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    font-size: 0.58rem;
+    font-weight: 800;
+    color: #0b0b0e;
+    background: var(--viz-empate);
+  }
+
+  .chip.v {
+    background: var(--viz-victoria);
+  }
+
+  .chip.d {
+    background: var(--viz-derrota);
+    color: #fff;
+  }
 }
 
 .tooltip {
