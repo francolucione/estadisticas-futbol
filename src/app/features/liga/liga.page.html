@@ -1,0 +1,108 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>La liga</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">La liga</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <section class="seccion">
+    <div class="tiles">
+      <div class="tile">
+        <span class="valor">{{ liga().partidos }}</span>
+        <span class="rotulo">Fechas jugadas</span>
+      </div>
+      <div class="tile">
+        <span class="valor">{{ liga().golesTotales }}</span>
+        <span class="rotulo">Goles en total</span>
+        <span class="pie">{{ liga().promedioGolesPorPartido.toFixed(1) }} por partido</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion">
+    <h2>Como termina cada fecha</h2>
+    <div class="apilada" role="img" [attr.aria-label]="
+      liga().victoriasNaranjas + ' victorias de naranja, ' +
+      liga().empates + ' empates y ' +
+      liga().victoriasAzules + ' victorias de azul'">
+      @for (t of reparto(); track t.clave) {
+        <span class="tramo" [class]="t.clave" [style.width.%]="t.pct"></span>
+      }
+    </div>
+    <ul class="leyenda">
+      @for (t of reparto(); track t.clave) {
+        <li>
+          <span class="punto" [class]="t.clave"></span>
+          <span class="et">{{ t.etiqueta }}</span>
+          <strong>{{ t.valor }}</strong>
+          <span class="pct">{{ t.pct.toFixed(0) }}%</span>
+        </li>
+      }
+    </ul>
+    <p class="detalle">
+      Goles naranja <strong>{{ liga().golesNaranjas }}</strong> &middot;
+      goles azul <strong>{{ liga().golesAzules }}</strong>
+    </p>
+  </section>
+
+  <section class="seccion">
+    <h2>Records de la liga</h2>
+    <ul class="records">
+      @if (liga().partidoMasGoleador; as m) {
+        <li>
+          <span class="k">Fecha mas goleadora</span>
+          <span class="v">Fecha {{ m.partidoId }} &middot; {{ m.total }} goles</span>
+        </li>
+      }
+      @if (liga().goleadaMasGrande; as g) {
+        <li>
+          <span class="k">Goleada mas grande</span>
+          <span class="v">Fecha {{ g.partidoId }} &middot; {{ g.marcador }}</span>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="seccion">
+    <h2>Mas veces figura</h2>
+    <p class="explica">Mayor cantidad de influencias (goles + asistencias) en una fecha.</p>
+    <ul class="records">
+      @for (m of mvpRanking(); track m.nombre) {
+        <li>
+          <a class="k enlace" [routerLink]="['/tabs/jugadores/jugador', m.nombre]">{{ m.nombre }}</a>
+          <span class="v">{{ m.veces }} {{ m.veces === 1 ? 'fecha' : 'fechas' }}</span>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="seccion">
+    <h2>Ultimas fechas</h2>
+    <ul class="records">
+      @for (m of ultimosMvp(); track m.partidoId) {
+        <li>
+          <span class="k">Fecha {{ m.partidoId }}</span>
+          <span class="v">
+            <a class="enlace" [routerLink]="['/tabs/jugadores/jugador', m.nombre]">{{ m.nombre }}</a>
+            <span class="sub">{{ m.goles }}G {{ m.asistencias }}A</span>
+          </span>
+        </li>
+      }
+    </ul>
+  </section>
+
+  @if (avisos().length) {
+    <section class="seccion">
+      <h2>Avisos sobre los datos</h2>
+      @for (a of avisos(); track a) {
+        <ion-note class="aviso">{{ a }}</ion-note>
+      }
+    </section>
+  }
+</ion-content>

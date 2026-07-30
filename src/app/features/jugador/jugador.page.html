@@ -1,0 +1,181 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/ranking" text="Volver" />
+    </ion-buttons>
+    <ion-title>{{ nombre() }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if (perfil(); as p) {
+    <!-- Cabecera -->
+    <header class="ficha">
+      <span class="avatar">{{ iniciales(p.stats.nombre) }}</span>
+      <div>
+        <h1>{{ p.stats.nombre }}</h1>
+        <p class="sub">
+          {{ p.stats.PJ }} partidos &middot;
+          {{ p.stats.PG }}V {{ p.stats.PE }}E {{ p.stats.PP }}D
+        </p>
+        @if (p.stats.PJ < minimoRanking) {
+          <p class="aviso">
+            Menos de {{ minimoRanking }} partidos: sus promedios son poco representativos.
+          </p>
+        }
+      </div>
+    </header>
+
+    <!-- Resumen -->
+    <section class="seccion">
+      <h2>Resumen</h2>
+      <div class="tiles">
+        <div class="tile">
+          <span class="valor">{{ p.stats.goles }}</span>
+          <span class="rotulo">Goles</span>
+          <span class="pie">{{ p.stats.golesPorPartido.toFixed(2) }} por partido</span>
+        </div>
+        <div class="tile">
+          <span class="valor">{{ p.stats.asistencias }}</span>
+          <span class="rotulo">Asistencias</span>
+          <span class="pie">{{ p.stats.asistenciasPorPartido.toFixed(2) }} por partido</span>
+        </div>
+        <div class="tile">
+          <span class="valor">{{ (p.stats.pgPorcentaje * 100).toFixed(0) }}%</span>
+          <span class="rotulo">Victorias</span>
+          <span class="pie">{{ p.stats.puntosPorPartido.toFixed(2) }} pts/partido</span>
+        </div>
+        <div class="tile">
+          <span class="valor">{{ (p.stats.participacionGoles * 100).toFixed(0) }}%</span>
+          <span class="rotulo">Participacion</span>
+          <span class="pie">de los goles de su equipo</span>
+        </div>
+        <div class="tile">
+          <span class="valor" [class.negativo]="p.stats.DG < 0">
+            {{ p.stats.DG > 0 ? '+' : '' }}{{ p.stats.DG }}
+          </span>
+          <span class="rotulo">Diferencia de gol</span>
+          <span class="pie">{{ p.stats.GF }} a favor / {{ p.stats.GC }} en contra</span>
+        </div>
+        <div class="tile">
+          <span class="valor">{{ p.stats.influencias }}</span>
+          <span class="rotulo">Influencias</span>
+          <span class="pie">{{ p.stats.influenciasPorPartido.toFixed(2) }} por partido</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Forma -->
+    <section class="seccion">
+      <h2>Forma</h2>
+      <div class="forma">
+        @for (r of p.ultimos5; track $index) {
+          <span class="chip" [class.v]="r === 'V'" [class.e]="r === 'E'" [class.d]="r === 'D'">
+            <span class="sr">{{ etiquetaResultado(r) }}</span>
+            <span aria-hidden="true">{{ r }}</span>
+          </span>
+        }
+        <span class="racha">{{ textoRacha(p.rachaActual.tipo, p.rachaActual.cantidad) }}</span>
+      </div>
+      <p class="detalle">
+        Mejor invicto: <strong>{{ p.mejorInvicto }}</strong> partidos &middot;
+        Peor racha: <strong>{{ p.peorRacha }}</strong> derrotas seguidas
+      </p>
+    </section>
+
+    <!-- Evolucion -->
+    @if (p.stats.PJ > 1) {
+      <section class="seccion">
+        <app-grafico-evolucion [historial]="p.stats.historial" [medias]="medias()" />
+      </section>
+    }
+
+    <!-- Con quien -->
+    <section class="seccion">
+      <h2>Con quien</h2>
+      <p class="explica">
+        Cuanto le rinde jugar con cada companero, comparado con sus otros partidos.
+        Minimo {{ minimoPar }} partidos juntos.
+      </p>
+      <ion-segment
+        [value]="ordenCompaneros()"
+        (ionChange)="ordenCompaneros.set($any($event.detail.value))"
+      >
+        <ion-segment-button value="mejores"><ion-label>Mejores</ion-label></ion-segment-button>
+        <ion-segment-button value="peores"><ion-label>Peores</ion-label></ion-segment-button>
+      </ion-segment>
+      <app-barras-delta
+        [pares]="p.companeros"
+        [minimo]="minimoPar"
+        [orden]="ordenCompaneros()"
+        [enlaceBase]="enlaceBase()"
+      />
+      @if (p.companeroMasFrecuente; as c) {
+        <p class="detalle">
+          Con quien mas jugo: <strong>{{ c.nombre }}</strong> ({{ c.PJ }} partidos).
+        </p>
+      }
+    </section>
+
+    <!-- Contra quien -->
+    <section class="seccion">
+      <h2>Contra quien</h2>
+      <p class="explica">
+        Lo mismo, pero enfrentandolo. Minimo {{ minimoPar }} partidos en veredas opuestas.
+      </p>
+      <ion-segment
+        [value]="ordenRivales()"
+        (ionChange)="ordenRivales.set($any($event.detail.value))"
+      >
+        <ion-segment-button value="mejores"><ion-label>Le gana a</ion-label></ion-segment-button>
+        <ion-segment-button value="peores"><ion-label>Le cuesta con</ion-label></ion-segment-button>
+      </ion-segment>
+      <app-barras-delta
+        [pares]="p.rivales"
+        [minimo]="minimoPar"
+        [orden]="ordenRivales()"
+        [enlaceBase]="enlaceBase()"
+      />
+      @if (p.rivalMasFrecuente; as r) {
+        <p class="detalle">
+          Su rival mas habitual: <strong>{{ r.nombre }}</strong> ({{ r.PJ }} partidos).
+        </p>
+      }
+    </section>
+
+    <!-- Records -->
+    <section class="seccion">
+      <h2>Records</h2>
+      <ul class="records">
+        @if (p.records.mejorPartido; as m) {
+          <li>
+            <span class="k">Mejor partido</span>
+            <span class="v">
+              Fecha {{ m.partidoId }} &middot; {{ m.goles }}G {{ m.asistencias }}A
+              <span class="sub">({{ m.golesFavor }}-{{ m.golesContra }})</span>
+            </span>
+          </li>
+        }
+        <li><span class="k">Mas goles en un partido</span><span class="v">{{ p.records.maxGolesEnUnPartido }}</span></li>
+        <li><span class="k">Partidos con 3+ goles</span><span class="v">{{ p.records.hatTricks }}</span></li>
+        <li><span class="k">Partidos con 5+ goles</span><span class="v">{{ p.records.partidosDe5 }}</span></li>
+        <li><span class="k">Partidos sin sumar</span><span class="v">{{ p.records.enBlanco }}</span></li>
+      </ul>
+    </section>
+
+    <!-- Puestos -->
+    <section class="seccion">
+      <h2>Donde esta en la tabla</h2>
+      <p class="explica">Entre los {{ p.posiciones['goles'].total }} jugadores con {{ minimoRanking }}+ partidos.</p>
+      <ul class="records">
+        <li><span class="k">Goles</span><span class="v">{{ ordinal(p.posiciones['goles'].puesto) }}</span></li>
+        <li><span class="k">Asistencias</span><span class="v">{{ ordinal(p.posiciones['asistencias'].puesto) }}</span></li>
+        <li><span class="k">Influencias</span><span class="v">{{ ordinal(p.posiciones['influencias'].puesto) }}</span></li>
+        <li><span class="k">% de victorias</span><span class="v">{{ ordinal(p.posiciones['pgPorcentaje'].puesto) }}</span></li>
+        <li><span class="k">Diferencia de gol</span><span class="v">{{ ordinal(p.posiciones['DG'].puesto) }}</span></li>
+      </ul>
+    </section>
+  } @else {
+    <p class="vacio">No hay ningun jugador llamado "{{ nombre() }}".</p>
+  }
+</ion-content>

@@ -1,0 +1,114 @@
+.controles {
+  padding: 8px 12px 0;
+
+  .metricas {
+    margin-top: 8px;
+  }
+
+  ion-item {
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    --background: transparent;
+  }
+}
+
+.conteo {
+  display: block;
+  padding: 0 4px 8px;
+  font-size: 0.8rem;
+}
+
+/* La tabla es ancha a proposito: scrollea sola sin arrastrar la pagina. */
+.tabla-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 12px 4px;
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  white-space: nowrap;
+
+  th,
+  td {
+    padding: 8px 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--viz-grid);
+  }
+
+  thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: var(--ion-background-color, #fff);
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--ion-color-medium);
+  }
+
+  tbody tr:nth-child(even) {
+    background: var(--viz-fila);
+  }
+
+  .col-puesto {
+    width: 2.5rem;
+    color: var(--ion-color-medium);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .col-nombre {
+    text-align: left;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: inherit;
+    min-width: 7.5rem;
+
+    a {
+      color: var(--ion-color-primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+  }
+
+  /* La cabecera de Nombre queda fija en los dos ejes. */
+  thead .col-nombre {
+    z-index: 3;
+    background: var(--ion-background-color, #fff);
+  }
+
+  .sub {
+    color: var(--ion-color-medium);
+    font-size: 0.75em;
+  }
+
+  .resaltada {
+    background: var(--ion-color-primary-tint);
+    color: var(--ion-color-primary-contrast);
+    font-weight: 600;
+
+    .sub {
+      color: inherit;
+      opacity: 0.75;
+    }
+  }
+
+  thead .resaltada {
+    background: var(--ion-color-primary);
+    color: var(--ion-color-primary-contrast);
+  }
+
+  .negativo {
+    color: var(--ion-color-danger);
+  }
+}
+
+.pie {
+  display: block;
+  padding: 4px 16px 24px;
+  font-size: 0.8rem;
+}

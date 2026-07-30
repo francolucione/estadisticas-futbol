@@ -1,0 +1,29 @@
+.inicial {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  background: var(--ion-color-primary);
+  color: var(--ion-color-primary-contrast);
+  font-size: 0.85rem;
+  font-weight: 700;
+
+  &.tenue {
+    background: var(--ion-color-medium);
+  }
+}
+
+ion-item h2 {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+ion-item p {
+  font-size: 0.78rem;
+}
+
+.vacio {
+  display: block;
+  padding: 32px 16px;
+  text-align: center;
+}

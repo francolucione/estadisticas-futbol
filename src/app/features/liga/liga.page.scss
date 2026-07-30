@@ -1,0 +1,181 @@
+.seccion {
+  padding: 4px 16px 18px;
+
+  h2 {
+    margin: 12px 0 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ion-color-medium);
+  }
+
+  & + .seccion {
+    border-top: 1px solid var(--viz-grid);
+    padding-top: 8px;
+  }
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: 10px;
+  padding-top: 8px;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--viz-tarjeta);
+  color: var(--viz-ink);
+  min-width: 0;
+
+  .valor {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .rotulo {
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .pie {
+    font-size: 0.72rem;
+    color: var(--ion-color-medium);
+  }
+}
+
+/* Escala divergente: los dos equipos en los extremos, el empate al medio. */
+.apilada {
+  display: flex;
+  height: 26px;
+  border-radius: 6px;
+  overflow: hidden;
+  /* 2px de superficie entre tramos, como pide la guia de marcas. */
+  gap: 2px;
+  background: var(--viz-surface);
+}
+
+.tramo {
+  height: 100%;
+
+  &.naranja {
+    background: var(--viz-naranja);
+  }
+
+  &.empate {
+    background: var(--viz-neutro);
+  }
+
+  &.azul {
+    background: var(--viz-azul);
+  }
+}
+
+.leyenda {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+  }
+
+  .punto {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+
+    &.naranja {
+      background: var(--viz-naranja);
+    }
+
+    &.empate {
+      background: var(--viz-neutro);
+    }
+
+    &.azul {
+      background: var(--viz-azul);
+    }
+  }
+
+  .et {
+    color: var(--ion-color-medium);
+  }
+
+  .pct {
+    color: var(--ion-color-medium);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.explica {
+  margin: 0 0 10px;
+  font-size: 0.78rem;
+  color: var(--ion-color-medium);
+  line-height: 1.4;
+}
+
+.detalle {
+  margin: 12px 0 0;
+  font-size: 0.8rem;
+  color: var(--ion-color-medium);
+}
+
+.records {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    padding: 9px 0;
+    font-size: 0.85rem;
+
+    & + li {
+      border-top: 1px solid var(--viz-grid);
+    }
+  }
+
+  .k {
+    color: var(--ion-color-medium);
+  }
+
+  .v {
+    font-weight: 600;
+    text-align: right;
+  }
+
+  .enlace {
+    color: var(--ion-color-primary);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .sub {
+    margin-left: 8px;
+    color: var(--ion-color-medium);
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.aviso {
+  display: block;
+  font-size: 0.78rem;
+  padding: 4px 0;
+}

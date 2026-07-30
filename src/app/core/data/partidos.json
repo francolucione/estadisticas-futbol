@@ -1,0 +1,3066 @@
+{
+  "alias": {},
+  "partidos": [
+    {
+      "id": 1,
+      "jugadores": [
+        {
+          "nombre": "Lucio",
+          "goles": 1,
+          "asistencias": 4,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 3,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Fede",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Carlitos",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri B",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 2,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Martin",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 0,
+          "asistencias": 2,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "jugadores": [
+        {
+          "nombre": "Fede",
+          "goles": 3,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri B",
+          "goles": 2,
+          "asistencias": 4,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Rodri",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 1,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Martin",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "jugadores": [
+        {
+          "nombre": "Dario",
+          "goles": 2,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Carlitos",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 3,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 3,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fede",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "jugadores": [
+        {
+          "nombre": "Martin",
+          "goles": 5,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 4,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 3,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 2,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 0,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Fede",
+          "goles": 4,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 3,
+          "asistencias": 4,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 1,
+          "asistencias": 3,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "jugadores": [
+        {
+          "nombre": "Adri R",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Rodri",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Martin",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 3,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 2,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Adri B",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "jugadores": [
+        {
+          "nombre": "Adri B",
+          "goles": 6,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Carlitos",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 1,
+          "asistencias": 4,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fede",
+          "goles": 3,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "jugadores": [
+        {
+          "nombre": "Guido",
+          "goles": 3,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 2,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Martin",
+          "goles": 1,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Carlitos",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri B",
+          "goles": 6,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 4,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "jugadores": [
+        {
+          "nombre": "Hernan",
+          "goles": 3,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 1,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 2,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Adri B",
+          "goles": 5,
+          "asistencias": 4,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Martin",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "jugadores": [
+        {
+          "nombre": "Adri B",
+          "goles": 4,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 2,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 1,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Fede",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 4,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 3,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Rodri",
+          "goles": 2,
+          "asistencias": 4,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "jugadores": [
+        {
+          "nombre": "Lucio",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fede",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Adri B",
+          "goles": 3,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 0,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 3,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 1,
+          "asistencias": 3,
+          "equipo": "naranja"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "jugadores": [
+        {
+          "nombre": "Carlitos",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 2,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 5,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Manu T",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 3,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Martin",
+          "goles": 1,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 1,
+          "asistencias": 4,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri B",
+          "goles": 7,
+          "asistencias": 3,
+          "equipo": "naranja"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "jugadores": [
+        {
+          "nombre": "Lucas",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Sampi",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Rodri",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Martin",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 2,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 4,
+          "asistencias": 6,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 5,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 4,
+          "asistencias": 5,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 3,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 3,
+          "asistencias": 5,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "jugadores": [
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 2,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri B",
+          "goles": 3,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 3,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Martin",
+          "goles": 0,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 1,
+          "asistencias": 4,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 2,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 2,
+          "asistencias": 0,
+          "equipo": "naranja"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "jugadores": [
+        {
+          "nombre": "Guido",
+          "goles": 6,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 5,
+          "asistencias": 5,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Rodri",
+          "goles": 3,
+          "asistencias": 4,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 5,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Sampi",
+          "goles": 0,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Martin",
+          "goles": 3,
+          "asistencias": 2,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "jugadores": [
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 4,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 4,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Flowers",
+          "goles": 1,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 3,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 3,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Adri B",
+          "goles": 4,
+          "asistencias": 6,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Dani C",
+          "goles": 7,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer E",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Martin",
+          "goles": 3,
+          "asistencias": 3,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "jugadores": [
+        {
+          "nombre": "Lucio",
+          "goles": 2,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 4,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Flowers",
+          "goles": 5,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Adri B",
+          "goles": 4,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 0,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer E",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "jugadores": [
+        {
+          "nombre": "Lucio",
+          "goles": 3,
+          "asistencias": 5,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 4,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 3,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 3,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Sampi",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Extra 1",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Extra 2",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "jugadores": [
+        {
+          "nombre": "Lucio",
+          "goles": 3,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 0,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 4,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 2,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 5,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Martin",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Sampi",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 2,
+          "asistencias": 4,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 8,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 2,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "jugadores": [
+        {
+          "nombre": "Adri R",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 0,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 2,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri B",
+          "goles": 5,
+          "asistencias": 4,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 5,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Carlitos",
+          "goles": 0,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 2,
+          "asistencias": 3,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "jugadores": [
+        {
+          "nombre": "Adri R",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Fede",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 1,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Rodri",
+          "goles": 2,
+          "asistencias": 5,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 5,
+          "asistencias": 4,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 6,
+          "asistencias": 0,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "jugadores": [
+        {
+          "nombre": "Edu",
+          "goles": 2,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 2,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri B",
+          "goles": 2,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 0,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 5,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "jugadores": [
+        {
+          "nombre": "Guido",
+          "goles": 2,
+          "asistencias": 4,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 5,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 2,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 3,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 4,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 3,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Martin",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "jugadores": [
+        {
+          "nombre": "Guido",
+          "goles": 3,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Martin",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 4,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 0,
+          "asistencias": 4,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "jugadores": [
+        {
+          "nombre": "Sampi",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 1,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 3,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Martin",
+          "goles": 2,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 4,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 3,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 0,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "jugadores": [
+        {
+          "nombre": "Lucio",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 5,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 1,
+          "asistencias": 4,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 5,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 3,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fede",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 0,
+          "asistencias": 2,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "jugadores": [
+        {
+          "nombre": "Adri B",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 4,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 3,
+          "asistencias": 4,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 5,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Martin",
+          "goles": 0,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "jugadores": [
+        {
+          "nombre": "Gaby",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri B",
+          "goles": 2,
+          "asistencias": 4,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 4,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 6,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 5,
+          "asistencias": 5,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "jugadores": [
+        {
+          "nombre": "Guido",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Extra C",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 1,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Adri B",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 4,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "jugadores": [
+        {
+          "nombre": "Adri R",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri B",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 2,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 2,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 3,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Rodri",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Juan",
+          "goles": 2,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "jugadores": [
+        {
+          "nombre": "Guido",
+          "goles": 2,
+          "asistencias": 5,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Juan",
+          "goles": 9,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Jorge",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Guille",
+          "goles": 5,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 2,
+          "asistencias": 4,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "jugadores": [
+        {
+          "nombre": "Lucio",
+          "goles": 2,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri B",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 3,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Sergio (invita2)",
+          "goles": 2,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Carlitos",
+          "goles": 0,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 3,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 3,
+          "asistencias": 1,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "jugadores": [
+        {
+          "nombre": "Guido",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 0,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 0,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Martin2",
+          "goles": 4,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Juan V",
+          "goles": 3,
+          "asistencias": 5,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 5,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 2,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Carlitos",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "jugadores": [
+        {
+          "nombre": "Lucio",
+          "goles": 7,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 1,
+          "asistencias": 5,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Sampi",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Martin2",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 8,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 3,
+          "asistencias": 5,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Seba",
+          "goles": 0,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "jugadores": [
+        {
+          "nombre": "Lucio",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri B",
+          "goles": 3,
+          "asistencias": 4,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 3,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 3,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Jorge P",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 2,
+          "asistencias": 0,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "jugadores": [
+        {
+          "nombre": "Lucio",
+          "goles": 2,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 4,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 0,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Martin2",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 3,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Jorge P",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "jugadores": [
+        {
+          "nombre": "Lucio",
+          "goles": 4,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Martin2",
+          "goles": 2,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 5,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 1,
+          "asistencias": 4,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Invitado",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "jugadores": [
+        {
+          "nombre": "Adri R",
+          "goles": 2,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Seba",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Martin2",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Invitado",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 2,
+          "asistencias": 4,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 2,
+          "asistencias": 0,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "jugadores": [
+        {
+          "nombre": "Guido",
+          "goles": 4,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Martin2",
+          "goles": 0,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 1,
+          "asistencias": 4,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 6,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 2,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "jugadores": [
+        {
+          "nombre": "Guido",
+          "goles": 5,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 1,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 4,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Ivan",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Martin2",
+          "goles": 0,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "jugadores": [
+        {
+          "nombre": "Guido",
+          "goles": 3,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 0,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Ivan",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 3,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 0,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 3,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 1,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Martin2",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Jorge P",
+          "goles": 2,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "jugadores": [
+        {
+          "nombre": "Bruno",
+          "goles": 5,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 1,
+          "asistencias": 4,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Carlitos",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 1,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 2,
+          "asistencias": 4,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Martin2",
+          "goles": 4,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "azul"
+        }
+      ],
+      "golesEnContra": [
+        {
+          "favorA": "naranja",
+          "cantidad": 1
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "jugadores": [
+        {
+          "nombre": "Adri B",
+          "goles": 2,
+          "asistencias": 4,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Carlitos",
+          "goles": 3,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 3,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 3,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 0,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 4,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "jugadores": [
+        {
+          "nombre": "Lucio",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 3,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 1,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Bruno",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Juan V",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Carlitos",
+          "goles": 0,
+          "asistencias": 2,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "jugadores": [
+        {
+          "nombre": "Gaby",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri B",
+          "goles": 3,
+          "asistencias": 4,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 3,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 3,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Lucas",
+          "goles": 3,
+          "asistencias": 2,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 1,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "jugadores": [
+        {
+          "nombre": "Lucio",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 3,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Adri B",
+          "goles": 3,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Carlitos",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Rodri",
+          "goles": 0,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Edu",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Hernan",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 46,
+      "jugadores": [
+        {
+          "nombre": "Lucio",
+          "goles": 4,
+          "asistencias": 4,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Martin2",
+          "goles": 3,
+          "asistencias": 4,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucas",
+          "goles": 7,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Invita2 A",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 3,
+          "asistencias": 4,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Flowers",
+          "goles": 2,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Adri R",
+          "goles": 5,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 2,
+          "asistencias": 0,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Invita2 B",
+          "goles": 2,
+          "asistencias": 3,
+          "equipo": "azul"
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "jugadores": [
+        {
+          "nombre": "Adri R",
+          "goles": 2,
+          "asistencias": 3,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Dario",
+          "goles": 4,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Lucas",
+          "goles": 2,
+          "asistencias": 2,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Martin2",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Sampi",
+          "goles": 0,
+          "asistencias": 0,
+          "equipo": "naranja"
+        },
+        {
+          "nombre": "Gaby",
+          "goles": 4,
+          "asistencias": 5,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Lucio",
+          "goles": 3,
+          "asistencias": 4,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Guido",
+          "goles": 5,
+          "asistencias": 3,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Carlitos",
+          "goles": 1,
+          "asistencias": 1,
+          "equipo": "azul"
+        },
+        {
+          "nombre": "Fer L",
+          "goles": 1,
+          "asistencias": 0,
+          "equipo": "azul"
+        }
+      ]
+    }
+  ]
+}

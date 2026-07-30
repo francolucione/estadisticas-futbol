@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas Generales</title>
+    <link rel="stylesheet" href="estadisticas.css">
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "rc8pauu62g");
+    </script>
+</head>
+<body>
+    <div class="contenedor">
+        <h1>Estadísticas Individuales</h1>
+        
+        <div class="ordenamiento">
+            <button onclick="generateTable('goles', true, 'goles')">Goles</button>
+            <button onclick="generateTable('golesPorPartido', true, 'golesPorPartido')">Goles %</button>
+            <button onclick="generateTable('asistencias', true, 'asistencias')">Asistencias</button>
+            <button onclick="generateTable('asistenciasPorPartido', true, 'asistenciasPorPartido')">Asistencias %</button>
+            <button onclick="generateTable('influencias', true, 'influencias')">Influencias</button>
+            <button onclick="generateTable('influenciasPorPartido', true, 'influenciasPorPartido')">Influencias %</button>
+            <button onclick="generateTable('PJ', true, 'PJ')">PJ</button>
+            <button onclick="generateTable('PG', true, 'PG')">PG</button>
+            <button onclick="generateTable('pgPorcentaje', true, 'pgPorcentaje')">PG%</button>
+            <button onclick="generateTable('PE', true, 'PE')">PE</button>
+            <button onclick="generateTable('pePorcentaje', true, 'pePorcentaje')">PE%</button>
+            <button onclick="generateTable('PP', true, 'PP')">PP</button>
+            <button onclick="generateTable('ppPorcentaje', true, 'ppPorcentaje')">PP%</button>
+            <button onclick="generateTable('GF', true, 'GF')">GF</button>
+            <button onclick="generateTable('GC', true, 'GC')">GC</button>
+            <button onclick="generateTable('DG', true, 'DG')">DIF GOL</button>
+        </div>
+        
+        <button id="toggleFilter" onclick="toggleFilter()">Mostrar Todo</button>
+        
+        <table id="stats-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Goles</th>
+                    <th>Asist</th>
+                    <th>Influencias Totales</th>
+                    <th>PJ</th>
+                    <th>PG</th>
+                    <th>PE</th>
+                    <th>PP</th>
+                    <th>GF</th>
+                    <th>GC</th>
+                    <th>DIF GOL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Filas Generadas Dinámicamente -->
+            </tbody>
+        </table>
+        
+        <div class="footer-stats">
+            <h2>Estadísticas Globales</h2>
+            <p>Victorias Naranjas: <span id="victorias-naranjas">0</span></p>
+            <p>Victorias Azules: <span id="victorias-azules">0</span></p>
+            <p>Empates: <span id="empates">0</span></p>
+            <p>Goles Naranjas: <span id="goles-naranjas">0</span></p>
+            <p>Goles Azules: <span id="goles-azules">0</span></p>
+        </div>
+    </div>
+    
+    <script src="index.js"></script>
+</body>
+</html>
