@@ -1,9 +1,9 @@
 /*
  * Estilos globales de Gallo League.
  *
- * Las piezas densas (paneles, tablas, barras de seccion, tiles) viven aca
- * porque se repiten en las cuatro pestanas. Los estilos por pagina solo
- * agregan lo especifico.
+ * Las piezas densas (paneles, tablas, barras de seccion, tiles) y los recursos
+ * de movimiento viven aca porque se repiten en las cuatro pestanas. Los
+ * estilos por pagina solo agregan lo especifico.
  */
 
 /* Core CSS required for Ionic components to work properly */
@@ -19,7 +19,6 @@
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
-@import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
 /* La app es oscura siempre, no sigue la preferencia del sistema. */
@@ -28,10 +27,110 @@
 /* Tokens del sistema visual */
 @import "./theme/metal.css";
 
+/* ------------------------------------------------------------ la luz base */
+
+/*
+ * El halo ambiente va en el body y no en un elemento propio: ion-content
+ * scrollea por dentro, asi que el fondo del body queda quieto y la luz se
+ * comporta como una fuente fija arriba de la pantalla. Es el recurso que mas
+ * trabaja para que la app deje de leerse como un agujero negro plano.
+ */
 body {
-  background: var(--metal-plano);
+  background-color: var(--metal-plano);
+  background-image: var(--luz-ambiente);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: var(--tinta);
   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* Transparentes para que el halo del body se vea a traves. */
+ion-content {
+  --background: transparent;
+}
+
+ion-toolbar {
+  --background: transparent;
+  --border-color: transparent;
+}
+
+/* ----------------------------------------------------------- movimiento */
+
+/*
+ * El destello: un barrido diagonal de luz que cruza el panel una sola vez al
+ * entrar. Es el recurso de firma de la marca. Solo anima transform, que es lo
+ * unico que corre a 60fps en el WebView de Android.
+ */
+@keyframes barrido {
+  to {
+    transform: translateX(120%);
+  }
+}
+
+.destello {
+  position: relative;
+  overflow: hidden;
+}
+
+.destello::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.12) 50%,
+    transparent 58%
+  );
+  transform: translateX(-120%);
+  animation: barrido var(--dur-destello) var(--ease-salida) var(--destello-espera, 120ms) 1 both;
+  pointer-events: none;
+}
+
+/*
+ * Entrada escalonada. El tope de 280ms importa: sin el, una lista de 47 filas
+ * tardaria 660ms en terminar de aparecer y se sentiria lenta, no rapida.
+ */
+@keyframes entrada {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+.entra {
+  animation: entrada var(--dur-media) var(--ease-salida) both;
+  animation-delay: min(calc(var(--i, 0) * 14ms), 280ms);
+}
+
+/* Texto pintado con la rampa de luz. */
+.luz-texto {
+  color: var(--luz-1);
+}
+
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .luz-texto {
+    background: var(--luz-degradado);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/*
+ * Accesibilidad, no negociable: quien pidio menos movimiento no recibe
+ * ninguno. Las directivas de TypeScript hacen su propio chequeo, porque un
+ * !important de CSS no alcanza para logica de JS.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ---------------------------------------------------------------- panel */
@@ -75,7 +174,8 @@ body {
   gap: 10px;
   margin: 18px 0 8px;
   padding-left: 8px;
-  border-left: 3px solid var(--acento);
+  border-left: 3px solid var(--luz-0);
+  box-shadow: -3px 0 10px -4px rgba(34, 211, 238, 0.5);
 
   h2 {
     margin: 0;
@@ -135,10 +235,15 @@ body {
 
   tbody tr {
     background: var(--metal-panel);
+    transition: background-color var(--dur-rapida) var(--ease-suave);
   }
 
   tbody tr:nth-child(even) {
     background: var(--metal-fila);
+  }
+
+  tbody tr:hover {
+    background: var(--luz-tenue);
   }
 
   tbody tr:last-child td {
@@ -172,9 +277,14 @@ body {
   }
 
   a {
-    color: var(--acento);
+    color: var(--luz-0);
     text-decoration: none;
     font-weight: 600;
+    transition: color var(--dur-rapida) var(--ease-suave);
+  }
+
+  a:hover {
+    color: var(--luz-2);
   }
 
   .sub {
@@ -185,13 +295,13 @@ body {
 
   /* Columna resaltada por la metrica activa. */
   .resaltada {
-    background: var(--acento-tenue);
+    background: var(--luz-tenue);
     color: var(--tinta);
     font-weight: 700;
   }
 
   thead .resaltada {
-    color: var(--acento);
+    color: var(--luz-0);
   }
 
   .negativo {
@@ -215,7 +325,8 @@ body {
 }
 
 .zona-podio .col-puesto::before {
-  background: var(--acento);
+  background: var(--luz-degradado);
+  box-shadow: var(--luz-halo);
 }
 
 .zona-fondo .col-puesto::before {
@@ -274,7 +385,7 @@ body {
   border-radius: 4px;
   font-size: 0.7rem;
   font-weight: 700;
-  color: #0b0b0e;
+  color: #0d0d12;
   background: var(--viz-empate);
 
   &.v {
@@ -292,8 +403,12 @@ body {
 /*
  * Reemplaza a ion-segment en las zonas densas: Ionic lo dibuja con mucho
  * aire y aca hay que entrar 7 metricas en una fila scrolleable.
+ *
+ * El indicador es un solo elemento que se desliza entre botones, posicionado
+ * por --x y --w que setea la directiva appSubrayado.
  */
 .segmento {
+  position: relative;
   display: flex;
   gap: 2px;
   overflow-x: auto;
@@ -305,12 +420,27 @@ body {
     display: none;
   }
 
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: var(--w, 0px);
+    transform: translateX(var(--x, 0px));
+    background: var(--luz-degradado);
+    box-shadow: var(--luz-halo);
+    transition:
+      transform var(--dur-media) var(--ease-salida),
+      width var(--dur-media) var(--ease-salida);
+    pointer-events: none;
+  }
+
   button {
     flex: none;
     appearance: none;
     background: transparent;
     border: 0;
-    border-bottom: 2px solid transparent;
     color: var(--tinta-2);
     font: inherit;
     font-size: 0.72rem;
@@ -320,10 +450,14 @@ body {
     padding: 8px 10px;
     cursor: pointer;
     white-space: nowrap;
+    transition: color var(--dur-rapida) var(--ease-suave);
+
+    &:hover {
+      color: var(--tinta);
+    }
 
     &.activo {
-      color: var(--acento);
-      border-bottom-color: var(--acento);
+      color: var(--luz-1);
     }
   }
 }
@@ -348,9 +482,18 @@ body {
   cursor: pointer;
   text-decoration: none;
   white-space: nowrap;
+  transition:
+    border-color var(--dur-rapida) var(--ease-suave),
+    box-shadow var(--dur-rapida) var(--ease-suave),
+    transform var(--dur-rapida) var(--ease-salida);
 
   &:hover {
     border-color: var(--metal-filo);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 
   &.mini {
@@ -359,10 +502,16 @@ body {
   }
 
   &.primario {
-    background: var(--acento);
-    border-color: var(--acento);
+    background: var(--luz-0);
+    border-color: var(--luz-0);
     color: #06202a;
     box-shadow: none;
+
+    &:hover {
+      background: var(--luz-1);
+      border-color: var(--luz-1);
+      box-shadow: var(--luz-halo-suave);
+    }
   }
 
   &.peligro {
@@ -380,6 +529,7 @@ body {
   &:disabled {
     opacity: 0.45;
     cursor: not-allowed;
+    transform: none;
   }
 }
 
@@ -394,17 +544,49 @@ input:not([type]) {
   font-size: 0.78rem;
   padding: 6px 8px;
   min-width: 0;
+  transition:
+    border-color var(--dur-rapida) var(--ease-suave),
+    box-shadow var(--dur-rapida) var(--ease-suave);
 
   &:focus {
     outline: none;
-    border-color: var(--acento);
-    box-shadow: 0 0 0 2px var(--acento-tenue);
+    border-color: var(--luz-0);
+    box-shadow: var(--luz-halo-suave);
   }
 }
 
 input[type='number'] {
   font-variant-numeric: tabular-nums;
   text-align: center;
+}
+
+/* -------------------------------------------------------- listas con hover */
+
+/*
+ * Las filas de lista (fechas, jugadores, admin) llevan una barra de acento a
+ * la izquierda que crece al pasar por encima. En las tablas no se puede: un
+ * pseudo-elemento sobre <tr> no posiciona confiable entre navegadores, asi
+ * que ahi el hover lo da el fondo.
+ */
+.lista-hover {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--luz-degradado);
+    transform: scaleY(0);
+    transform-origin: center;
+    transition: transform var(--dur-rapida) var(--ease-salida);
+  }
+
+  &:hover::before {
+    transform: scaleY(1);
+  }
 }
 
 /* ---------------------------------------------------------------- varios */
@@ -444,7 +626,7 @@ input[type='number'] {
   }
 
   a {
-    color: var(--acento);
+    color: var(--luz-0);
     text-decoration: none;
     font-weight: 600;
   }

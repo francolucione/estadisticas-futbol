@@ -101,12 +101,15 @@
     color: var(--tinta);
   }
 
-  /* El numero grande es el gancho de la tarjeta. */
+  /*
+   * El numero grande es el gancho de la tarjeta. El color no se declara aca:
+   * lo pone .luz-texto con el degradado, y una regla propia le ganaria por
+   * especificidad.
+   */
   .valor {
     font-size: 1.25rem;
     font-weight: 800;
     line-height: 1;
-    color: var(--acento);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Gallo League</ion-title>
+    <ion-title><app-marca /></ion-title>
     <ion-buttons slot="end">
       <ion-button routerLink="/admin" aria-label="Panel de administracion">
         <ion-icon slot="icon-only" name="build-outline" />
@@ -13,7 +13,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <nav class="segmento" aria-label="Vista de la tabla">
+  <nav class="segmento" appSubrayado aria-label="Vista de la tabla">
     @for (v of vistas; track v.clave) {
       <button [class.activo]="vista() === v.clave" (click)="cambiarVista(v.clave)">
         {{ v.etiqueta }}
@@ -29,7 +29,7 @@
         <span class="nota">3 por ganado, 1 por empatado</span>
       </div>
 
-      <div class="panel">
+      <div class="panel destello">
         <div class="tabla-scroll">
           <table class="tabla-densa">
             <thead>
@@ -48,12 +48,17 @@
             </thead>
             <tbody>
               @for (j of posiciones(); track j.nombre; let i = $index) {
-                <tr [class.zona-podio]="i < 3" [class.zona-fondo]="i >= posiciones().length - 3">
+                <tr
+                  class="entra"
+                  [style.--i]="i"
+                  [class.zona-podio]="i < 3"
+                  [class.zona-fondo]="i >= posiciones().length - 3"
+                >
                   <td class="col-puesto">{{ i + 1 }}</td>
                   <td class="col-nombre">
                     <a [routerLink]="['jugador', j.nombre]">{{ j.nombre }}</a>
                   </td>
-                  <td class="resaltada">{{ j.puntos }}</td>
+                  <td class="resaltada"><span [appContador]="j.puntos"></span></td>
                   <td>{{ j.PJ }}</td>
                   <td>{{ j.PG }}</td>
                   <td>{{ j.PE }}</td>
@@ -77,7 +82,7 @@
     </div>
   } @else {
     <!-- --------------------------------------------- rankings por metrica -->
-    <nav class="segmento metricas" aria-label="Metrica">
+    <nav class="segmento metricas" appSubrayado aria-label="Metrica">
       @for (m of metricasDeFamilia(); track m.clave) {
         <button [class.activo]="clave() === m.clave" (click)="clave.set(m.clave)">
           {{ m.etiqueta }}
@@ -98,7 +103,7 @@
         </label>
       </div>
 
-      <div class="panel">
+      <div class="panel destello">
         <div class="tabla-scroll">
           <table class="tabla-densa">
             <thead>
@@ -119,7 +124,7 @@
             </thead>
             <tbody>
               @for (j of filas(); track j.nombre; let i = $index) {
-                <tr>
+                <tr class="entra" [style.--i]="i">
                   <td class="col-puesto">{{ i + 1 }}</td>
                   <td class="col-nombre">
                     <a [routerLink]="['jugador', j.nombre]">{{ j.nombre }}</a>

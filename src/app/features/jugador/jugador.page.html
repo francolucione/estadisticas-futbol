@@ -10,7 +10,7 @@
 <ion-content [fullscreen]="true">
   @if (perfil(); as p) {
     <!-- Cabecera -->
-    <header class="ficha">
+    <header class="ficha destello">
       <span class="avatar">{{ iniciales(p.stats.nombre) }}</span>
       <div>
         <h1>{{ p.stats.nombre }}</h1>
@@ -33,35 +33,49 @@
     <section class="seccion">
       <h2>Resumen</h2>
       <div class="tiles">
-        <div class="tile">
-          <span class="valor">{{ p.stats.goles }}</span>
+        <div class="tile entra" [style.--i]="0">
+          <span class="valor luz-texto" [appContador]="p.stats.goles"></span>
           <span class="rotulo">Goles</span>
           <span class="pie">{{ p.stats.golesPorPartido.toFixed(2) }} por partido</span>
         </div>
-        <div class="tile">
-          <span class="valor">{{ p.stats.asistencias }}</span>
+        <div class="tile entra" [style.--i]="1">
+          <span class="valor luz-texto" [appContador]="p.stats.asistencias"></span>
           <span class="rotulo">Asistencias</span>
           <span class="pie">{{ p.stats.asistenciasPorPartido.toFixed(2) }} por partido</span>
         </div>
-        <div class="tile">
-          <span class="valor">{{ (p.stats.pgPorcentaje * 100).toFixed(0) }}%</span>
+        <div class="tile entra" [style.--i]="2">
+          <span
+            class="valor luz-texto"
+            [appContador]="p.stats.pgPorcentaje"
+            [contadorFactor]="100"
+            contadorSufijo="%"
+          ></span>
           <span class="rotulo">Victorias</span>
           <span class="pie">{{ p.stats.puntosPorPartido.toFixed(2) }} pts/partido</span>
         </div>
-        <div class="tile">
-          <span class="valor">{{ (p.stats.participacionGoles * 100).toFixed(0) }}%</span>
+        <div class="tile entra" [style.--i]="3">
+          <span
+            class="valor luz-texto"
+            [appContador]="p.stats.participacionGoles"
+            [contadorFactor]="100"
+            contadorSufijo="%"
+          ></span>
           <span class="rotulo">Participacion</span>
           <span class="pie">de los goles de su equipo</span>
         </div>
-        <div class="tile">
-          <span class="valor" [class.negativo]="p.stats.DG < 0">
-            {{ p.stats.DG > 0 ? '+' : '' }}{{ p.stats.DG }}
-          </span>
+        <div class="tile entra" [style.--i]="4">
+          <span
+            class="valor"
+            [class.negativo]="p.stats.DG < 0"
+            [class.luz-texto]="p.stats.DG >= 0"
+            [appContador]="p.stats.DG"
+            [contadorPrefijo]="p.stats.DG > 0 ? '+' : ''"
+          ></span>
           <span class="rotulo">Diferencia de gol</span>
           <span class="pie">{{ p.stats.GF }} a favor / {{ p.stats.GC }} en contra</span>
         </div>
-        <div class="tile">
-          <span class="valor">{{ p.stats.influencias }}</span>
+        <div class="tile entra" [style.--i]="5">
+          <span class="valor luz-texto" [appContador]="p.stats.influencias"></span>
           <span class="rotulo">Influencias</span>
           <span class="pie">{{ p.stats.influenciasPorPartido.toFixed(2) }} por partido</span>
         </div>
@@ -100,7 +114,7 @@
         Cuanto le rinde jugar con cada companero, comparado con sus otros partidos.
         Minimo {{ minimoPar }} partidos juntos.
       </p>
-      <nav class="segmento" aria-label="Orden de companeros">
+      <nav class="segmento" appSubrayado aria-label="Orden de companeros">
         <button
           [class.activo]="ordenCompaneros() === 'mejores'"
           (click)="ordenCompaneros.set('mejores')"
@@ -133,7 +147,7 @@
       <p class="explica">
         Lo mismo, pero enfrentandolo. Minimo {{ minimoPar }} partidos en veredas opuestas.
       </p>
-      <nav class="segmento" aria-label="Orden de rivales">
+      <nav class="segmento" appSubrayado aria-label="Orden de rivales">
         <button [class.activo]="ordenRivales() === 'mejores'" (click)="ordenRivales.set('mejores')">
           Le gana a
         </button>

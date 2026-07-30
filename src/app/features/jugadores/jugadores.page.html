@@ -25,10 +25,10 @@
         <span class="nota">{{ minimo }}+ partidos</span>
       </div>
 
-      <div class="panel">
+      <div class="panel destello">
         <ul class="jugadores">
-          @for (j of habituales(); track j.nombre) {
-            <li>
+          @for (j of habituales(); track j.nombre; let i = $index) {
+            <li class="entra lista-hover" [style.--i]="i">
               <a [routerLink]="['jugador', j.nombre]">
                 <span class="avatar">{{ iniciales(j.nombre) }}</span>
                 <span class="nombre">{{ j.nombre }}</span>
@@ -49,10 +49,10 @@
         <span class="nota">menos de {{ minimo }}</span>
       </div>
 
-      <div class="panel">
+      <div class="panel destello">
         <ul class="jugadores">
-          @for (j of esporadicos(); track j.nombre) {
-            <li>
+          @for (j of esporadicos(); track j.nombre; let i = $index) {
+            <li class="entra lista-hover" [style.--i]="i">
               <a [routerLink]="['jugador', j.nombre]">
                 <span class="avatar tenue">{{ iniciales(j.nombre) }}</span>
                 <span class="nombre">{{ j.nombre }}</span>

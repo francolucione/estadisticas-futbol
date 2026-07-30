@@ -4,13 +4,23 @@ import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/stan
 import { CATEGORIAS, CategoriaCuriosidad } from '../../core/models/curiosidad.model';
 import { StatsService } from '../../core/services/stats.service';
 import { PartidosService } from '../../core/services/partidos.service';
+import { ContadorDirective } from '../../shared/directives/contador.directive';
+import { SubrayadoDirective } from '../../shared/directives/subrayado.directive';
 
 type Filtro = 'todas' | CategoriaCuriosidad;
 
 @Component({
   selector: 'app-datos',
   standalone: true,
-  imports: [RouterLink, IonHeader, IonToolbar, IonTitle, IonContent],
+  imports: [
+    RouterLink,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    ContadorDirective,
+    SubrayadoDirective,
+  ],
   templateUrl: './datos.page.html',
   styleUrl: './datos.page.scss',
 })

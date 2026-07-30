@@ -46,10 +46,31 @@ import {
         --padding-bottom: 4px;
         font-size: 0.62rem;
         letter-spacing: 0.03em;
+        position: relative;
       }
 
       ion-icon {
         font-size: 1.15rem;
+        transition: transform var(--dur-media) var(--ease-salida);
+      }
+
+      /* El tab activo se ilumina y sube apenas. */
+      ion-tab-button.tab-selected ion-icon {
+        transform: translateY(-1px);
+        filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.6));
+      }
+
+      /* Filo de luz sobre la pestana activa. */
+      ion-tab-button.tab-selected::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 26px;
+        height: 2px;
+        transform: translateX(-50%);
+        background: var(--luz-degradado);
+        box-shadow: var(--luz-halo);
       }
     `,
   ],

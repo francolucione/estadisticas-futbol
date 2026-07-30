@@ -14,6 +14,8 @@ import { StatsService } from '../../core/services/stats.service';
 import { MIN_PARTIDOS_PAR, MIN_PARTIDOS_RANKING } from '../../core/services/stats.engine';
 import { GraficoEvolucionComponent } from '../../shared/components/grafico-evolucion.component';
 import { BarrasDeltaComponent } from '../../shared/components/barras-delta.component';
+import { ContadorDirective } from '../../shared/directives/contador.directive';
+import { SubrayadoDirective } from '../../shared/directives/subrayado.directive';
 import { iniciales } from '../../shared/formato';
 
 type Orden = 'mejores' | 'peores';
@@ -31,6 +33,8 @@ type Orden = 'mejores' | 'peores';
     IonContent,
     GraficoEvolucionComponent,
     BarrasDeltaComponent,
+    ContadorDirective,
+    SubrayadoDirective,
   ],
   templateUrl: './jugador.page.html',
   styleUrl: './jugador.page.scss',

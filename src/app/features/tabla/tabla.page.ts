@@ -16,13 +16,28 @@ import { StatsService } from '../../core/services/stats.service';
 import { PartidosService } from '../../core/services/partidos.service';
 import { MIN_PARTIDOS_RANKING } from '../../core/services/stats.engine';
 import { formatearValor } from '../../shared/formato';
+import { MarcaComponent } from '../../shared/components/marca.component';
+import { ContadorDirective } from '../../shared/directives/contador.directive';
+import { SubrayadoDirective } from '../../shared/directives/subrayado.directive';
 
 type Vista = 'posiciones' | Metrica['familia'];
 
 @Component({
   selector: 'app-tabla',
   standalone: true,
-  imports: [RouterLink, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon],
+  imports: [
+    RouterLink,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButtons,
+    IonButton,
+    IonIcon,
+    MarcaComponent,
+    ContadorDirective,
+    SubrayadoDirective,
+  ],
   templateUrl: './tabla.page.html',
   styleUrl: './tabla.page.scss',
 })

@@ -11,7 +11,7 @@
   <div class="contenido">
     @if (comparacion(); as c) {
       <!-- Cabecera enfrentada -->
-      <div class="panel duelo">
+      <div class="panel duelo destello">
         <div class="jugador">
           <span class="avatar a">{{ iniciales(c.a.nombre) }}</span>
           <a [routerLink]="['/tabs/jugadores/jugador', c.a.nombre]">{{ c.a.nombre }}</a>
@@ -68,8 +68,8 @@
 
       <div class="panel">
         <ul class="metricas">
-          @for (f of filas(); track f.etiqueta) {
-            <li>
+          @for (f of filas(); track f.etiqueta; let i = $index) {
+            <li class="entra" [style.--i]="i">
               <span class="v" [class.gana]="f.ganaA">{{ f.a }}</span>
               <span class="et">{{ f.etiqueta }}</span>
               <span class="v der" [class.gana]="f.ganaB">{{ f.b }}</span>

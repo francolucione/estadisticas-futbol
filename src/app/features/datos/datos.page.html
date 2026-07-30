@@ -12,18 +12,18 @@
     </div>
 
     <div class="tiles">
-      <div class="tile">
-        <span class="valor">{{ liga().partidos }}</span>
+      <div class="tile entra" [style.--i]="0">
+        <span class="valor luz-texto" [appContador]="liga().partidos"></span>
         <span class="rotulo">Fechas jugadas</span>
       </div>
-      <div class="tile">
-        <span class="valor">{{ liga().golesTotales }}</span>
+      <div class="tile entra" [style.--i]="1">
+        <span class="valor luz-texto" [appContador]="liga().golesTotales"></span>
         <span class="rotulo">Goles en total</span>
         <span class="pie">{{ liga().promedioGolesPorPartido.toFixed(1) }} por partido</span>
       </div>
     </div>
 
-    <div class="panel reparto">
+    <div class="panel reparto destello">
       <div class="panel-cuerpo">
         <div
           class="apilada"
@@ -61,7 +61,7 @@
       <span class="nota">{{ curiosidades().length }}</span>
     </div>
 
-    <nav class="segmento" aria-label="Categoria">
+    <nav class="segmento" appSubrayado aria-label="Categoria">
       <button [class.activo]="filtro() === 'todas'" (click)="filtro.set('todas')">Todas</button>
       @for (c of categorias; track c.clave) {
         <button [class.activo]="filtro() === c.clave" (click)="filtro.set(c.clave)">
@@ -71,11 +71,11 @@
     </nav>
 
     <div class="curiosidades">
-      @for (c of curiosidades(); track c.id) {
-        <article class="panel curiosidad">
+      @for (c of curiosidades(); track c.id; let i = $index) {
+        <article class="panel curiosidad entra destello" [style.--i]="i">
           <div class="panel-cabecera">
             <h3>{{ c.titular }}</h3>
-            <span class="valor">{{ c.valor }}</span>
+            <span class="valor luz-texto">{{ c.valor }}</span>
           </div>
           <div class="panel-cuerpo">
             <p class="detalle">

@@ -84,11 +84,34 @@ npx cap run android      # requiere Android Studio / SDK
 
 ## Sistema visual
 
-Solo modo oscuro. Grafito con filos brillantes y acento cyan; densidad de
-tabla al estilo Promiedos. Los tokens estan en `src/theme/metal.css`.
+Solo modo oscuro. Grafito vivo con filos iluminados y densidad de tabla. Los
+tokens estan en `src/theme/metal.css`.
 
-Los colores de **dato** (naranja/azul de los equipos, y la escala divergente
-azul-rojo) estan validados para contraste y daltonismo contra la superficie
-real de la app. El cyan es **chrome**: links, tab activo, foco y banda de
-podio. Nunca pinta un dato, porque al lado del azul de equipo seria una
-lectura ambigua. No conviene cambiar un hex sin volver a validarlo.
+La identidad no es un segundo color, es **luminosidad**: un unico cian que
+rampa hasta blanco caliente (`--luz-0` a `--luz-3`), en degradado para el
+logotipo, el subrayado activo y los numeros protagonistas. Un halo ambiente
+detras de la cabecera le da profundidad a toda la app.
+
+Dos reglas:
+
+1. **El cian nunca pinta un dato.** Es chrome: logotipo, subrayado, foco,
+   banda de podio. Las barras y tramos van en naranja/azul de equipo y en la
+   escala divergente. Al lado del azul de equipo, un dato cian seria una
+   lectura ambigua.
+2. **Los colores de dato estan validados** para contraste y daltonismo contra
+   la superficie real. No cambiar un hex sin volver a correr el validador.
+
+### Movimiento
+
+Entrada escalonada de filas, numeros que cuentan, destello que barre cada
+panel, subrayado que se desliza entre pestanas y hover con barra de acento.
+Todo con `--ease-salida` (expo-out) y animando solo `transform` y `opacity`,
+que es lo unico que corre a 60fps en el WebView de Android.
+
+Respeta `prefers-reduced-motion` en CSS y tambien en las directivas: un
+`!important` de CSS no puede frenar una animacion hecha en TypeScript.
+
+El contador de numeros tiene una red de seguridad por temporizador. Si
+`requestAnimationFrame` se frena (pestana en segundo plano, WebView
+estrangulando frames) el numero igual aterriza en su valor exacto: en una app
+de estadisticas, un numero congelado a mitad de camino es un dato falso.

@@ -1,42 +1,73 @@
 /*
- * Sistema visual de Gallo League.
+ * Sistema visual de Gallo League: grafito vivo y luz cian.
  *
- * Grafito con filos brillantes y acento cyan. Solo modo oscuro: la estetica
- * metalica vive de superficies oscuras con degradados y bordes iluminados,
- * y en claro no existe.
+ * La identidad no es un segundo color, es LUMINOSIDAD. Un unico hue que rampa
+ * hasta blanco caliente (--luz-0 .. --luz-3), usado en degradado para el
+ * logotipo, el subrayado activo y los numeros protagonistas. Al no introducir
+ * ningun hue nuevo, no puede confundirse con el naranja/azul de los equipos.
  *
- * Los colores de DATO (equipos y escala divergente) estan validados con el
- * script de la skill dataviz contra la superficie #141419: banda de
- * luminosidad, piso de croma, separacion para daltonismo y contraste.
- * No cambiar un hex sin volver a correrlo.
+ * Solo modo oscuro: el resplandor y los destellos no existen sobre blanco.
  *
- * El cyan es CHROME, nunca un dato. Separa 20.4 del azul de equipo bajo
- * daltonismo, pero si pintara una barra al lado de una azul seguiria siendo
- * una lectura ambigua. Se usa para links, tab activo, foco y banda de podio.
+ * Los colores de DATO estan validados con el script de la skill dataviz
+ * contra la superficie #16161C: banda de luminosidad, piso de croma,
+ * separacion para daltonismo y contraste. No cambiar un hex sin volver a
+ * correrlo.
+ *
+ * REGLA DURA: el cian nunca pinta un dato. Es chrome — logotipo, subrayado,
+ * foco, banda de podio, numeros. Las barras y tramos van en naranja, azul y
+ * la escala divergente.
  */
 :root {
   color-scheme: dark;
 
-  /* --- Superficies --- */
-  --metal-plano: #0b0b0e;
-  --metal-panel: #141419;
-  --metal-fila: #17171a;
-  --metal-panel-alto: #1c1c22;
-  --metal-borde: #26262e;
-  /* El filo de arriba es lo que hace que lea como chapa y no como gris. */
-  --metal-filo: #34343f;
-  --metal-degradado: linear-gradient(180deg, #1c1c22 0%, #141419 100%);
+  /* --- Superficies. Grafito, no negro: las capas tienen que distinguirse. --- */
+  --metal-plano: #0d0d12;
+  --metal-panel: #16161c;
+  --metal-fila: #1a1a21;
+  --metal-panel-alto: #212129;
+  --metal-borde: #2e2e38;
+  /* El filo de arriba es lo que hace que un panel lea como chapa. */
+  --metal-filo: #40404e;
+  --metal-degradado: linear-gradient(180deg, #212129 0%, #16161c 100%);
 
-  /* --- Tinta (contraste medido sobre #141419) --- */
-  --tinta: #ffffff;        /* 18.4:1 */
-  --tinta-2: #a1a1aa;      /*  7.2:1 */
-  --tinta-3: #a1a1aa;      /*  7.2:1 — el gris apagado anterior daba 3.8 */
+  /* --- Tinta (contraste medido sobre #16161C) --- */
+  --tinta: #ffffff;    /* 18.0:1 */
+  --tinta-2: #a1a1aa;  /*  7.0:1 */
+  --tinta-3: #8e8e99;  /*  5.6:1 */
 
-  /* --- Acento --- */
-  --acento: #22d3ee;       /* 10.2:1 */
-  --acento-fuerte: #67e8f9;
-  --acento-tenue: rgba(34, 211, 238, 0.12);
-  --acento-borde: rgba(34, 211, 238, 0.35);
+  /* --- La rampa de luz. Un solo hue, de cian a blanco caliente. --- */
+  --luz-0: #22d3ee;    /*  9.97:1 */
+  --luz-1: #67e8f9;    /* 12.43:1 */
+  --luz-2: #a5f3fc;    /* 14.43:1 */
+  --luz-3: #ecfeff;    /* 17.32:1 */
+
+  --luz-degradado: linear-gradient(96deg, #22d3ee 0%, #a5f3fc 55%, #ecfeff 100%);
+  --luz-halo: 0 0 14px rgba(34, 211, 238, 0.4);
+  --luz-halo-suave: 0 0 22px rgba(34, 211, 238, 0.18);
+  --luz-tenue: rgba(34, 211, 238, 0.12);
+  --luz-borde: rgba(34, 211, 238, 0.35);
+  /* Un solo elemento que le da profundidad a toda la app. */
+  --luz-ambiente: radial-gradient(
+    120% 70% at 50% -10%,
+    rgba(34, 211, 238, 0.13),
+    transparent 62%
+  );
+
+  /* Alias historico: el resto del codigo llama al acento por este nombre. */
+  --acento: var(--luz-0);
+  --acento-fuerte: var(--luz-1);
+  --acento-tenue: var(--luz-tenue);
+  --acento-borde: var(--luz-borde);
+
+  /* --- Movimiento --- */
+  /* expo-out: el 80% del recorrido pasa en el primer tercio del tiempo, que
+     es exactamente lo que se lee como velocidad. */
+  --ease-salida: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-suave: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-rapida: 160ms;
+  --dur-media: 280ms;
+  --dur-lenta: 420ms;
+  --dur-destello: 620ms;
 
   /* --- Equipos (DATO, validado) --- */
   --viz-naranja: #d95926;
@@ -49,31 +80,33 @@
   --viz-medio: #383835;
 
   /* --- Resultados. Van siempre con la letra V/E/D al lado. --- */
-  --viz-victoria: #22c55e;  /* 8.1:1 */
+  --viz-victoria: #22c55e; /* 7.9:1 */
   --viz-empate: #898781;
-  --viz-derrota: #ef4444;   /* 4.9:1 — el #d03b3b anterior daba 3.8 */
+  /* 4.79:1 sobre panel. Como TEXTO va solo sobre panel y fila; sobre el panel
+     elevado cae a 4.25 y no alcanza para texto chico. */
+  --viz-derrota: #ef4444;
 
   /* --- Chrome de los graficos --- */
-  --viz-surface: #141419;
-  --viz-grid: #26262e;
-  --viz-axis: #34343f;
+  --viz-surface: #16161c;
+  --viz-grid: #2e2e38;
+  --viz-axis: #40404e;
   --viz-muted: #a1a1aa;
   --viz-ink: #ffffff;
   --viz-ink-2: #a1a1aa;
-  --viz-tarjeta: #1c1c22;
-  --viz-fila: #17171a;
+  --viz-tarjeta: #212129;
+  --viz-fila: #1a1a21;
 
   /* --- Variables de Ionic, alineadas al sistema --- */
-  --ion-background-color: #0b0b0e;
-  --ion-background-color-rgb: 11, 11, 14;
+  --ion-background-color: #0d0d12;
+  --ion-background-color-rgb: 13, 13, 18;
   --ion-text-color: #ffffff;
   --ion-text-color-rgb: 255, 255, 255;
-  --ion-border-color: #26262e;
-  --ion-toolbar-background: var(--metal-panel-alto);
+  --ion-border-color: #2e2e38;
+  --ion-toolbar-background: transparent;
   --ion-toolbar-color: #ffffff;
-  --ion-tab-bar-background: #101014;
+  --ion-tab-bar-background: #12121a;
   --ion-tab-bar-color: #a1a1aa;
-  --ion-tab-bar-color-selected: var(--acento);
+  --ion-tab-bar-color-selected: #22d3ee;
   --ion-item-background: transparent;
 
   --ion-color-primary: #22d3ee;

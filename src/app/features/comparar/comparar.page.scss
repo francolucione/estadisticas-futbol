@@ -148,6 +148,19 @@
   }
 }
 
+/* Las dos mitades crecen desde el centro hacia afuera al entrar. */
+@keyframes crece-izq {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes crece-der {
+  from {
+    transform: scaleX(0);
+  }
+}
+
 .barra {
   grid-area: barra;
   display: flex;
@@ -159,13 +172,21 @@
 
   .parte {
     height: 100%;
+    animation-duration: var(--dur-lenta);
+    animation-timing-function: var(--ease-salida);
+    animation-fill-mode: both;
+    animation-delay: min(calc(var(--i, 0) * 14ms + 120ms), 400ms);
 
     &.a {
       background: var(--viz-naranja);
+      transform-origin: right center;
+      animation-name: crece-izq;
     }
 
     &.b {
       background: var(--viz-azul);
+      transform-origin: left center;
+      animation-name: crece-der;
     }
   }
 }

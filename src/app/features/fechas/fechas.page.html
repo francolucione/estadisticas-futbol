@@ -11,10 +11,10 @@
       <span class="nota">{{ resumen() }}</span>
     </div>
 
-    <div class="panel">
+    <div class="panel destello">
       <ul class="fechas">
-        @for (f of fechas(); track f.id) {
-          <li>
+        @for (f of fechas(); track f.id; let i = $index) {
+          <li class="entra lista-hover" [style.--i]="i">
             <a [routerLink]="[f.id]">
               <span class="num">F{{ f.id }}</span>
 
