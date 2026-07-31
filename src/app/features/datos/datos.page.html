@@ -19,7 +19,10 @@
       <div class="tile">
         <span class="valor" [appContador]="liga().golesTotales"></span>
         <span class="rotulo">Goles en total</span>
-        <span class="pie">{{ liga().promedioGolesPorPartido.toFixed(1) }} por partido</span>
+        <span class="pie">
+          <span [appContador]="liga().promedioGolesPorPartido" [decimales]="1"></span>
+          por partido
+        </span>
       </div>
     </div>
 
@@ -44,13 +47,13 @@
               <span class="punto" [class]="t.clave"></span>
               <span class="et">{{ t.etiqueta }}</span>
               <strong [appContador]="t.valor"></strong>
-              <span class="pct">{{ t.pct.toFixed(0) }}%</span>
+              <span class="pct" [appContador]="t.pct" sufijo="%"></span>
             </li>
           }
         </ul>
         <p class="detalle">
-          Goles naranja <strong>{{ liga().golesNaranjas }}</strong> &middot;
-          goles azul <strong>{{ liga().golesAzules }}</strong>
+          Goles naranja <strong [appContador]="liga().golesNaranjas"></strong> &middot;
+          goles azul <strong [appContador]="liga().golesAzules"></strong>
         </p>
       </div>
     </div>
@@ -58,7 +61,7 @@
     <!-- ---------------------------------------------------- curiosidades -->
     <div class="barra-seccion">
       <h2>Datos curiosos</h2>
-      <span class="nota">{{ curiosidades().length }}</span>
+      <span class="nota"><span [appContador]="curiosidades().length"></span></span>
     </div>
 
     <nav class="segmento" aria-label="Categoria">

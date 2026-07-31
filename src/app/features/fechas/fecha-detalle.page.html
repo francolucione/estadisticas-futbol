@@ -38,7 +38,12 @@
         <p class="figura-fecha">
           Figura de la fecha:
           <a [routerLink]="['/tabs/jugadores/jugador', f.nombre]">{{ f.nombre }}</a>
-          <span class="sub">{{ f.goles }}G {{ f.asistencias }}A</span>
+          <span class="sub"
+            ><span [appContador]="f.goles" sufijo="G"></span>&ngsp;<span
+              [appContador]="f.asistencias"
+              sufijo="A"
+            ></span
+          ></span>
         </p>
       }
 
@@ -46,7 +51,9 @@
       @for (eq of ['naranja', 'azul']; track eq) {
         <div class="barra-seccion">
           <h2>{{ eq === 'naranja' ? 'Naranja' : 'Azul' }}</h2>
-          <span class="nota">{{ formacion($any(eq)).length }} jugadores</span>
+          <span class="nota">
+            <span [appContador]="formacion($any(eq)).length"></span> jugadores
+          </span>
         </div>
 
         <div class="panel">
@@ -85,7 +92,7 @@
               @for (g of golesEnContra(); track $index) {
                 <li>
                   <span class="k">A favor de {{ g.favorA }}</span>
-                  <span class="v">{{ g.cantidad }}</span>
+                  <span class="v" [appContador]="g.cantidad"></span>
                 </li>
               }
             </ul>

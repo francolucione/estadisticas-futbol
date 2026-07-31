@@ -15,7 +15,7 @@
         <div class="jugador">
           <span class="avatar a">{{ iniciales(c.a.nombre) }}</span>
           <a [routerLink]="['/tabs/jugadores/jugador', c.a.nombre]">{{ c.a.nombre }}</a>
-          <span class="pj">{{ c.a.PJ }} PJ</span>
+          <span class="pj"><span [appContador]="c.a.PJ"></span> PJ</span>
         </div>
         <div class="marcador">
           <span class="cifra" [appContador]="marcadorMetricas().a"></span>
@@ -25,7 +25,7 @@
         <div class="jugador">
           <span class="avatar b">{{ iniciales(c.b.nombre) }}</span>
           <a [routerLink]="['/tabs/jugadores/jugador', c.b.nombre]">{{ c.b.nombre }}</a>
-          <span class="pj">{{ c.b.PJ }} PJ</span>
+          <span class="pj"><span [appContador]="c.b.PJ"></span> PJ</span>
         </div>
       </div>
 
@@ -38,10 +38,12 @@
         <div class="panel-cuerpo">
           @if (c.registro.enfrentados.PJ > 0) {
             <p class="registro">
-              Se enfrentaron <strong>{{ c.registro.enfrentados.PJ }}</strong> veces:
-              <strong>{{ c.registro.enfrentados.ganoA }}</strong> las gano {{ c.a.nombre }},
-              <strong>{{ c.registro.enfrentados.ganoB }}</strong> {{ c.b.nombre }}, y
-              <strong>{{ c.registro.enfrentados.empates }}</strong> terminaron empatadas.
+              Se enfrentaron <strong [appContador]="c.registro.enfrentados.PJ"></strong> veces:
+              <strong [appContador]="c.registro.enfrentados.ganoA"></strong>
+              las gano {{ c.a.nombre }},
+              <strong [appContador]="c.registro.enfrentados.ganoB"></strong> {{ c.b.nombre }}, y
+              <strong [appContador]="c.registro.enfrentados.empates"></strong>
+              terminaron empatadas.
             </p>
           } @else {
             <p class="registro apagado">Nunca se enfrentaron.</p>
@@ -49,10 +51,11 @@
 
           @if (c.registro.juntos.PJ > 0) {
             <p class="registro">
-              Del mismo lado jugaron <strong>{{ c.registro.juntos.PJ }}</strong> partidos, con
-              <strong>{{ c.registro.juntos.PG }}</strong> victorias,
-              <strong>{{ c.registro.juntos.PE }}</strong> empates y
-              <strong>{{ c.registro.juntos.PP }}</strong> derrotas.
+              Del mismo lado jugaron
+              <strong [appContador]="c.registro.juntos.PJ"></strong> partidos, con
+              <strong [appContador]="c.registro.juntos.PG"></strong> victorias,
+              <strong [appContador]="c.registro.juntos.PE"></strong> empates y
+              <strong [appContador]="c.registro.juntos.PP"></strong> derrotas.
             </p>
           } @else {
             <p class="registro apagado">Nunca jugaron en el mismo equipo.</p>
@@ -106,7 +109,13 @@
               <a [routerLink]="['/tabs/jugadores/comparar', nombreA(), j.nombre]">
                 <span class="avatar">{{ iniciales(j.nombre) }}</span>
                 <span class="nombre">{{ j.nombre }}</span>
-                <span class="datos">{{ j.PJ }} PJ &middot; {{ j.goles }}G {{ j.asistencias }}A</span>
+                <span class="datos">
+                  <span [appContador]="j.PJ"></span> PJ &middot;
+                  <span [appContador]="j.goles" sufijo="G"></span>&ngsp;<span
+                    [appContador]="j.asistencias"
+                    sufijo="A"
+                  ></span>
+                </span>
               </a>
             </li>
           } @empty {

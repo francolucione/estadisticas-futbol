@@ -81,6 +81,43 @@ describe('TablaPage', () => {
     const filas = fixture.componentInstance.filas();
     expect(filas[0].GC).toBeLessThanOrEqual(filas[filas.length - 1].GC);
   });
+
+  it('cambiar de metrica re-anima solo su columna', () => {
+    const fixture = montar(TablaPage);
+    fixture.componentInstance.cambiarVista('ataque');
+
+    const reloj = TestBed.inject(ContadorService);
+    const uno = spyOn(reloj, 'reiniciarGrupo');
+    const todos = spyOn(reloj, 'reiniciar');
+
+    fixture.componentInstance.elegirMetrica('asistencias');
+
+    expect(uno).toHaveBeenCalledWith('col-asistencias');
+    expect(todos).not.toHaveBeenCalled();
+  });
+
+  it('re-anima la columna que se resalta, no la clave de la metrica', () => {
+    const fixture = montar(TablaPage);
+    fixture.componentInstance.cambiarVista('resultados');
+
+    const uno = spyOn(TestBed.inject(ContadorService), 'reiniciarGrupo');
+    // PG% resalta la columna PG: si se largara 'col-pgPorcentaje' no se animaria nada.
+    fixture.componentInstance.elegirMetrica('pgPorcentaje');
+
+    expect(uno).toHaveBeenCalledWith('col-PG');
+  });
+
+  it('los filtros que cambian las filas re-animan toda la tabla', () => {
+    const fixture = montar(TablaPage);
+    const todos = spyOn(TestBed.inject(ContadorService), 'reiniciar');
+
+    fixture.componentInstance.cambiarSoloHabituales(false);
+    expect(todos).toHaveBeenCalled();
+
+    todos.calls.reset();
+    fixture.componentInstance.cambiarVista('goles');
+    expect(todos).toHaveBeenCalled();
+  });
 });
 
 describe('FechasPage', () => {

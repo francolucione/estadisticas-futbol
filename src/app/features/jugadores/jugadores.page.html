@@ -26,7 +26,7 @@
     @if (habituales().length) {
       <div class="barra-seccion">
         <h2>Habituales</h2>
-        <span class="nota">{{ minimo }}+ partidos</span>
+        <span class="nota"><span [appContador]="minimo" sufijo="+"></span> partidos</span>
       </div>
 
       <div class="panel">
@@ -37,7 +37,9 @@
                 <span class="avatar">{{ iniciales(j.nombre) }}</span>
                 <span class="nombre">{{ j.nombre }}</span>
                 <span class="datos">
-                  {{ j.PJ }} PJ &middot; {{ j.goles }}G &middot; {{ j.asistencias }}A
+                  <span [appContador]="j.PJ"></span> PJ &middot;
+                  <span [appContador]="j.goles" sufijo="G"></span> &middot;
+                  <span [appContador]="j.asistencias" sufijo="A"></span>
                 </span>
                 <span class="pg" [appContador]="j.pgPorcentaje * 100" sufijo="%"></span>
               </a>
@@ -50,7 +52,7 @@
     @if (esporadicos().length) {
       <div class="barra-seccion">
         <h2>Esporadicos e invitados</h2>
-        <span class="nota">menos de {{ minimo }}</span>
+        <span class="nota">menos de <span [appContador]="minimo"></span></span>
       </div>
 
       <div class="panel">
@@ -61,7 +63,9 @@
                 <span class="avatar tenue">{{ iniciales(j.nombre) }}</span>
                 <span class="nombre">{{ j.nombre }}</span>
                 <span class="datos">
-                  {{ j.PJ }} PJ &middot; {{ j.goles }}G &middot; {{ j.asistencias }}A
+                  <span [appContador]="j.PJ"></span> PJ &middot;
+                  <span [appContador]="j.goles" sufijo="G"></span> &middot;
+                  <span [appContador]="j.asistencias" sufijo="A"></span>
                 </span>
               </a>
             </li>

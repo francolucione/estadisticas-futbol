@@ -1,7 +1,7 @@
 import { Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { StatsPar } from '../../core/models/stats.model';
-import { formatearDelta } from '../formato';
+import { ContadorDirective } from '../contador.directive';
 
 interface Fila extends StatsPar {
   /** Ancho de la barra en % del semieje. */
@@ -19,11 +19,11 @@ interface Fila extends StatsPar {
 @Component({
   selector: 'app-barras-delta',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, ContadorDirective],
   template: `
     @if (!filas().length) {
       <p class="vacio">
-        Nadie llega a {{ minimo() }} partidos compartidos todavia.
+        Nadie llega a <span [appContador]="minimo()"></span> partidos compartidos todavia.
       </p>
     } @else {
       <ul class="lista">
@@ -39,10 +39,19 @@ interface Fila extends StatsPar {
                 [style.left.%]="f.positivo ? 50 : 50 - f.ancho / 2"
               ></span>
             </div>
-            <span class="delta" [class.pos]="f.positivo">{{ fmt(f.delta) }}</span>
+            <span
+              class="delta"
+              [class.pos]="f.positivo"
+              [appContador]="f.delta * 100"
+              [signo]="true"
+              sufijo=" pp"
+            ></span>
             <span class="detalle">
-              {{ (f.winRate * 100).toFixed(0) }}% en {{ f.PJ }} PJ
-              <span class="base">(su media: {{ (f.winRateSin * 100).toFixed(0) }}%)</span>
+              <span [appContador]="f.winRate * 100" sufijo="%"></span> en
+              <span [appContador]="f.PJ"></span> PJ
+              <span class="base"
+                >(su media: <span [appContador]="f.winRateSin * 100" sufijo="%"></span>)</span
+              >
             </span>
           </li>
         }
@@ -83,6 +92,4 @@ export class BarrasDeltaComponent {
       positivo: p.delta >= 0,
     }));
   });
-
-  fmt = formatearDelta;
 }

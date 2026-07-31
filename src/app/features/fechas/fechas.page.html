@@ -8,7 +8,11 @@
   <div class="contenido">
     <div class="barra-seccion">
       <h2>Todos los partidos</h2>
-      <span class="nota">{{ resumen() }}</span>
+      <span class="nota">
+        <span [appContador]="liga().partidos"></span> fechas &middot;
+        <span [appContador]="liga().golesTotales"></span> goles &middot;
+        <span [appContador]="liga().promedioGolesPorPartido" [decimales]="1"></span> por partido
+      </span>
     </div>
 
     <div class="panel">
@@ -16,7 +20,7 @@
         @for (f of fechas(); track f.id) {
           <li>
             <a [routerLink]="[f.id]">
-              <span class="num">F{{ f.id }}</span>
+              <span class="num">F<span [appContador]="f.id"></span></span>
 
               <span class="equipo naranja" [class.gano]="f.ganador === 'naranja'">Naranja</span>
               <span class="marcador">
@@ -29,7 +33,15 @@
               <span class="figura">
                 @if (f.mvp) {
                   {{ f.mvp.nombre }}
-                  <span class="sub">{{ f.mvp.goles }}G {{ f.mvp.asistencias }}A</span>
+                  <!-- &ngsp; y no un espacio suelto: Angular compila con
+                       preserveWhitespaces en false y borra los nodos de solo espacio
+                       entre dos elementos. -->
+                  <span class="sub"
+                    ><span [appContador]="f.mvp.goles" sufijo="G"></span>&ngsp;<span
+                      [appContador]="f.mvp.asistencias"
+                      sufijo="A"
+                    ></span
+                  ></span>
                 }
               </span>
 

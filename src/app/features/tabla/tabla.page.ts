@@ -83,10 +83,38 @@ export class TablaPage {
     this.contadores.reiniciar();
   }
 
+  /** Cambia el juego de filas entero, asi que se re-anima toda la pantalla. */
   cambiarVista(vista: Vista): void {
     this.vista.set(vista);
     const primera = METRICAS.find((m) => m.familia === vista);
     if (primera) this.clave.set(primera.clave);
+    this.contadores.reiniciar();
+  }
+
+  /**
+   * Cambiar de metrica re-ordena las filas pero los numeros son los mismos: se re-anima
+   * solo la columna nueva, que es la que pasa a importar. Sacudir la tabla entera por
+   * cambiar de pestana marea.
+   *
+   * Se reinicia por COLUMNA y no por clave: varias metricas caen en la misma columna
+   * (Goles y Goles/PJ resaltan `goles`; PG, PG% y Pts/PJ resaltan `PG`), y la que se
+   * anima tiene que ser la que se resalta.
+   */
+  elegirMetrica(clave: ClaveMetrica): void {
+    this.clave.set(clave);
+    const columna = METRICAS.find((m) => m.clave === clave)?.columna;
+    if (columna) this.contadores.reiniciarGrupo(this.grupoDe(columna));
+  }
+
+  /** Cambia que filas entran, no solo el orden: se re-anima todo. */
+  cambiarSoloHabituales(valor: boolean): void {
+    this.soloHabituales.set(valor);
+    this.contadores.reiniciar();
+  }
+
+  /** Canal del reloj de una columna. La plantilla lo escribe literal en cada celda. */
+  grupoDe(columna: string): string {
+    return `col-${columna}`;
   }
 
   /** La columna de la tabla se resalta cuando la metrica activa la usa. */
@@ -99,11 +127,13 @@ export class TablaPage {
     return formatearValor(stats[clave], metrica.formato);
   }
 
-  porcentaje(parte: number, total: number): string {
-    return total > 0 ? `${((parte / total) * 100).toFixed(0)}%` : '0%';
+  // Devuelven numeros y no texto: el formato lo pone [appContador] con `decimales` y
+  // `sufijo`, que es lo unico que le deja animar la cifra.
+  porcentaje(parte: number, total: number): number {
+    return total > 0 ? (parte / total) * 100 : 0;
   }
 
-  promedio(total: number, PJ: number): string {
-    return PJ > 0 ? (total / PJ).toFixed(2) : '0.00';
+  promedio(total: number, PJ: number): number {
+    return PJ > 0 ? total / PJ : 0;
   }
 }

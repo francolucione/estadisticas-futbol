@@ -16,13 +16,6 @@ export function valorDe(stats: StatsJugador, metrica: Metrica): string {
   return formatearValor(stats[metrica.clave], metrica.formato);
 }
 
-/** Diferencia en puntos porcentuales, con signo explicito. */
-export function formatearDelta(delta: number): string {
-  const pp = delta * 100;
-  const signo = pp > 0 ? '+' : '';
-  return `${signo}${pp.toFixed(0)} pp`;
-}
-
 /** Iniciales para el avatar del jugador. */
 export function iniciales(nombre: string): string {
   const partes = nombre.trim().split(/\s+/).filter(Boolean);

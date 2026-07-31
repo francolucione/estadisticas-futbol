@@ -29,9 +29,23 @@
 @import "./theme/metal.css";
 
 body {
+  /* Solo se ve en las zonas seguras y en el rebote del scroll. */
   background: var(--metal-plano);
   color: var(--tinta);
   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/*
+ * El fondo de pagina va aca y no en body: ion-content dibuja su propio
+ * <div id="background-content"> en position:absolute inset:0 por encima, asi que un
+ * background en body queda tapado y no se ve nunca.
+ *
+ * Ese div se apoya en el host, que es el viewport y no el largo del scroll: la aurora
+ * queda quieta mientras el contenido pasa por delante. No hay ninguna animacion
+ * corriendo, asi que en el telefono no cuesta bateria.
+ */
+ion-content {
+  --background: var(--metal-fondo);
 }
 
 /* ------------------------------------------------------------- cabecera */
@@ -71,13 +85,17 @@ ion-title {
 
 /*
  * El filo de un pixel arriba es lo que hace que el panel lea como chapa.
- * Sin el es un rectangulo gris.
+ * Sin el es un rectangulo gris. La sombra de afuera lo despega del resplandor del
+ * fondo: apoyado directamente sobre la aurora parecia pegado con cinta.
  */
 .panel {
   background: var(--metal-panel);
   border: 1px solid var(--metal-borde);
   border-radius: 6px;
-  box-shadow: inset 0 1px 0 var(--metal-filo);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 0 26px -8px var(--metal-halo),
+    inset 0 1px 0 var(--metal-filo);
   overflow: hidden;
 }
 
@@ -284,7 +302,10 @@ ion-title {
   border-radius: 6px;
   background: var(--metal-panel);
   border: 1px solid var(--metal-borde);
-  box-shadow: inset 0 1px 0 var(--metal-filo);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 0 26px -8px var(--metal-halo),
+    inset 0 1px 0 var(--metal-filo);
   color: var(--tinta);
   min-width: 0;
 
@@ -498,6 +519,17 @@ input[type='number'] {
     text-decoration: none;
     font-weight: 600;
   }
+}
+
+/*
+ * Todo numero animado, en cualquier pantalla. La directiva se pone la clase sola.
+ *
+ * Las cifras de ancho fijo no son cosmetica aca: mientras el numero revuelve digitos al
+ * azar, con anchos variables la celda salta en cada parpadeo. .tabla-densa ya lo traia,
+ * pero los tiles y las fichas no.
+ */
+.contador {
+  font-variant-numeric: tabular-nums;
 }
 
 /* Texto solo para lectores de pantalla. */

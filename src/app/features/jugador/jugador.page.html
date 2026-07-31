@@ -15,12 +15,18 @@
       <div>
         <h1>{{ p.stats.nombre }}</h1>
         <p class="sub">
-          {{ p.stats.PJ }} partidos &middot;
-          {{ p.stats.PG }}V {{ p.stats.PE }}E {{ p.stats.PP }}D
+          <span [appContador]="p.stats.PJ"></span> partidos &middot;
+          <!-- &ngsp; y no un espacio suelto: Angular compila con preserveWhitespaces
+               en false y borra los nodos de solo espacio entre dos elementos. -->
+          <span [appContador]="p.stats.PG" sufijo="V"></span>&ngsp;<span
+            [appContador]="p.stats.PE"
+            sufijo="E"
+          ></span>&ngsp;<span [appContador]="p.stats.PP" sufijo="D"></span>
         </p>
         @if (p.stats.PJ < minimoRanking) {
           <p class="aviso">
-            Menos de {{ minimoRanking }} partidos: sus promedios son poco representativos.
+            Menos de <span [appContador]="minimoRanking"></span> partidos:
+            sus promedios son poco representativos.
           </p>
         }
       </div>
@@ -36,17 +42,23 @@
         <div class="tile">
           <span class="valor" [appContador]="p.stats.goles"></span>
           <span class="rotulo">Goles</span>
-          <span class="pie">{{ p.stats.golesPorPartido.toFixed(2) }} por partido</span>
+          <span class="pie">
+            <span [appContador]="p.stats.golesPorPartido" [decimales]="2"></span> por partido
+          </span>
         </div>
         <div class="tile">
           <span class="valor" [appContador]="p.stats.asistencias"></span>
           <span class="rotulo">Asistencias</span>
-          <span class="pie">{{ p.stats.asistenciasPorPartido.toFixed(2) }} por partido</span>
+          <span class="pie">
+            <span [appContador]="p.stats.asistenciasPorPartido" [decimales]="2"></span> por partido
+          </span>
         </div>
         <div class="tile">
           <span class="valor" [appContador]="p.stats.pgPorcentaje * 100" sufijo="%"></span>
           <span class="rotulo">Victorias</span>
-          <span class="pie">{{ p.stats.puntosPorPartido.toFixed(2) }} pts/partido</span>
+          <span class="pie">
+            <span [appContador]="p.stats.puntosPorPartido" [decimales]="2"></span> pts/partido
+          </span>
         </div>
         <div class="tile">
           <span class="valor" [appContador]="p.stats.participacionGoles * 100" sufijo="%"></span>
@@ -61,12 +73,17 @@
             [signo]="true"
           ></span>
           <span class="rotulo">Diferencia de gol</span>
-          <span class="pie">{{ p.stats.GF }} a favor / {{ p.stats.GC }} en contra</span>
+          <span class="pie">
+            <span [appContador]="p.stats.GF"></span> a favor /
+            <span [appContador]="p.stats.GC"></span> en contra
+          </span>
         </div>
         <div class="tile">
           <span class="valor" [appContador]="p.stats.influencias"></span>
           <span class="rotulo">Influencias</span>
-          <span class="pie">{{ p.stats.influenciasPorPartido.toFixed(2) }} por partido</span>
+          <span class="pie">
+            <span [appContador]="p.stats.influenciasPorPartido" [decimales]="2"></span> por partido
+          </span>
         </div>
       </div>
     </section>
@@ -83,11 +100,14 @@
                 <span aria-hidden="true">{{ r }}</span>
               </span>
             }
-            <span class="racha">{{ textoRacha(p.rachaActual.tipo, p.rachaActual.cantidad) }}</span>
+            <span class="racha">
+              <span [appContador]="p.rachaActual.cantidad"></span>
+              {{ textoRacha(p.rachaActual.tipo, p.rachaActual.cantidad) }}
+            </span>
           </div>
           <p class="detalle">
-            Mejor invicto: <strong>{{ p.mejorInvicto }}</strong> partidos &middot;
-            Peor racha: <strong>{{ p.peorRacha }}</strong> derrotas seguidas
+            Mejor invicto: <strong [appContador]="p.mejorInvicto"></strong> partidos &middot;
+            Peor racha: <strong [appContador]="p.peorRacha"></strong> derrotas seguidas
           </p>
         </div>
       </div>
@@ -109,7 +129,7 @@
       <h2>Con quien</h2>
       <p class="explica">
         Cuanto le rinde jugar con cada companero, comparado con sus otros partidos.
-        Minimo {{ minimoPar }} partidos juntos.
+        Minimo <span [appContador]="minimoPar"></span> partidos juntos.
       </p>
       <div class="panel">
         <nav class="segmento" aria-label="Orden de companeros">
@@ -137,7 +157,8 @@
       </div>
       @if (p.companeroMasFrecuente; as c) {
         <p class="detalle">
-          Con quien mas jugo: <strong>{{ c.nombre }}</strong> ({{ c.PJ }} partidos).
+          Con quien mas jugo: <strong>{{ c.nombre }}</strong>
+          (<span [appContador]="c.PJ"></span> partidos).
         </p>
       }
     </section>
@@ -146,7 +167,8 @@
     <section class="seccion">
       <h2>Contra quien</h2>
       <p class="explica">
-        Lo mismo, pero enfrentandolo. Minimo {{ minimoPar }} partidos en veredas opuestas.
+        Lo mismo, pero enfrentandolo.
+        Minimo <span [appContador]="minimoPar"></span> partidos en veredas opuestas.
       </p>
       <div class="panel">
         <nav class="segmento" aria-label="Orden de rivales">
@@ -171,7 +193,8 @@
       </div>
       @if (p.rivalMasFrecuente; as r) {
         <p class="detalle">
-          Su rival mas habitual: <strong>{{ r.nombre }}</strong> ({{ r.PJ }} partidos).
+          Su rival mas habitual: <strong>{{ r.nombre }}</strong>
+          (<span [appContador]="r.PJ"></span> partidos).
         </p>
       }
     </section>
@@ -185,8 +208,16 @@
             <li>
               <span class="k">Mejor partido</span>
               <span class="v">
-                Fecha {{ m.partidoId }} &middot; {{ m.goles }}G {{ m.asistencias }}A
-                <span class="sub">({{ m.golesFavor }}-{{ m.golesContra }})</span>
+                Fecha <span [appContador]="m.partidoId"></span> &middot;
+                <span [appContador]="m.goles" sufijo="G"></span>&ngsp;<span
+                  [appContador]="m.asistencias"
+                  sufijo="A"
+                ></span>&ngsp;<span class="sub"
+                  >(<span [appContador]="m.golesFavor"></span>-<span
+                    [appContador]="m.golesContra"
+                  ></span
+                  >)</span
+                >
               </span>
             </li>
           }
@@ -213,14 +244,32 @@
     <!-- Puestos -->
     <section class="seccion">
       <h2>Donde esta en la tabla</h2>
-      <p class="explica">Entre los {{ p.posiciones['goles'].total }} jugadores con {{ minimoRanking }}+ partidos.</p>
+      <p class="explica">
+        Entre los <span [appContador]="p.posiciones['goles'].total"></span> jugadores con
+        <span [appContador]="minimoRanking" sufijo="+"></span> partidos.
+      </p>
       <div class="panel">
         <ul class="records">
-          <li><span class="k">Goles</span><span class="v">{{ ordinal(p.posiciones['goles'].puesto) }}</span></li>
-          <li><span class="k">Asistencias</span><span class="v">{{ ordinal(p.posiciones['asistencias'].puesto) }}</span></li>
-          <li><span class="k">Influencias</span><span class="v">{{ ordinal(p.posiciones['influencias'].puesto) }}</span></li>
-          <li><span class="k">% de victorias</span><span class="v">{{ ordinal(p.posiciones['pgPorcentaje'].puesto) }}</span></li>
-          <li><span class="k">Diferencia de gol</span><span class="v">{{ ordinal(p.posiciones['DG'].puesto) }}</span></li>
+          <li>
+            <span class="k">Goles</span>
+            <span class="v" [appContador]="p.posiciones['goles'].puesto" sufijo="º"></span>
+          </li>
+          <li>
+            <span class="k">Asistencias</span>
+            <span class="v" [appContador]="p.posiciones['asistencias'].puesto" sufijo="º"></span>
+          </li>
+          <li>
+            <span class="k">Influencias</span>
+            <span class="v" [appContador]="p.posiciones['influencias'].puesto" sufijo="º"></span>
+          </li>
+          <li>
+            <span class="k">% de victorias</span>
+            <span class="v" [appContador]="p.posiciones['pgPorcentaje'].puesto" sufijo="º"></span>
+          </li>
+          <li>
+            <span class="k">Diferencia de gol</span>
+            <span class="v" [appContador]="p.posiciones['DG'].puesto" sufijo="º"></span>
+          </li>
         </ul>
       </div>
     </section>

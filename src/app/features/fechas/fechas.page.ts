@@ -41,8 +41,6 @@ export class FechasPage {
       });
   });
 
-  readonly resumen = computed(() => {
-    const l = this.statsSvc.liga();
-    return `${l.partidos} fechas · ${l.golesTotales} goles · ${l.promedioGolesPorPartido.toFixed(1)} por partido`;
-  });
+  /** Los tres numeros del resumen se arman en la plantilla, para poder animarlos. */
+  readonly liga = this.statsSvc.liga;
 }

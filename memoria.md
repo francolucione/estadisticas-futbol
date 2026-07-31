@@ -214,7 +214,7 @@ npx cap run android      # requiere Android Studio / SDK
 **Modo:** Solo oscuro
 
 **Colores:**
-- **Base:** Grafito con filos brillantes
+- **Base:** Grafito con filos brillantes sobre un fondo casi negro con aurora
 - **Acento:** Cyan (chrome: links, tab activo, foco, banda de podio)
 - **Datos:** Naranja/azul (equipos) + escala divergente azul-rojo
 - **Densidad:** Estilo Promiedos
@@ -223,15 +223,63 @@ npx cap run android      # requiere Android Studio / SDK
 
 **Importante:** Los colores de dato están validados para contraste y daltonismo. El cyan **nunca** pinta un dato (ambigüedad con azul de equipo). No cambiar hexadecimales sin revalidar.
 
+### La trampa de especificidad de Ionic
+
+`global.scss` importa `@ionic/angular/css/palettes/dark.always.css`, que declara sus colores bajo **`:root.md`** y **`:root.ios`** (0-2-0), no bajo `:root` (0-1-0). Como `provideIonicAngular()` va sin `mode`, Ionic estampa `md` en `<html>`.
+
+Durante un tiempo esto hizo que el sistema visual **no se viera**: la app pintaba el `#121212` de fábrica en vez de nuestro plano, y `#1f1f1f` en la barra de tabs en vez de `#101014`. El orden de import no salva: hay que empatar la especificidad.
+
+Por eso el bloque de variables `--ion-*` en `metal.css` va con las tres formas del selector:
+
+```css
+:root, :root.md, :root.ios { --ion-background-color: #07070b; }
+```
+
+Si algún token `--ion-*` nuevo "no se aplica", el problema es casi siempre este.
+
+### Fondo de pantalla
+
+Negro `#06060a` con tres manchas de luz: cyan arriba-izquierda, violeta abajo-derecha e índigo de piso (`--metal-fondo`). Son **chrome**, igual que el cyan: nunca pintan un dato.
+
+Va en `ion-content { --background }`, **no** en `body`: `ion-content` dibuja su propio `<div id="background-content">` en `position:absolute inset:0` por encima, así que un fondo en `body` queda tapado. Ese div se apoya en el viewport y no en el largo del scroll, así que la aurora queda quieta mientras el contenido pasa por delante — sin ninguna animación corriendo.
+
+#### Dos trampas al calibrar la aurora
+
+El primer intento se veía exactamente igual que un negro plano. Los dos motivos, por si vuelve a pasar:
+
+1. **Los centros de los radiales tienen que caer DENTRO del viewport.** Puestos en los bordes (`at 4% -8%`, `at 100% 106%`) el pico queda fuera de pantalla y lo que se ve es la cola.
+2. **El alpha declarado es el del pico, y el pico ocupa un punto.** En la zona que realmente se ve, la intensidad ya cayó a la mitad o menos.
+
+Combinadas, dejaban la franja visible en `#081015` contra un plano `#07070b`: diez unidades de RGB, o sea nada. Con los centros adentro y el alpha en 0.26/0.22/0.18, la separación es de ~40 unidades.
+
+#### Por qué además se tiñó el chrome
+
+En el teléfono los paneles opacos tapan casi toda la pantalla y del fondo sólo quedan los 10px de canaleta de `.contenido`. Por eso el color no puede venir sólo del fondo: `--metal-panel-alto` (cabeceras de tabla, botones), `--metal-degradado` (toolbar y segmento), `--metal-borde` y `--metal-filo` están corridos hacia el azul. En pantalla ancha la aurora sí se luce, porque `.contenido` tiene `max-width: 720px` y los costados quedan libres.
+
+**`--metal-panel` (#141419) no se toca**: es la superficie contra la que están medidos los contrastes de dato. El chrome que sí se movió cambia los contrastes en 0.02 (verificado); los `--viz-*` de dato quedan idénticos porque `--viz-surface` sigue siendo #141419.
+
+Los paneles llevan además un halo cyan (`--metal-halo`) por `box-shadow`, que los despega del resplandor. Nada de `backdrop-filter`: en tablas largas sobre WebView de Android cuesta caro y encima movería la superficie validada.
+
 ### Contador de carga
 
-Al entrar a cada pantalla los números suben desde cero: rápido al principio y frenando al final (easeOutExpo, 900 ms).
+Al entrar a una pantalla los números arrancan **revolviendo dígitos al azar** (~240 ms, ilegible a propósito) y recién después suben frenando hasta su valor (easeOutExpo, 860 ms). Es puro dibujo: el valor de verdad nunca cambia.
 
-- `src/app/shared/contador.service.ts` — **un solo** `requestAnimationFrame` para toda la app. La tabla de posiciones sola tiene ~260 celdas animándose a la vez; con un reloj por número el teléfono se arrastra
-- `src/app/shared/contador.directive.ts` — `[appContador]`, con `decimales`, `signo` y `sufijo`. Se adueña del contenido del elemento, así que va en un nodo propio y vacío
-- Lo dispara `ionViewWillEnter()` en cada página, que Ionic llama también al volver a una pestaña ya montada
-- Con `prefers-reduced-motion: reduce` los números aparecen directamente en su valor final
-- **Solo se animan los números protagonistas.** Los valores entre paréntesis, los promedios al pie de los tiles y los que van dentro de una frase quedan fijos. El número de puesto tampoco se anima: es un ranking, no una cantidad
+- `src/app/shared/contador.service.ts` — **un solo** `requestAnimationFrame` para toda la app, repartido en canales. La tabla de posiciones sola tiene ~260 celdas animándose a la vez; con un reloj por número el teléfono se arrastra
+- `src/app/shared/contador.directive.ts` — `[appContador]`, con `decimales`, `signo`, `sufijo` y `grupo`. Se adueña del contenido del elemento, así que va en un nodo propio y vacío: los paréntesis y las unidades quedan como texto hermano
+- El revuelto cambia **solo los dígitos** y deja el signo, el punto decimal y el sufijo donde están, así el texto conserva su largo final. Sin eso la celda salta en cada parpadeo. Por lo mismo, `.contador` lleva `font-variant-numeric: tabular-nums` en `global.scss`
+- Los dígitos cambian cada 55 ms, no por frame: por frame se ve mush y además multiplica las escrituras al DOM
+- Con `prefers-reduced-motion: reduce` los números aparecen directamente en su valor final, sin ruido
+- **Se animan todos los números**, incluido el puesto (#). Las únicas excepciones son el panel admin (es una herramienta de carga, sus números viven en `<input>`) y los valores de curiosidad, que son strings
+
+#### Canales
+
+Los canales existen para poder re-animar una columna sola:
+
+- `reiniciar()` — todos los canales. Lo llama `ionViewWillEnter()` en cada página, y los filtros que cambian el juego de filas (el checkbox de +10 PJ y el cambio de familia)
+- `reiniciarGrupo(g)` — uno solo. Lo llama el cambio de métrica en Tabla, que re-ordena las filas pero no cambia los números: se anima solo la columna que pasa a resaltarse
+- Se reinicia por **columna**, no por clave de métrica: varias métricas caen en la misma columna (Goles y Goles/PJ resaltan `goles`; PG, PG% y Pts/PJ resaltan `PG`)
+- El buscador de Jugadores **no** dispara nada: saltaría en cada tecla
+- Como `@for` usa `track j.nombre`, al re-ordenar las directivas siguen vivas. Reiniciar el canal es el mecanismo correcto; no hay que recrear DOM
 
 ### Separación en tablas
 
@@ -262,5 +310,5 @@ Cada barra se pinta por resultado: verde ganado, gris empatado, rojo perdido. Ll
 
 ---
 
-**Última actualización:** 2026-07-30  
-**Rama:** `main` (desarrollo). Las versiones estables viven en `v1`, `v2`, `v3`
+**Última actualización:** 2026-07-31  
+**Rama:** `v4` (desarrollo). Las versiones estables viven en `v1`, `v2`, `v3`

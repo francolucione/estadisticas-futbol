@@ -18,20 +18,52 @@
   color-scheme: dark;
 
   /* --- Superficies --- */
-  --metal-plano: #0b0b0e;
+  --metal-plano: #06060a;
+  /*
+   * --metal-panel es la superficie contra la que estan medidos los contrastes de
+   * dato. No se toca. El color de la pantalla entra por el fondo y por el chrome
+   * (barras, cabeceras de tabla, filos), que no participan de ninguna medicion.
+   */
   --metal-panel: #141419;
   --metal-fila: #17171a;
-  --metal-panel-alto: #1c1c22;
-  --metal-borde: #26262e;
+  /* Chrome: cabeceras de tabla y botones. Levemente azulado, no gris neutro. */
+  --metal-panel-alto: #1b1c26;
+  --metal-borde: #262835;
   /*
    * Mas apagado que --metal-borde. Separa columnas dentro de una tabla sin
    * competir con la linea de fila, que tiene que seguir leyendose primero:
    * si las dos pesaran igual quedaria una cuadricula.
    */
-  --metal-borde-suave: #1f1f26;
+  --metal-borde-suave: #20212b;
   /* El filo de arriba es lo que hace que lea como chapa y no como gris. */
-  --metal-filo: #34343f;
-  --metal-degradado: linear-gradient(180deg, #1c1c22 0%, #141419 100%);
+  --metal-filo: #3a3f52;
+  --metal-degradado: linear-gradient(180deg, #1e1f2b 0%, #14141c 100%);
+
+  /*
+   * Aurora del fondo de pagina. Es CHROME, igual que el cyan: nunca pinta un dato.
+   *
+   * Dos cosas que hay que respetar si se toca:
+   *
+   * 1. Los centros van DENTRO del viewport. Puestos en los bordes (-8%, 106%) el
+   *    pico del radial cae fuera de la pantalla y lo que se ve es la cola: la
+   *    diferencia contra el plano queda en unas diez unidades de RGB, o sea nada.
+   * 2. El alpha es el del pico, y el pico ocupa un punto. En la zona que de verdad
+   *    se ve la intensidad ya cayo a la mitad. Por 0.11 no se ve nada.
+   *
+   * Para subir o bajar la intensidad general, mover estos tres alphas a la vez.
+   */
+  --aurora-cyan: rgba(34, 211, 238, 0.26);
+  --aurora-violeta: rgba(139, 92, 246, 0.22);
+  --aurora-indigo: rgba(56, 89, 220, 0.18);
+  --metal-fondo:
+    radial-gradient(62% 48% at 10% 14%, var(--aurora-cyan), transparent 72%),
+    radial-gradient(58% 46% at 90% 86%, var(--aurora-violeta), transparent 72%),
+    /* Piso frio, para que la mitad de abajo no caiga a gris plano. */
+    radial-gradient(130% 42% at 50% 100%, var(--aurora-indigo), transparent 70%),
+    var(--metal-plano);
+
+  /* Halo de los paneles: se apoya sobre la aurora y los despega del fondo. */
+  --metal-halo: rgba(34, 211, 238, 0.16);
 
   /* --- Tinta (contraste medido sobre #141419) --- */
   --tinta: #ffffff;        /* 18.4:1 */
@@ -59,19 +91,39 @@
   --viz-empate: #898781;
   --viz-derrota: #ef4444;   /* 4.9:1 — el #d03b3b anterior daba 3.8 */
 
-  /* --- Chrome de los graficos --- */
+  /*
+   * --- Chrome de los graficos ---
+   *
+   * Espeja al chrome de la app, no a los colores de dato. --viz-surface es la unica
+   * que importa para la validacion: es la superficie contra la que estan medidas las
+   * barras, y sigue siendo #141419.
+   */
   --viz-surface: #141419;
-  --viz-grid: #26262e;
-  --viz-axis: #34343f;
+  --viz-grid: #262835;
+  --viz-axis: #3a3f52;
   --viz-muted: #a1a1aa;
   --viz-ink: #ffffff;
   --viz-ink-2: #a1a1aa;
-  --viz-tarjeta: #1c1c22;
+  --viz-tarjeta: #1b1c26;
   --viz-fila: #17171a;
+}
 
-  /* --- Variables de Ionic, alineadas al sistema --- */
-  --ion-background-color: #0b0b0e;
-  --ion-background-color-rgb: 11, 11, 14;
+/*
+ * Variables de Ionic, alineadas al sistema.
+ *
+ * Van con las tres formas del selector a proposito. La paleta oscura de Ionic
+ * (@ionic/angular/css/palettes/dark.always.css, importada en global.scss) declara sus
+ * colores bajo :root.md y :root.ios, que le ganan por especificidad a un :root pelado
+ * sin importar el orden de import. Como provideIonicAngular() va sin `mode`, Ionic
+ * estampa `md` en <html> y sin esta repeticion la app pinta su #121212 de fabrica:
+ * estos hexadecimales no se ven nunca. Empatados en especificidad, gana metal.css
+ * porque se importa despues.
+ */
+:root,
+:root.md,
+:root.ios {
+  --ion-background-color: #07070b;
+  --ion-background-color-rgb: 7, 7, 11;
   --ion-text-color: #ffffff;
   --ion-text-color-rgb: 255, 255, 255;
   --ion-border-color: #26262e;

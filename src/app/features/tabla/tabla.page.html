@@ -49,7 +49,7 @@
             <tbody>
               @for (j of posiciones(); track j.nombre; let i = $index) {
                 <tr [class.zona-podio]="i < 3" [class.zona-fondo]="i >= posiciones().length - 3">
-                  <td class="col-puesto">{{ i + 1 }}</td>
+                  <td class="col-puesto"><span [appContador]="i + 1"></span></td>
                   <td class="col-nombre">
                     <a [routerLink]="['jugador', j.nombre]">{{ j.nombre }}</a>
                   </td>
@@ -71,15 +71,15 @@
       </div>
 
       <p class="explica">
-        Solo jugadores con {{ minimo }} partidos o mas. La banda cyan marca el podio;
-        la roja, los ultimos tres.
+        Solo jugadores con <span [appContador]="minimo"></span> partidos o mas.
+        La banda cyan marca el podio; la roja, los ultimos tres.
       </p>
     </div>
   } @else {
     <!-- --------------------------------------------- rankings por metrica -->
     <nav class="segmento metricas" aria-label="Metrica">
       @for (m of metricasDeFamilia(); track m.clave) {
-        <button [class.activo]="clave() === m.clave" (click)="clave.set(m.clave)">
+        <button [class.activo]="clave() === m.clave" (click)="elegirMetrica(m.clave)">
           {{ m.etiqueta }}
         </button>
       }
@@ -92,9 +92,9 @@
           <input
             type="checkbox"
             [checked]="soloHabituales()"
-            (change)="soloHabituales.set($any($event.target).checked)"
+            (change)="cambiarSoloHabituales($any($event.target).checked)"
           />
-          Solo {{ minimo }}+ PJ
+          Solo <span [appContador]="minimo" sufijo="+"></span> PJ
         </label>
       </div>
 
@@ -120,40 +120,83 @@
             <tbody>
               @for (j of filas(); track j.nombre; let i = $index) {
                 <tr>
-                  <td class="col-puesto">{{ i + 1 }}</td>
+                  <td class="col-puesto"><span [appContador]="i + 1"></span></td>
                   <td class="col-nombre">
                     <a [routerLink]="['jugador', j.nombre]">{{ j.nombre }}</a>
                   </td>
                   <td [class.resaltada]="resaltada('goles')">
-                    <span [appContador]="j.goles"></span>
-                    <span class="sub">({{ promedio(j.goles, j.PJ) }})</span>
+                    <span [appContador]="j.goles" grupo="col-goles"></span>
+                    <span class="sub"
+                      >(<span
+                        [appContador]="promedio(j.goles, j.PJ)"
+                        [decimales]="2"
+                        grupo="col-goles"
+                      ></span
+                      >)</span
+                    >
                   </td>
                   <td [class.resaltada]="resaltada('asistencias')">
-                    <span [appContador]="j.asistencias"></span>
-                    <span class="sub">({{ promedio(j.asistencias, j.PJ) }})</span>
+                    <span [appContador]="j.asistencias" grupo="col-asistencias"></span>
+                    <span class="sub"
+                      >(<span
+                        [appContador]="promedio(j.asistencias, j.PJ)"
+                        [decimales]="2"
+                        grupo="col-asistencias"
+                      ></span
+                      >)</span
+                    >
                   </td>
                   <td [class.resaltada]="resaltada('influencias')">
-                    <span [appContador]="j.influencias"></span>
-                    <span class="sub">({{ promedio(j.influencias, j.PJ) }})</span>
+                    <span [appContador]="j.influencias" grupo="col-influencias"></span>
+                    <span class="sub"
+                      >(<span
+                        [appContador]="promedio(j.influencias, j.PJ)"
+                        [decimales]="2"
+                        grupo="col-influencias"
+                      ></span
+                      >)</span
+                    >
                   </td>
-                  <td [class.resaltada]="resaltada('PJ')"><span [appContador]="j.PJ"></span></td>
+                  <td [class.resaltada]="resaltada('PJ')">
+                    <span [appContador]="j.PJ" grupo="col-PJ"></span>
+                  </td>
                   <td [class.resaltada]="resaltada('PG')">
-                    <span [appContador]="j.PG"></span>
-                    <span class="sub">({{ porcentaje(j.PG, j.PJ) }})</span>
+                    <span [appContador]="j.PG" grupo="col-PG"></span>
+                    <span class="sub"
+                      >(<span
+                        [appContador]="porcentaje(j.PG, j.PJ)"
+                        sufijo="%"
+                        grupo="col-PG"
+                      ></span
+                      >)</span
+                    >
                   </td>
-                  <td [class.resaltada]="resaltada('PE')"><span [appContador]="j.PE"></span></td>
+                  <td [class.resaltada]="resaltada('PE')">
+                    <span [appContador]="j.PE" grupo="col-PE"></span>
+                  </td>
                   <td [class.resaltada]="resaltada('PP')">
-                    <span [appContador]="j.PP"></span>
-                    <span class="sub">({{ porcentaje(j.PP, j.PJ) }})</span>
+                    <span [appContador]="j.PP" grupo="col-PP"></span>
+                    <span class="sub"
+                      >(<span
+                        [appContador]="porcentaje(j.PP, j.PJ)"
+                        sufijo="%"
+                        grupo="col-PP"
+                      ></span
+                      >)</span
+                    >
                   </td>
-                  <td [class.resaltada]="resaltada('GF')"><span [appContador]="j.GF"></span></td>
-                  <td [class.resaltada]="resaltada('GC')"><span [appContador]="j.GC"></span></td>
+                  <td [class.resaltada]="resaltada('GF')">
+                    <span [appContador]="j.GF" grupo="col-GF"></span>
+                  </td>
+                  <td [class.resaltada]="resaltada('GC')">
+                    <span [appContador]="j.GC" grupo="col-GC"></span>
+                  </td>
                   <td
                     [class.resaltada]="resaltada('DG')"
                     [class.negativo]="j.DG < 0"
                     [class.positivo]="j.DG > 0"
                   >
-                    <span [appContador]="j.DG" [signo]="true"></span>
+                    <span [appContador]="j.DG" [signo]="true" grupo="col-DG"></span>
                   </td>
                 </tr>
               }

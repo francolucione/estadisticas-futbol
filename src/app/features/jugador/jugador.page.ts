@@ -76,18 +76,18 @@ export class JugadorPage {
 
   iniciales = iniciales;
 
-  ordinal(puesto: number): string {
-    return `${puesto}º`;
-  }
-
   etiquetaResultado(r: string): string {
     return r === 'V' ? 'Ganado' : r === 'E' ? 'Empatado' : 'Perdido';
   }
 
+  /**
+   * Solo las palabras. La cifra va aparte en su propio nodo para que [appContador]
+   * pueda animarla: la directiva se adueña del contenido del elemento que la lleva.
+   */
   textoRacha(tipo: string, cantidad: number): string {
     const plural = cantidad === 1 ? '' : 's';
-    if (tipo === 'V') return `${cantidad} victoria${plural} al hilo`;
-    if (tipo === 'D') return `${cantidad} derrota${plural} al hilo`;
-    return `${cantidad} empate${plural} al hilo`;
+    if (tipo === 'V') return `victoria${plural} al hilo`;
+    if (tipo === 'D') return `derrota${plural} al hilo`;
+    return `empate${plural} al hilo`;
   }
 }
