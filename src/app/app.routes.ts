@@ -34,6 +34,19 @@ export const routes: Routes = [
       { path: 'jugadores/comparar/:a', loadComponent: comparar },
 
       {
+        path: 'videos',
+        loadComponent: () => import('./features/videos/videos.page').then((m) => m.VideosPage),
+      },
+      {
+        path: 'videos/bitacora',
+        loadComponent: () => import('./features/videos/bitacora.page').then((m) => m.BitacoraPage),
+      },
+      {
+        path: 'videos/:id',
+        loadComponent: () => import('./features/videos/video.page').then((m) => m.VideoPage),
+      },
+
+      {
         path: 'datos',
         loadComponent: () => import('./features/datos/datos.page').then((m) => m.DatosPage),
       },

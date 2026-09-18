@@ -6,6 +6,7 @@ import {
   peopleOutline,
   podiumOutline,
   sparklesOutline,
+  videocamOutline,
 } from 'ionicons/icons';
 
 @Component({
@@ -26,6 +27,10 @@ import {
         <ion-tab-button tab="jugadores">
           <ion-icon name="people-outline" />
           <ion-label>Jugadores</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="videos">
+          <ion-icon name="videocam-outline" />
+          <ion-label>VAR</ion-label>
         </ion-tab-button>
         <ion-tab-button tab="datos">
           <ion-icon name="sparkles-outline" />
@@ -56,6 +61,6 @@ import {
 })
 export class TabsPage {
   constructor() {
-    addIcons({ podiumOutline, calendarOutline, peopleOutline, sparklesOutline });
+    addIcons({ podiumOutline, calendarOutline, peopleOutline, videocamOutline, sparklesOutline });
   }
 }

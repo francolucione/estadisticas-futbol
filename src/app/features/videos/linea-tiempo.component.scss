@@ -1,0 +1,107 @@
+:host {
+  display: block;
+}
+
+/*
+ * La pista es chrome: grafito con el filo de siempre. Lo unico que tiene color son los
+ * emoji, que son el dato. La aguja va en cyan porque es la posicion, no un dato.
+ */
+.pista {
+  position: relative;
+  background: var(--metal-panel);
+  border: 1px solid var(--metal-borde);
+  border-radius: 6px;
+  box-shadow: inset 0 1px 0 var(--metal-filo);
+  cursor: pointer;
+  overflow: hidden;
+  transition: height 0.2s ease;
+}
+
+.avance {
+  position: absolute;
+  inset: auto auto 0 0;
+  height: 3px;
+  background: var(--acento-borde);
+}
+
+.aguja {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--acento);
+  box-shadow: 0 0 8px var(--acento);
+  pointer-events: none;
+}
+
+.marca-min {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid var(--metal-borde-suave);
+  pointer-events: none;
+}
+
+.rotulo-min {
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  font-size: 0.58rem;
+  color: var(--tinta-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.marcador {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  margin-left: -11px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 1rem;
+  line-height: 22px;
+  cursor: pointer;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.8));
+  transition: transform 0.12s ease;
+
+  &:hover,
+  &:focus-visible {
+    transform: scale(1.35);
+    z-index: 2;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--acento);
+    outline-offset: 1px;
+    border-radius: 4px;
+  }
+
+  &.recien {
+    animation: latido 0.9s ease-out 2;
+  }
+}
+
+@keyframes latido {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pista,
+  .marcador {
+    transition: none;
+  }
+
+  .marcador.recien {
+    animation: none;
+    outline: 2px solid var(--acento);
+    border-radius: 4px;
+  }
+}

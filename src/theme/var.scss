@@ -1,0 +1,562 @@
+/*
+ * La pantalla del VAR. Vive aca y no en video.page.scss por dos motivos: el emoji que
+ * vuela se cuelga de <body> (fuera del encapsulado del componente), y la pantalla entera
+ * pasaba el presupuesto de 8 kB por componente de angular.json.
+ *
+ * Lo audaz es UNA cosa: la botonera. Teclas de chapa con recorrido, como una consola de
+ * repeticion, y el sello del segundo congelado sobre el video. Todo lo demas usa el
+ * sistema de siempre (panel, barra-seccion, bt) y se queda quieto.
+ */
+
+.var {
+  display: grid;
+  gap: 12px;
+  padding: 10px;
+  max-width: 1180px;
+  margin-inline: auto;
+
+  /* En pantalla ancha: video a la izquierda, mesa de carga a la derecha. */
+  @media (min-width: 960px) {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+/* El video queda a la vista mientras se scrollea la lista: sin eso, al marcar desde
+   abajo se pierde lo que se esta mirando. */
+.var-escenario {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: grid;
+  gap: 6px;
+  padding: 0 0 6px;
+  /* Fondo macizo: con un degradado a transparente, el reloj quedaba montado sobre las
+     teclas al scrollear. El borde y la sombra lo separan de lo que pasa por debajo. */
+  background: var(--metal-plano);
+  border-bottom: 1px solid var(--metal-borde);
+  box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.8);
+
+  @media (min-width: 960px) {
+    top: 10px;
+    background: none;
+    border-bottom: 0;
+    box-shadow: none;
+  }
+}
+
+.var-marco {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border: 1px solid var(--metal-borde);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow:
+    0 0 26px -8px var(--metal-halo),
+    inset 0 1px 0 var(--metal-filo);
+
+  iframe,
+  > div {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+}
+
+.var-error-video {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 16px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--tinta-2);
+}
+
+/* El segundo congelado, estampado arriba del video como la marca de revision. */
+.var-sello {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 8px;
+  border-radius: 4px;
+  background: rgba(6, 6, 10, 0.86);
+  border: 1px solid var(--acento-borde);
+  box-shadow: 0 0 24px -4px var(--acento);
+  pointer-events: none;
+  animation: sello 1.4s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+}
+
+.var-sello-emoji {
+  font-size: 1.5rem;
+}
+
+.var-sello-t {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes sello {
+  0% {
+    opacity: 0;
+    transform: scale(1.7) rotate(-6deg);
+  }
+  14% {
+    opacity: 1;
+    transform: scale(0.94) rotate(-2deg);
+  }
+  22% {
+    transform: scale(1) rotate(-2deg);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1) rotate(-2deg);
+  }
+}
+
+.var-reloj {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--tinta-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.var-reloj-t {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--tinta);
+}
+
+.var-reloj-dia {
+  margin-left: auto;
+}
+
+/* ----------------------------------------------------------- la botonera */
+
+.var-botonera {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(78px, 1fr));
+  gap: 8px;
+}
+
+/*
+ * Una tecla de chapa: degradado del chrome, filo de luz arriba y un "zocalo" oscuro
+ * abajo que es el recorrido. Al apretar baja 3px y el zocalo desaparece.
+ */
+.var-tecla {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: 10px 4px 8px;
+  appearance: none;
+  border: 1px solid var(--metal-borde);
+  border-radius: 8px;
+  background: var(--metal-degradado);
+  color: var(--tinta);
+  font: inherit;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 var(--metal-filo),
+    0 3px 0 #05050a,
+    0 4px 10px rgba(0, 0, 0, 0.5);
+  transition:
+    transform 0.06s ease,
+    box-shadow 0.06s ease;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover {
+    border-color: var(--metal-filo);
+  }
+
+  &:active,
+  &.activa {
+    transform: translateY(3px);
+    box-shadow:
+      inset 0 1px 0 var(--metal-filo),
+      0 0 0 #05050a,
+      0 0 18px -4px var(--acento);
+  }
+
+  &.activa {
+    border-color: var(--acento-borde);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--acento);
+    outline-offset: 2px;
+  }
+}
+
+.var-tecla-emoji {
+  font-size: 1.7rem;
+  line-height: 1.1;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.6));
+}
+
+.var-tecla-nombre {
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.var-tecla-atajo {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  font: inherit;
+  font-size: 0.56rem;
+  color: var(--tinta-2);
+
+  /* En el telefono no hay teclado: el atajo es ruido. */
+  @media (hover: none) {
+    display: none;
+  }
+}
+
+.var-tecla-nueva {
+  border-style: dashed;
+  background: transparent;
+  box-shadow: none;
+  color: var(--tinta-2);
+
+  .var-tecla-emoji {
+    filter: none;
+    color: var(--tinta-2);
+  }
+}
+
+/* ---------------------------------------------------------- hoja de carga */
+
+.var-hoja {
+  margin-top: 12px;
+  /* ion-content [fullscreen] pasa por debajo de la barra de pestanas: sin este margen,
+     al traer la hoja a la vista los botones quedaban tapados. */
+  scroll-margin-bottom: 72px;
+  animation: hoja 0.18s ease-out;
+}
+
+@keyframes hoja {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.var-hoja-que {
+  font-size: 0.85rem;
+}
+
+.var-hoja-t {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.var-hoja-rotulo {
+  margin: 10px 0 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--tinta-2);
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.var-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+/* El borde izquierdo de color dice el equipo; el relleno cyan, que esta elegido. El
+   equipo nunca va como relleno: el cyan de "elegido" es chrome y no puede confundirse
+   con un dato. */
+.var-chip {
+  appearance: none;
+  border: 1px solid var(--metal-borde);
+  border-left-width: 3px;
+  border-radius: 4px;
+  background: var(--metal-panel-alto);
+  color: var(--tinta);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  cursor: pointer;
+
+  &.naranja {
+    border-left-color: var(--viz-naranja);
+  }
+
+  &.azul {
+    border-left-color: var(--viz-azul);
+  }
+
+  &.elegido {
+    background: var(--acento-tenue);
+    border-color: var(--acento);
+    color: var(--acento-fuerte);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--acento);
+    outline-offset: 1px;
+  }
+}
+
+.var-chip-emoji {
+  border-left-width: 1px;
+  font-size: 1.1rem;
+  padding: 3px 7px;
+}
+
+.var-otro input {
+  width: 8.5rem;
+}
+
+.var-emoji-libre {
+  width: 3.4rem;
+  text-align: center;
+}
+
+.var-nota {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.var-campos {
+  display: grid;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.var-tipo {
+  margin: 10px 0 0;
+  border-radius: 4px;
+}
+
+.var-previa {
+  margin: 12px 0 0;
+  padding: 8px 10px;
+  border-radius: 4px;
+  background: var(--metal-plano);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.var-error {
+  margin: 10px 0 0;
+  font-size: 0.76rem;
+  color: var(--viz-derrota);
+}
+
+.var-hoja-acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.var-completo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+
+  .explica {
+    margin: 0;
+  }
+}
+
+/* ------------------------------------------------------------ lo marcado */
+
+.var-eventos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    font-size: 0.8rem;
+
+    & + li {
+      border-top: 1px solid var(--metal-borde);
+    }
+
+    &.recien {
+      background: var(--acento-tenue);
+    }
+  }
+}
+
+.var-ir {
+  appearance: none;
+  border: 0;
+  background: none;
+  padding: 2px 0;
+  color: var(--acento);
+  font: inherit;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+
+.var-ev-emoji {
+  font-size: 1.05rem;
+}
+
+.var-ev-texto {
+  min-width: 0;
+}
+
+.var-ev-nota {
+  display: block;
+  color: var(--tinta-2);
+  font-style: italic;
+}
+
+.var-ev-autor {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--tinta-2);
+}
+
+/* ------------------------------------------------------ aviso y volador */
+
+.var-aviso {
+  position: fixed;
+  left: 50%;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  z-index: 20;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  transform: translateX(-50%);
+  padding: 10px 14px;
+  border-radius: 6px;
+  background: var(--metal-panel-alto);
+  border: 1px solid var(--acento-borde);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 var(--metal-filo);
+  font-size: 0.82rem;
+  font-weight: 600;
+  animation: hoja 0.2s ease-out;
+}
+
+.emoji-volador {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  margin: -0.6em 0 0 -0.5em;
+  font-size: 1.2rem;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.6));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .var-sello {
+    animation: sello-quieto 1.4s steps(1) forwards;
+  }
+
+  .var-tecla,
+  .var-hoja,
+  .var-aviso {
+    transition: none;
+    animation: none;
+  }
+}
+
+@keyframes sello-quieto {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ----------------------------------------------------- lista de videos */
+
+.videos-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li + li {
+    border-top: 1px solid var(--metal-borde);
+  }
+
+  a {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 2px 10px;
+    padding: 9px 12px;
+    color: var(--tinta);
+    text-decoration: none;
+
+    &:hover {
+      background: var(--metal-fila);
+    }
+  }
+
+  .v-nombre {
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .v-meta {
+    grid-column: 1;
+    font-size: 0.7rem;
+    color: var(--tinta-2);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .v-marcas {
+    grid-row: 1 / span 2;
+    grid-column: 2;
+    text-align: right;
+    font-size: 0.72rem;
+    color: var(--tinta-2);
+    font-variant-numeric: tabular-nums;
+
+    strong {
+      display: block;
+      font-size: 1rem;
+      color: var(--tinta);
+    }
+  }
+
+  .v-terminado {
+    color: var(--viz-victoria);
+  }
+}

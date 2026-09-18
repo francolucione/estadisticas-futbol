@@ -1,3 +1,6 @@
+/* La pantalla del VAR (ver el porque adentro). `@use` tiene que ir primero. */
+@use "./theme/var";
+
 /*
  * Estilos globales de Gallo League.
  *
@@ -27,6 +30,7 @@
 
 /* Tokens del sistema visual */
 @import "./theme/metal.css";
+
 
 body {
   /* Solo se ve en las zonas seguras y en el rebote del scroll. */

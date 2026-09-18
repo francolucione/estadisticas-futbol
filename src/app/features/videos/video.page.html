@@ -1,0 +1,332 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/videos" text="Videos" />
+    </ion-buttons>
+    <ion-title>{{ titulo() }}</ion-title>
+    <ion-buttons slot="end">
+      <app-boton-sesion />
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if (video(); as v) {
+    <div class="var">
+      <!-- Columna del video: queda pegada arriba mientras se scrollea la lista. -->
+      <section class="var-escenario">
+        <div class="var-marco" #marco>
+          @if (errorVideo(); as err) {
+            <p class="var-error-video">{{ err }}</p>
+          }
+          @if (sello(); as s) {
+            <!-- El segundo congelado, estampado como la marca de revision del VAR. -->
+            @for (k of [s.clave]; track k) {
+              <div class="var-sello" aria-hidden="true">
+                <span class="var-sello-emoji">{{ captura()?.categoria?.emoji }}</span>
+                <span class="var-sello-t">{{ s.texto }}</span>
+              </div>
+            }
+          }
+        </div>
+
+        <app-linea-tiempo
+          [eventos]="eventos()"
+          [categorias]="indiceCategorias()"
+          [duracion]="duracion()"
+          [t]="t()"
+          [resaltado]="recien()"
+          (ir)="ir($event)"
+        />
+        <p class="var-reloj">
+          <span class="var-reloj-t">{{ hms(t()) }}</span>
+          <span class="var-reloj-total">de {{ hms(duracion()) }}</span>
+          @if (v.fechaReal) {
+            <span class="var-reloj-dia">jugada el {{ v.fechaReal.split('-').reverse().join('/') }}</span>
+          }
+        </p>
+      </section>
+
+      <section class="var-mesa">
+        <!-- La botonera: tocar congela el segundo y abre la carga. -->
+        <div class="var-botonera" role="group" aria-label="Marcar un evento en este segundo">
+          @for (c of categorias(); track c.id) {
+            <button
+              type="button"
+              class="var-tecla"
+              [id]="'tecla-' + c.id"
+              [class.activa]="captura()?.categoria?.id === c.id"
+              [title]="c.descripcion ?? c.nombre"
+              (click)="capturar(c, $any($event.currentTarget))"
+            >
+              <span class="var-tecla-emoji">{{ c.emoji }}</span>
+              <span class="var-tecla-nombre">{{ c.nombre }}</span>
+              @if (c.tecla) {
+                <kbd class="var-tecla-atajo">{{ c.tecla }}</kbd>
+              }
+            </button>
+          }
+          <button type="button" class="var-tecla var-tecla-nueva" (click)="abrirNueva()">
+            <span class="var-tecla-emoji">＋</span>
+            <span class="var-tecla-nombre">Inventar una</span>
+          </button>
+        </div>
+
+        <!-- La hoja de carga -->
+        @if (captura(); as c) {
+          <div class="panel var-hoja" role="dialog" aria-label="Anotar evento">
+            <div class="panel-cabecera">
+              <strong class="var-hoja-que">{{ c.categoria.emoji }} {{ c.categoria.nombre }}</strong>
+              <span class="var-hoja-t">
+                <button type="button" class="bt mini" (click)="ajustar(-1)" aria-label="Un segundo antes">−1</button>
+                <span class="contador">{{ hms(c.t) }}</span>
+                <button type="button" class="bt mini" (click)="ajustar(1)" aria-label="Un segundo después">+1</button>
+              </span>
+            </div>
+            <div class="panel-cuerpo">
+              @if (c.categoria.descripcion) {
+                <p class="explica">{{ c.categoria.descripcion }}</p>
+              }
+
+              <p class="var-hoja-rotulo">¿Quién?</p>
+              <div class="var-chips">
+                @for (j of jugadores(); track j.nombre) {
+                  <button
+                    type="button"
+                    class="var-chip"
+                    [class.elegido]="c.jugador === j.nombre"
+                    [class.naranja]="j.equipo === 'naranja'"
+                    [class.azul]="j.equipo === 'azul'"
+                    [attr.aria-pressed]="c.jugador === j.nombre"
+                    (click)="elegir(j.nombre)"
+                  >
+                    {{ j.nombre }}
+                  </button>
+                }
+                @if (c.jugador && !esDeLista(c.jugador)) {
+                  <button type="button" class="var-chip elegido" aria-pressed="true">{{ c.jugador }}</button>
+                }
+                <span class="var-otro">
+                  <input
+                    type="text"
+                    placeholder="Otro…"
+                    maxlength="40"
+                    [ngModel]="otro()"
+                    (ngModelChange)="otro.set($event)"
+                    (keydown.enter)="agregarOtro()"
+                    aria-label="Otro jugador"
+                  />
+                </span>
+              </div>
+
+              @if (c.categoria.segundo; as s) {
+                <p class="var-hoja-rotulo">{{ s.etiqueta }}{{ s.obligatorio ? '' : ' (opcional)' }}</p>
+                <div class="var-chips">
+                  @for (j of jugadores(); track j.nombre) {
+                    @if (j.nombre !== c.jugador) {
+                      <button
+                        type="button"
+                        class="var-chip"
+                        [class.elegido]="c.jugador2 === j.nombre"
+                        [class.naranja]="j.equipo === 'naranja'"
+                        [class.azul]="j.equipo === 'azul'"
+                        [attr.aria-pressed]="c.jugador2 === j.nombre"
+                        (click)="elegir(j.nombre, true)"
+                      >
+                        {{ j.nombre }}
+                      </button>
+                    }
+                  }
+                </div>
+              }
+
+              <input
+                type="text"
+                class="var-nota"
+                placeholder="Nota (opcional): «la tiró a la autopista»"
+                maxlength="200"
+                [ngModel]="c.nota"
+                (ngModelChange)="cambiarNota($event)"
+                aria-label="Nota"
+              />
+
+              <p class="var-previa">{{ vistaPrevia() }}</p>
+
+              @if (error(); as err) {
+                <p class="var-error">{{ err }}</p>
+              }
+
+              <div class="var-hoja-acciones">
+                <button type="button" class="bt" (click)="cancelar()">Cancelar</button>
+                @if (sesion.usuario()) {
+                  <button type="button" class="bt primario" [disabled]="!sePuedeAnotar()" (click)="anotar()">
+                    {{ guardando() ? 'Anotando…' : 'Anotar' }}
+                  </button>
+                } @else {
+                  <button type="button" class="bt primario" (click)="entrar()">Entrar con Google para anotar</button>
+                }
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- Categoria nueva -->
+        @if (nueva(); as n) {
+          <div class="panel var-hoja" role="dialog" aria-label="Inventar una categoría">
+            <div class="panel-cabecera">
+              <strong>Inventar una categoría</strong>
+            </div>
+            <div class="panel-cuerpo">
+              <p class="explica">Queda para todos, con su propio ranking.</p>
+              <div class="var-chips">
+                @for (e of emojis; track e) {
+                  <button
+                    type="button"
+                    class="var-chip var-chip-emoji"
+                    [class.elegido]="n.emoji === e"
+                    (click)="editarNueva({ emoji: e })"
+                  >
+                    {{ e }}
+                  </button>
+                }
+                <input
+                  type="text"
+                  class="var-emoji-libre"
+                  maxlength="8"
+                  [ngModel]="n.emoji"
+                  (ngModelChange)="editarNueva({ emoji: $event })"
+                  aria-label="Emoji"
+                />
+              </div>
+              <div class="var-campos">
+                <input
+                  type="text"
+                  placeholder="Nombre: Caño"
+                  maxlength="30"
+                  [ngModel]="n.nombre"
+                  (ngModelChange)="editarNueva({ nombre: $event })"
+                  aria-label="Nombre"
+                />
+                <input
+                  type="text"
+                  placeholder="Cómo se lee: {j} tira un caño"
+                  maxlength="80"
+                  [ngModel]="n.frase"
+                  (ngModelChange)="editarNueva({ frase: $event })"
+                  aria-label="Cómo se lee"
+                />
+              </div>
+              <div class="segmento var-tipo" role="radiogroup" aria-label="Tipo">
+                <button type="button" [class.activo]="n.tipo === 'juego'" (click)="editarNueva({ tipo: 'juego' })">De juego</button>
+                <button type="button" [class.activo]="n.tipo === 'gesto'" (click)="editarNueva({ tipo: 'gesto' })">Gesto</button>
+                <button type="button" [class.activo]="n.tipo === 'graciosa'" (click)="editarNueva({ tipo: 'graciosa' })">Graciosa</button>
+              </div>
+              <p class="var-previa">{{ n.emoji }} {{ fraseNueva().replace('{j}', 'Lucio') }}</p>
+              @if (error(); as err) {
+                <p class="var-error">{{ err }}</p>
+              }
+              <div class="var-hoja-acciones">
+                <button type="button" class="bt" (click)="cancelar()">Cancelar</button>
+                @if (sesion.usuario()) {
+                  <button type="button" class="bt primario" [disabled]="!nuevaValida() || guardando()" (click)="crearCategoria()">
+                    Crear categoría
+                  </button>
+                } @else {
+                  <button type="button" class="bt primario" (click)="entrar()">Entrar con Google para crear</button>
+                }
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- Control contra el JSON -->
+        @if (control(); as ctl) {
+          <div class="barra-seccion">
+            <h2>Control de goles</h2>
+            <span class="nota">{{ ctl.marcados }} marcados de {{ ctl.json }} en la planilla</span>
+          </div>
+          <div class="panel">
+            <div class="panel-cuerpo">
+              @if (!ctl.marcados) {
+                <p class="explica">Todavía no hay goles marcados en este video. Cuando se marquen, se comparan jugador por jugador con la planilla.</p>
+              } @else if (ctl.diferencias.length) {
+                <ul class="lista-datos">
+                  @for (d of ctl.diferencias; track d.jugador) {
+                    <li>
+                      <span class="k">{{ d.jugador }}</span>
+                      <span class="v">{{ d.video }} en el video · {{ d.json }} en la planilla</span>
+                    </li>
+                  }
+                </ul>
+              } @else {
+                <p class="explica">Los goles marcados coinciden jugador por jugador con la planilla.</p>
+              }
+              <div class="var-completo">
+                <p class="explica">
+                  @if (completo(); as comp) {
+                    {{ comp.por }} lo dio por terminado. Las diferencias de goles de ese momento aparecen en Datos.
+                  } @else {
+                    Cuando esté todo marcado, dalo por terminado y las diferencias pasan a Datos.
+                  }
+                </p>
+                @if (sesion.usuario()) {
+                  <button type="button" class="bt mini" (click)="alternarCompleto()">
+                    {{ completo() ? 'Reabrir' : 'Dar por terminado' }}
+                  </button>
+                }
+              </div>
+            </div>
+          </div>
+          <p class="explica">
+            La planilla manda: lo que se marca acá no cambia goles ni asistencias de la tabla, solo avisa si no coinciden.
+            <a [routerLink]="['/tabs/fechas', v.fechaId]">Ver la planilla de la fecha {{ v.fechaId }}</a>
+          </p>
+        }
+
+        <!-- Lo marcado -->
+        <div class="barra-seccion">
+          <h2>Lo marcado</h2>
+          <span class="nota">{{ eventos().length }} {{ eventos().length === 1 ? 'evento' : 'eventos' }}</span>
+        </div>
+        @if (eventos().length) {
+          <div class="panel">
+            <ul class="var-eventos">
+              @for (e of eventos(); track e.id) {
+                <li [class.recien]="e.id === recien()">
+                  <button type="button" class="var-ir" (click)="ir(e.t)" [attr.aria-label]="'Ir a ' + hms(e.t)">
+                    {{ hms(e.t) }}
+                  </button>
+                  <span class="var-ev-emoji" aria-hidden="true">{{ emojiDe(e) }}</span>
+                  <span class="var-ev-texto">
+                    {{ frase(e) }}
+                    @if (e.nota) {
+                      <span class="var-ev-nota">«{{ e.nota }}»</span>
+                    }
+                    <span class="var-ev-autor">marcó {{ e.autorNombre }}</span>
+                  </span>
+                  @if (puedeBorrar(e)) {
+                    <button type="button" class="bt mini peligro-suave" (click)="borrar(e)" [attr.aria-label]="'Borrar ' + frase(e)">
+                      Borrar
+                    </button>
+                  }
+                </li>
+              }
+            </ul>
+          </div>
+        } @else {
+          <p class="explica">
+            Nada marcado todavía. Dale play y tocá una tecla cuando pase algo: el segundo queda congelado
+            en el momento del toque. En la compu también andan las letras, espacio para pausar y las flechas
+            para correr 5 segundos.
+          </p>
+        }
+      </section>
+    </div>
+
+    @if (aviso(); as a) {
+      <div class="var-aviso" role="status">{{ a }}</div>
+    }
+  } @else {
+    <p class="vacio">Ese video no está en la lista del canal.</p>
+  }
+</ion-content>
