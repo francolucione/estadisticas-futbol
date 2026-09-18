@@ -23,7 +23,7 @@ interface Fila extends StatsPar {
   template: `
     @if (!filas().length) {
       <p class="vacio">
-        Nadie llega a <span [appContador]="minimo()"></span> partidos compartidos todavia.
+        Nadie llega a <span [appContador]="minimo()"></span> partidos compartidos todavía.
       </p>
     } @else {
       <ul class="lista">

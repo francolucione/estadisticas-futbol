@@ -35,7 +35,7 @@
   }
 
   .pj {
-    font-size: 0.68rem;
+    font-size: var(--t-mini);
     color: var(--tinta-2);
   }
 }
@@ -72,9 +72,7 @@
   }
 
   .et {
-    font-size: 0.58rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    font-size: var(--t-mini);
     color: var(--tinta-3);
     max-width: 3.4rem;
     text-align: center;
@@ -123,10 +121,13 @@
     background: var(--metal-fila);
   }
 
+  /* El que gana la fila: en hueso y mas grande. El que pierde, apagado. */
   .v {
     grid-area: va;
-    font-size: 0.85rem;
+    font-family: var(--f-display);
+    font-size: 1.15rem;
     font-weight: 700;
+    line-height: 1;
     font-variant-numeric: tabular-nums;
     color: var(--tinta-2);
 
@@ -136,7 +137,9 @@
     }
 
     &.gana {
-      color: var(--acento);
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--tinta);
     }
   }
 

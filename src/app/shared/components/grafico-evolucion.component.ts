@@ -99,7 +99,7 @@ const M = { arriba: 12, abajo: 22, izq: 24, der: 10 };
           &middot; {{ p.influencias }} influencias &middot; {{ p.resultado }}
         </p>
       } @else {
-        <p class="tooltip vacio">Toca una barra para ver el detalle</p>
+        <p class="tooltip vacio">Tocá una barra para ver el detalle</p>
       }
     </figure>
   `,
@@ -191,7 +191,7 @@ export class GraficoEvolucionComponent {
     const cuenta = (r: Resultado) => ps.filter((p) => p.res === r).length;
     return (
       `Influencias por fecha en ${ps.length} partidos, ${total} en total, ` +
-      `maximo ${this.maximo()}. ${cuenta('V')} ganados, ${cuenta('E')} empatados ` +
+      `máximo ${this.maximo()}. ${cuenta('V')} ganados, ${cuenta('E')} empatados ` +
       `y ${cuenta('D')} perdidos.`
     );
   });

@@ -1,8 +1,9 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start"><app-escudo tam="30" class="escudo-cabecera" [decorativo]="true" /></ion-buttons>
     <ion-title>Gallo League</ion-title>
     <ion-buttons slot="end">
-      <ion-button routerLink="/admin" aria-label="Panel de administracion">
+      <ion-button routerLink="/admin" aria-label="Panel de administración">
         <ion-icon slot="icon-only" name="build-outline" />
         @if (hayCorrecciones()) {
           <span class="punto-aviso" aria-hidden="true"></span>
@@ -71,8 +72,8 @@
       </div>
 
       <p class="explica">
-        Solo jugadores con <span [appContador]="minimo"></span> partidos o mas.
-        La banda cyan marca el podio; la roja, los ultimos tres.
+        Solo jugadores con <span [appContador]="minimo"></span> partidos o más.
+        Oro, plata y bronce marcan el podio; la franja roja, los últimos tres.
       </p>
     </div>
   } @else if (vista() === 'var') {
@@ -259,7 +260,7 @@
 
       <p class="explica">
         {{ filas().length }} jugadores, ordenados por {{ metrica().etiqueta }}.
-        Toca un nombre para ver su ficha.
+        Tocá un nombre para ver su ficha.
       </p>
     </div>
   }

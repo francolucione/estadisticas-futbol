@@ -19,30 +19,48 @@
         <p class="aviso-editada">Esta fecha tiene correcciones locales sin exportar.</p>
       }
 
-      <!-- Marcador -->
+      <!-- Marcador: el zocalo de la transmision. -->
       @if (marcador(); as m) {
-        <div class="panel tanteador">
-          <div class="lado">
-            <span class="pill naranja">Naranja</span>
-            <span class="goles" [class.gano]="m.naranja > m.azul" [appContador]="m.naranja"></span>
+        <section class="marcador" aria-label="Resultado">
+          <div class="equipo naranja" [class.gano]="m.naranja > m.azul">
+            <span class="nombre-equipo">Naranja</span>
+            <span class="goles cifra" [appContador]="m.naranja"></span>
+            @if (m.naranja > m.azul) {
+              <span class="resultado">Ganó</span>
+            }
           </div>
-          <span class="vs">vs</span>
-          <div class="lado">
-            <span class="goles" [class.gano]="m.azul > m.naranja" [appContador]="m.azul"></span>
-            <span class="pill azul">Azul</span>
+          <div class="equipo azul" [class.gano]="m.azul > m.naranja">
+            <span class="nombre-equipo">Azul</span>
+            <span class="goles cifra" [appContador]="m.azul"></span>
+            @if (m.azul > m.naranja) {
+              <span class="resultado">Ganó</span>
+            }
           </div>
-        </div>
+          @if (m.naranja === m.azul) {
+            <span class="empate">Empate</span>
+          }
+        </section>
       }
 
       @if (video(); as v) {
-        <a class="bt var-fecha" [routerLink]="['/tabs/videos', v.youtubeId]">
-          ▶ Ver el partido en el VAR
-          <span class="sub">{{ marcasVideo() }} {{ marcasVideo() === 1 ? 'marca' : 'marcas' }}</span>
+        <a class="panel var-fecha" [routerLink]="['/tabs/videos', v.youtubeId]">
+          <img
+            [src]="'https://i.ytimg.com/vi/' + v.youtubeId + '/mqdefault.jpg'"
+            alt=""
+            width="128"
+            height="72"
+            loading="lazy"
+          />
+          <span class="var-fecha-texto">
+            <strong>Ver el partido en el VAR</strong>
+            <span class="sub">{{ marcasVideo() }} {{ marcasVideo() === 1 ? 'marca' : 'marcas' }} hasta ahora</span>
+          </span>
         </a>
         @if (diferenciaTitulo(); as d) {
           <p class="explica">
-            Ojo: el título del video dice naranja {{ d.titulo.naranja }} - {{ d.titulo.azul }} azul
-            {{ d.tipo === 'invertido' ? '(los colores al revés)' : '' }}. La tabla usa esta planilla.
+            Ojo: el título del video dice naranja {{ d.titulo.naranja }}, azul {{ d.titulo.azul }}{{
+              d.tipo === 'invertido' ? ', con los colores al revés' : ''
+            }}. La tabla usa esta planilla.
           </p>
         }
       }
@@ -112,7 +130,7 @@
           </div>
         </div>
         <p class="explica">
-          Suman al marcador del equipo pero no se le atribuyen a ningun jugador.
+          Suman al marcador del equipo pero no se le atribuyen a ningún jugador.
         </p>
       }
     </div>

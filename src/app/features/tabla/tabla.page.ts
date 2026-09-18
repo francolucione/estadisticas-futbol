@@ -1,3 +1,4 @@
+import { EscudoComponent } from '../../shared/components/escudo.component';
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
@@ -28,6 +29,7 @@ type Vista = 'posiciones' | Metrica['familia'] | 'var';
   selector: 'app-tabla',
   standalone: true,
   imports: [
+    EscudoComponent,
     RouterLink,
     ContadorDirective,
     IonHeader,

@@ -40,7 +40,7 @@
             <p class="registro">
               Se enfrentaron <strong [appContador]="c.registro.enfrentados.PJ"></strong> veces:
               <strong [appContador]="c.registro.enfrentados.ganoA"></strong>
-              las gano {{ c.a.nombre }},
+              las ganó {{ c.a.nombre }},
               <strong [appContador]="c.registro.enfrentados.ganoB"></strong> {{ c.b.nombre }}, y
               <strong [appContador]="c.registro.enfrentados.empates"></strong>
               terminaron empatadas.
@@ -65,8 +65,8 @@
 
       <!-- Metricas enfrentadas -->
       <div class="barra-seccion">
-        <h2>Numeros</h2>
-        <span class="nota">el ganador en cyan</span>
+        <h2>Números</h2>
+        <span class="nota">el mejor de cada fila, más grande</span>
       </div>
 
       <div class="panel">
@@ -119,7 +119,7 @@
               </a>
             </li>
           } @empty {
-            <li class="vacio">No hay con quien comparar todavia.</li>
+            <li class="vacio">No hay con quién comparar todavía.</li>
           }
         </ul>
       </div>

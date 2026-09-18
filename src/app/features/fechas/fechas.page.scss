@@ -15,6 +15,21 @@
     background: var(--metal-fila);
   }
 
+  /* En la compu, dos columnas: 47 fechas en una sola tira eran puro scroll. */
+  @media (min-width: 1000px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    li:nth-child(even) {
+      background: none;
+      border-left: 1px solid var(--metal-borde);
+    }
+
+    li:nth-child(2) {
+      border-top: 0;
+    }
+  }
+
   a {
     display: grid;
     /*
@@ -27,18 +42,22 @@
     padding: 8px 10px;
     text-decoration: none;
     color: var(--tinta);
-    font-size: 0.78rem;
+    font-size: var(--t-chico);
+
+    &:hover {
+      background: var(--acento-tenue);
+    }
   }
 }
 
 .num {
   color: var(--tinta-2);
-  font-size: 0.7rem;
+  font-size: var(--t-mini);
   font-variant-numeric: tabular-nums;
 }
 
 .equipo {
-  font-size: 0.72rem;
+  font-size: var(--t-mini);
   color: var(--tinta-2);
   display: flex;
   align-items: center;
@@ -88,8 +107,10 @@
   font-variant-numeric: tabular-nums;
 
   b {
-    font-size: 0.95rem;
-    font-weight: 600;
+    font-family: var(--f-display);
+    font-size: 1.45rem;
+    font-weight: 700;
+    line-height: 1;
     color: var(--tinta-2);
   }
 
@@ -115,9 +136,9 @@
 
 .figura {
   text-align: right;
-  font-size: 0.72rem;
-  color: var(--acento);
-  font-weight: 600;
+  font-size: var(--t-chico);
+  color: var(--tinta);
+  font-weight: 700;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -133,9 +154,7 @@
 .editada {
   grid-column: 1 / -1;
   justify-self: start;
-  font-size: 0.62rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  font-size: var(--t-mini);
   color: var(--acento);
   border: 1px solid var(--acento-borde);
   background: var(--acento-tenue);

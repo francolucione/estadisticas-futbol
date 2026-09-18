@@ -1,6 +1,7 @@
+import { EscudoComponent } from '../../shared/components/escudo.component';
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons } from '@ionic/angular/standalone';
 import { PartidosService, marcadorDe } from '../../core/services/partidos.service';
 import { StatsService } from '../../core/services/stats.service';
 import { ContadorDirective } from '../../shared/contador.directive';
@@ -9,7 +10,9 @@ import { ContadorService } from '../../shared/contador.service';
 @Component({
   selector: 'app-fechas',
   standalone: true,
-  imports: [RouterLink, ContadorDirective, IonHeader, IonToolbar, IonTitle, IonContent],
+  imports: [
+    EscudoComponent,
+    IonButtons,RouterLink, ContadorDirective, IonHeader, IonToolbar, IonTitle, IonContent],
   templateUrl: './fechas.page.html',
   styleUrl: './fechas.page.scss',
 })

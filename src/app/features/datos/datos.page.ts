@@ -1,6 +1,7 @@
+import { EscudoComponent } from '../../shared/components/escudo.component';
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons } from '@ionic/angular/standalone';
 import { CATEGORIAS, CategoriaCuriosidad } from '../../core/models/curiosidad.model';
 import { StatsService } from '../../core/services/stats.service';
 import { PartidosService } from '../../core/services/partidos.service';
@@ -13,7 +14,9 @@ type Filtro = 'todas' | CategoriaCuriosidad;
 @Component({
   selector: 'app-datos',
   standalone: true,
-  imports: [RouterLink, ContadorDirective, IonHeader, IonToolbar, IonTitle, IonContent],
+  imports: [
+    EscudoComponent,
+    IonButtons,RouterLink, ContadorDirective, IonHeader, IonToolbar, IonTitle, IonContent],
   templateUrl: './datos.page.html',
   styleUrl: './datos.page.scss',
 })
@@ -46,9 +49,9 @@ export class DatosPage {
     const l = this.liga();
     const total = l.partidos || 1;
     return [
-      { clave: 'naranja', etiqueta: 'Gano naranja', valor: l.victoriasNaranjas, pct: (l.victoriasNaranjas / total) * 100 },
+      { clave: 'naranja', etiqueta: 'Ganó naranja', valor: l.victoriasNaranjas, pct: (l.victoriasNaranjas / total) * 100 },
       { clave: 'empate', etiqueta: 'Empates', valor: l.empates, pct: (l.empates / total) * 100 },
-      { clave: 'azul', etiqueta: 'Gano azul', valor: l.victoriasAzules, pct: (l.victoriasAzules / total) * 100 },
+      { clave: 'azul', etiqueta: 'Ganó azul', valor: l.victoriasAzules, pct: (l.victoriasAzules / total) * 100 },
     ];
   });
 

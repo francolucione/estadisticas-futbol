@@ -101,8 +101,10 @@
 }
 
 .var-sello-t {
-  font-size: 1.3rem;
+  font-family: var(--f-display);
+  font-size: 1.9rem;
   font-weight: 800;
+  line-height: 1;
   letter-spacing: 0.02em;
   font-variant-numeric: tabular-nums;
 }
@@ -139,8 +141,9 @@
 }
 
 .var-reloj-t {
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-family: var(--f-display);
+  font-size: 1.3rem;
+  font-weight: 800;
   color: var(--tinta);
 }
 
@@ -212,7 +215,7 @@
 }
 
 .var-tecla-nombre {
-  font-size: 0.68rem;
+  font-size: var(--t-mini);
   font-weight: 600;
   line-height: 1.2;
   text-align: center;
@@ -262,7 +265,9 @@
 }
 
 .var-hoja-que {
-  font-size: 0.85rem;
+  font-family: var(--f-display);
+  font-size: 1.2rem;
+  font-weight: 800;
 }
 
 .var-hoja-t {
@@ -506,57 +511,127 @@
 
 /* ----------------------------------------------------- lista de videos */
 
-.videos-lista {
+/* Tarjetas con la miniatura del partido: dos por fila en el telefono, cuatro en la compu. */
+.videos-grilla {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px 10px;
 
-  li + li {
-    border-top: 1px solid var(--metal-borde);
+  @media (min-width: 1000px) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px 14px;
+  }
+}
+
+.video-tarjeta {
+  display: grid;
+  gap: 4px;
+  color: var(--tinta);
+  text-decoration: none;
+
+  &:hover .v-nombre,
+  &:focus-visible .v-nombre {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
-  a {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    gap: 2px 10px;
-    padding: 9px 12px;
-    color: var(--tinta);
-    text-decoration: none;
+  &:hover img {
+    transform: scale(1.03);
+  }
+}
 
-    &:hover {
-      background: var(--metal-fila);
-    }
+.v-foto {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--metal-panel);
+  box-shadow:
+    0 0 0 1px var(--metal-borde),
+    0 4px 12px rgba(0, 0, 0, 0.45);
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.25s ease;
+  }
+}
+
+.v-duracion,
+.v-marcas {
+  position: absolute;
+  bottom: 6px;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: rgba(12, 15, 22, 0.86);
+  font-size: var(--t-mini);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.v-duracion {
+  right: 6px;
+}
+
+.v-marcas {
+  left: 6px;
+
+  strong {
+    font-family: var(--f-display);
+    font-size: 0.95rem;
+  }
+}
+
+.v-nombre {
+  font-family: var(--f-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.v-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 10px;
+  font-size: var(--t-mini);
+  color: var(--tinta-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.v-resultado {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--tinta);
+  font-weight: 600;
+
+  i {
+    width: 7px;
+    height: 7px;
+    border-radius: 2px;
   }
 
-  .v-nombre {
-    font-size: 0.85rem;
-    font-weight: 700;
+  .naranja {
+    background: var(--viz-naranja);
   }
 
-  .v-meta {
-    grid-column: 1;
-    font-size: 0.7rem;
-    color: var(--tinta-2);
-    font-variant-numeric: tabular-nums;
+  .azul {
+    background: var(--viz-azul);
   }
+}
 
-  .v-marcas {
-    grid-row: 1 / span 2;
-    grid-column: 2;
-    text-align: right;
-    font-size: 0.72rem;
-    color: var(--tinta-2);
-    font-variant-numeric: tabular-nums;
+.v-terminado {
+  color: var(--viz-victoria);
+}
 
-    strong {
-      display: block;
-      font-size: 1rem;
-      color: var(--tinta);
-    }
-  }
-
-  .v-terminado {
-    color: var(--viz-victoria);
+@media (prefers-reduced-motion: reduce) {
+  .v-foto img {
+    transition: none;
   }
 }

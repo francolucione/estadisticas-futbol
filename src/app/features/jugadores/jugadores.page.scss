@@ -21,6 +21,26 @@
     background: var(--metal-fila);
   }
 
+  /* En la compu, tres columnas: la lista entera entra en una pantalla. */
+  @media (min-width: 1000px) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    li,
+    li:nth-child(even) {
+      background: none;
+      border-top: 1px solid var(--metal-borde);
+    }
+
+    li:nth-child(-n + 3) {
+      border-top: 0;
+    }
+
+    li:not(:nth-child(3n + 1)) {
+      border-left: 1px solid var(--metal-borde);
+    }
+  }
+
   a {
     display: grid;
     grid-template-columns: auto 1fr auto;
@@ -37,40 +57,29 @@
 
 .avatar {
   grid-area: avatar;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: var(--acento);
-  color: #06202a;
-  font-size: 0.7rem;
-  font-weight: 800;
-
-  &.tenue {
-    background: var(--metal-panel-alto);
-    border: 1px solid var(--metal-borde);
-    color: var(--tinta-2);
-  }
+  width: 34px;
+  height: 34px;
+  font-size: 0.85rem;
 }
 
 .nombre {
   grid-area: nombre;
-  font-weight: 600;
-  font-size: 0.85rem;
+  font-weight: 700;
+  font-size: var(--t-base);
 }
 
 .datos {
   grid-area: datos;
-  font-size: 0.7rem;
+  font-size: var(--t-mini);
   color: var(--tinta-2);
   font-variant-numeric: tabular-nums;
 }
 
 .pg {
   grid-area: pg;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--tinta-2);
+  font-family: var(--f-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--tinta);
   font-variant-numeric: tabular-nums;
 }

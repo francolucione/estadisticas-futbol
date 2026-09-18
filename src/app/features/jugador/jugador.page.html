@@ -11,7 +11,7 @@
   @if (perfil(); as p) {
     <!-- Cabecera -->
     <header class="ficha">
-      <span class="avatar">{{ iniciales(p.stats.nombre) }}</span>
+      <span class="avatar" [class.naranja]="equipo(p.stats) === 'naranja'" [class.azul]="equipo(p.stats) === 'azul'">{{ iniciales(p.stats.nombre) }}</span>
       <div>
         <h1>{{ p.stats.nombre }}</h1>
         <p class="sub">
@@ -34,6 +34,8 @@
         Comparar
       </a>
     </header>
+
+    <div class="cuerpo">
 
     <!-- Resumen -->
     <section class="seccion">
@@ -62,7 +64,7 @@
         </div>
         <div class="tile">
           <span class="valor" [appContador]="p.stats.participacionGoles * 100" sufijo="%"></span>
-          <span class="rotulo">Participacion</span>
+          <span class="rotulo">Participación</span>
           <span class="pie">de los goles de su equipo</span>
         </div>
         <div class="tile">
@@ -126,13 +128,13 @@
 
     <!-- Con quien -->
     <section class="seccion">
-      <h2>Con quien</h2>
+      <h2>Con quién</h2>
       <p class="explica">
-        Cuanto le rinde jugar con cada companero, comparado con sus otros partidos.
-        Minimo <span [appContador]="minimoPar"></span> partidos juntos.
+        Cuánto le rinde jugar con cada compañero, comparado con sus otros partidos.
+        Mínimo <span [appContador]="minimoPar"></span> partidos juntos.
       </p>
       <div class="panel">
-        <nav class="segmento" aria-label="Orden de companeros">
+        <nav class="segmento" aria-label="Orden de compañeros">
           <button
             [class.activo]="ordenCompaneros() === 'mejores'"
             (click)="ordenCompaneros.set('mejores')"
@@ -157,7 +159,7 @@
       </div>
       @if (p.companeroMasFrecuente; as c) {
         <p class="detalle">
-          Con quien mas jugo: <strong>{{ c.nombre }}</strong>
+          Con quién más jugó: <strong>{{ c.nombre }}</strong>
           (<span [appContador]="c.PJ"></span> partidos).
         </p>
       }
@@ -165,10 +167,10 @@
 
     <!-- Contra quien -->
     <section class="seccion">
-      <h2>Contra quien</h2>
+      <h2>Contra quién</h2>
       <p class="explica">
         Lo mismo, pero enfrentandolo.
-        Minimo <span [appContador]="minimoPar"></span> partidos en veredas opuestas.
+        Mínimo <span [appContador]="minimoPar"></span> partidos en veredas opuestas.
       </p>
       <div class="panel">
         <nav class="segmento" aria-label="Orden de rivales">
@@ -193,7 +195,7 @@
       </div>
       @if (p.rivalMasFrecuente; as r) {
         <p class="detalle">
-          Su rival mas habitual: <strong>{{ r.nombre }}</strong>
+          Su rival más habitual: <strong>{{ r.nombre }}</strong>
           (<span [appContador]="r.PJ"></span> partidos).
         </p>
       }
@@ -201,7 +203,7 @@
 
     <!-- Records -->
     <section class="seccion">
-      <h2>Records</h2>
+      <h2>Récords</h2>
       <div class="panel">
         <ul class="records">
           @if (p.records.mejorPartido; as m) {
@@ -222,7 +224,7 @@
             </li>
           }
           <li>
-            <span class="k">Mas goles en un partido</span>
+            <span class="k">Más goles en un partido</span>
             <span class="v" [appContador]="p.records.maxGolesEnUnPartido"></span>
           </li>
           <li>
@@ -287,7 +289,7 @@
 
     <!-- Puestos -->
     <section class="seccion">
-      <h2>Donde esta en la tabla</h2>
+      <h2>Su lugar en la tabla</h2>
       <p class="explica">
         Entre los <span [appContador]="p.posiciones['goles'].total"></span> jugadores con
         <span [appContador]="minimoRanking" sufijo="+"></span> partidos.
@@ -317,7 +319,8 @@
         </ul>
       </div>
     </section>
+    </div>
   } @else {
-    <p class="vacio">No hay ningun jugador llamado "{{ nombre() }}".</p>
+    <p class="vacio">No hay ningún jugador llamado "{{ nombre() }}".</p>
   }
 </ion-content>

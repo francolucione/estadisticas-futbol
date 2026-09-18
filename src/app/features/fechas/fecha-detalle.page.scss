@@ -2,61 +2,75 @@
   padding: 10px 10px 24px;
 }
 
-.tanteador {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  padding: 16px 12px;
-  background: var(--metal-degradado);
+/*
+ * El marcador de la fecha: dos mitades con la franja del equipo arriba y el numero en
+ * la tipografia de camiseta, enorme. Es el momento audaz de la app; el resto se queda
+ * quieto. El que gano lleva "Ganó" escrito ademas del numero en hueso: el color nunca
+ * informa solo.
+ */
+.marcador {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--metal-borde);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
 }
 
-.lado {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex: 1;
-
-  &:first-child {
-    justify-content: flex-end;
-  }
-}
-
-.pill {
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 3px;
-  color: #0b0b0e;
+.equipo {
+  display: grid;
+  justify-items: start;
+  align-content: start;
+  gap: 2px;
+  padding: 14px 16px 12px;
+  background: var(--metal-panel);
+  border-top: 6px solid;
 
   &.naranja {
-    background: var(--viz-naranja);
+    border-top-color: var(--viz-naranja);
   }
 
   &.azul {
-    background: var(--viz-azul);
+    border-top-color: var(--viz-azul);
+    justify-items: end;
+    text-align: right;
   }
 }
 
-.goles {
-  font-size: 2rem;
-  font-weight: 800;
-  line-height: 1;
+.nombre-equipo {
+  font-size: var(--t-chico);
+  font-weight: 600;
   color: var(--tinta-2);
-  font-variant-numeric: tabular-nums;
+}
 
-  &.gano {
+.goles {
+  font-size: var(--t-marcador);
+  line-height: 0.9;
+  color: var(--tinta-2);
+
+  .gano & {
     color: var(--tinta);
   }
 }
 
-.vs {
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  color: var(--tinta-3);
-  letter-spacing: 0.1em;
+.resultado {
+  font-size: var(--t-mini);
+  font-weight: 700;
+  color: var(--tinta);
+}
+
+.empate {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: var(--metal-panel-alto);
+  font-size: var(--t-mini);
+  font-weight: 700;
 }
 
 .figura-fecha {
@@ -65,9 +79,8 @@
   color: var(--tinta-2);
 
   a {
-    color: var(--acento);
-    text-decoration: none;
-    font-weight: 600;
+    color: var(--tinta);
+    font-weight: 700;
   }
 
   .sub {
@@ -94,13 +107,35 @@
 
 .var-fecha {
   display: flex;
-  justify-content: space-between;
-  margin: 10px 0;
-  padding: 10px 12px;
-  font-size: 0.82rem;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0 8px;
+  padding: 8px;
+  color: var(--tinta);
+  text-decoration: none;
+
+  img {
+    flex: none;
+    width: 112px;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 4px;
+    object-fit: cover;
+    background: #000;
+  }
+
+  strong {
+    display: block;
+    font-size: var(--t-base);
+  }
 
   .sub {
+    font-size: var(--t-chico);
     color: var(--tinta-2);
-    font-weight: 400;
+  }
+
+  &:hover strong {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 }

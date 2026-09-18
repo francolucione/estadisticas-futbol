@@ -5,8 +5,8 @@
   padding: 14px 12px;
   background: var(--metal-degradado);
   border-bottom: 1px solid var(--metal-borde);
-  /* Mismo ancho util que .contenido en el resto de la app. */
-  max-width: 720px;
+  /* Mismo ancho util que el cuerpo de abajo. */
+  max-width: 1120px;
   margin-inline: auto;
 
   > div {
@@ -16,8 +16,10 @@
 
   h1 {
     margin: 0;
-    font-size: 1.2rem;
+    font-family: var(--f-display);
+    font-size: 2.1rem;
     font-weight: 800;
+    line-height: 1;
   }
 
   .sub {
@@ -35,32 +37,40 @@
 }
 
 .avatar {
-  flex: none;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: var(--acento);
-  color: #06202a;
-  font-weight: 800;
-  font-size: 1rem;
+  width: 56px;
+  height: 56px;
+  font-size: 1.35rem;
+}
+
+.cuerpo {
+  max-width: 760px;
+  margin-inline: auto;
+
+  /*
+   * En la compu, dos columnas que se llenan de arriba abajo: las secciones tienen alturas
+   * muy distintas y una grilla dejaba huecos.
+   */
+  @media (min-width: 1100px) {
+    max-width: 1120px;
+    columns: 2;
+    column-gap: 8px;
+  }
 }
 
 .seccion {
   padding: 0 12px 16px;
-  max-width: 720px;
-  margin-inline: auto;
+  break-inside: avoid;
 
+  /* Igual que .barra-seccion: titulo display en minuscula y una costura abajo. */
   h2 {
-    margin: 16px 0 8px;
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    margin: 22px 0 8px;
+    padding-bottom: 4px;
+    font-family: var(--f-display);
+    font-size: var(--t-titulo);
+    font-weight: 800;
+    line-height: 1.1;
     color: var(--tinta);
-    border-left: 3px solid var(--acento);
-    padding-left: 8px;
+    border-bottom: 1px solid var(--metal-borde);
   }
 }
 

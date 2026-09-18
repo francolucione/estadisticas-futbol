@@ -88,25 +88,37 @@
 .curiosidades {
   display: grid;
   gap: 8px;
-  margin-top: 4px;
+  margin-top: 8px;
+
+  /* En la compu, dos columnas de tarjetas. */
+  @media (min-width: 1000px) {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+
+    /* .panel + .panel suma margen arriba: en grilla desalinea las columnas. */
+    .panel + .panel {
+      margin-top: 0;
+    }
+  }
 }
 
 .curiosidad {
   .panel-cabecera h3 {
     margin: 0;
-    font-size: 0.78rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-family: var(--f-display);
+    font-size: 1.2rem;
+    font-weight: 800;
+    line-height: 1.1;
     color: var(--tinta);
   }
 
   /* El numero grande es el gancho de la tarjeta. */
   .valor {
-    font-size: 1.25rem;
+    font-family: var(--f-display);
+    font-size: 1.9rem;
     font-weight: 800;
     line-height: 1;
-    color: var(--acento);
+    color: var(--tinta);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
@@ -114,13 +126,13 @@
   .panel-cuerpo .detalle {
     margin: 0;
     color: var(--tinta);
-    font-size: 0.8rem;
+    font-size: var(--t-base);
+    line-height: 1.45;
   }
 
   a {
-    color: var(--acento);
-    text-decoration: none;
-    font-weight: 600;
+    color: var(--tinta);
+    font-weight: 700;
   }
 }
 

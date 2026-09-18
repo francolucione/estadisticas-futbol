@@ -224,7 +224,7 @@ describe('JugadorPage', () => {
   it('avisa cuando el nombre no existe', () => {
     const fixture = montar(JugadorPage, { nombre: 'Maradona' });
     expect(fixture.componentInstance.perfil()).toBeNull();
-    expect(fixture.nativeElement.textContent).toContain('No hay ningun jugador');
+    expect(fixture.nativeElement.textContent).toContain('No hay ningún jugador');
   });
 });
 

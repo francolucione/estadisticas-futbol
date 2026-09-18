@@ -1,11 +1,12 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start"><app-escudo tam="30" class="escudo-cabecera" [decorativo]="false" /></ion-buttons>
     <ion-title>Jugadores</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="contenido">
+  <div class="contenido ancho">
     <div class="panel">
       <div class="panel-cuerpo">
         <input
@@ -20,7 +21,7 @@
     </div>
 
     @if (!habituales().length && !esporadicos().length) {
-      <p class="explica">Ningun jugador coincide con "{{ busqueda() }}".</p>
+      <p class="explica">Ningún jugador coincide con "{{ busqueda() }}".</p>
     }
 
     @if (habituales().length) {
@@ -34,7 +35,7 @@
           @for (j of habituales(); track j.nombre) {
             <li>
               <a [routerLink]="['jugador', j.nombre]">
-                <span class="avatar">{{ iniciales(j.nombre) }}</span>
+                <span class="avatar" [class.naranja]="equipo(j) === 'naranja'" [class.azul]="equipo(j) === 'azul'">{{ iniciales(j.nombre) }}</span>
                 <span class="nombre">{{ j.nombre }}</span>
                 <span class="datos">
                   <span [appContador]="j.PJ"></span> PJ &middot;
@@ -51,7 +52,7 @@
 
     @if (esporadicos().length) {
       <div class="barra-seccion">
-        <h2>Esporadicos e invitados</h2>
+        <h2>Esporádicos e invitados</h2>
         <span class="nota">menos de <span [appContador]="minimo"></span></span>
       </div>
 

@@ -33,7 +33,7 @@ import { carriles, fraseDe, hms } from '../../core/services/var.engine';
           type="button"
           class="marcador"
           [class.recien]="m.evento.id === resaltado()"
-          [style.left.%]="porcentaje(m.evento.t)"
+          [style.left]="'clamp(11px, ' + porcentaje(m.evento.t) + '%, calc(100% - 11px))'"
           [style.bottom.px]="6 + m.carril * 22"
           [attr.aria-label]="hms(m.evento.t) + ' ' + frase(m.evento)"
           [title]="hms(m.evento.t) + ' · ' + frase(m.evento)"

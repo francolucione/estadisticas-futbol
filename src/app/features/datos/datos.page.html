@@ -1,14 +1,15 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start"><app-escudo tam="30" class="escudo-cabecera" [decorativo]="false" /></ion-buttons>
     <ion-title>Datos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="contenido">
+  <div class="contenido ancho">
     <!-- ------------------------------------------------ globales de liga -->
     <div class="barra-seccion">
-      <h2>La liga en numeros</h2>
+      <h2>La liga en números</h2>
     </div>
 
     <div class="tiles">
@@ -60,11 +61,11 @@
 
     <!-- ---------------------------------------------------- curiosidades -->
     <div class="barra-seccion">
-      <h2>Datos curiosos</h2>
+      <h2>Curiosidades</h2>
       <span class="nota"><span [appContador]="curiosidades().length"></span></span>
     </div>
 
-    <nav class="segmento" aria-label="Categoria">
+    <nav class="segmento" aria-label="Categoría">
       <button [class.activo]="filtro() === 'todas'" (click)="filtro.set('todas')">Todas</button>
       @for (c of categorias; track c.clave) {
         <button [class.activo]="filtro() === c.clave" (click)="filtro.set(c.clave)">
@@ -96,7 +97,7 @@
           </div>
         </article>
       } @empty {
-        <p class="explica">No hay curiosidades en esta categoria.</p>
+        <p class="explica">No hay curiosidades en esta categoría.</p>
       }
     </div>
 
@@ -109,7 +110,7 @@
             <p class="aviso">{{ a }}</p>
           }
           <p class="explica">
-            Se corrigen desde el panel admin, con el engranaje en la pestana Tabla.
+            Se corrigen desde el panel admin, con el engranaje en la pestaña Tabla.
           </p>
         </div>
       </div>

@@ -17,7 +17,7 @@ import { Evento } from '../../core/models/var.model';
 import { MIN_PARTIDOS_PAR, MIN_PARTIDOS_RANKING } from '../../core/services/stats.engine';
 import { GraficoEvolucionComponent } from '../../shared/components/grafico-evolucion.component';
 import { BarrasDeltaComponent } from '../../shared/components/barras-delta.component';
-import { iniciales } from '../../shared/formato';
+import { equipoHabitual, iniciales } from '../../shared/formato';
 import { ContadorDirective } from '../../shared/contador.directive';
 import { ContadorService } from '../../shared/contador.service';
 
@@ -102,6 +102,7 @@ export class JugadorPage {
   readonly medias = computed(() => this.perfil()?.evolucion.map((e) => e.mediaMovil) ?? []);
 
   iniciales = iniciales;
+  equipo = equipoHabitual;
 
   etiquetaResultado(r: string): string {
     return r === 'V' ? 'Ganado' : r === 'E' ? 'Empatado' : 'Perdido';
