@@ -4,7 +4,9 @@
 
 **Gallo League** es una aplicación de estadísticas para los partidos de un grupo de fútbol amateur. Reemplaza una versión anterior que era un simple `index.html` con una tabla.
 
-**Stack:** Angular 20 + Ionic 8 + Capacitor (para generar app Android)
+**Stack:** Angular 20 + Ionic 8 + Capacitor (para generar app Android) + Firebase (Firestore, Auth con Google, Hosting) desde v5
+
+**Publicada en:** https://gallo-league.web.app (proyecto Firebase `gallo-league`, Firestore en `southamerica-east1`)
 
 ---
 
@@ -163,6 +165,44 @@ Si un alias hace que dos jugadores del mismo partido se llamen igual, la app lan
 
 ---
 
+## El VAR (v5, 18-sep-2026)
+
+Pestaña **VAR**: se elige un video del canal de YouTube de Gallo League (`@lucio-mt4sl`), se le da play y se marcan eventos en su segundo exacto. Lo marcado es público y arma rankings nuevos.
+
+- **Videos**: `src/app/core/data/videos.json`, generado por `npm run videos` (`scripts/videos-canal.mjs`, lee la página del canal sin API key). 65 videos: fechas 1-47 (temporada `2023-24`, con marcador y a veces el día en el título), `2025` #1-#16 (sin planilla) y 2 especiales. **Correrlo de nuevo cada vez que se suba un video.**
+- **Categorías de fábrica** en `src/app/core/data/categorias.ts` (⚽ gol, 🥅 palo, 🚀 era un golazo, 🟨 falta, 🏴‍☠️ robo, 📣 grita, 👟 cordones, 😂 cosa graciosa). El `id` es la clave de los contadores: **no se cambia nunca**. Las que inventa el grupo van a la colección `categorias`.
+- **Frases**: `{j}` el jugador, `{j2}` el segundo, `[...]` sólo si hay segundo: `"{j} roba[ a {j2}]"`.
+- **La planilla manda.** Marcar un gol en el video NO cambia la tabla: el control de goles sólo avisa si no coincide. "Dar por terminado" guarda los goles de ese momento en `videos/{id}` y las diferencias pasan a Datos.
+- **Titulos vs planilla**: 10 fechas no dan el mismo marcador (1, 3, 10, 11, 13, 20, 29, 32, 33, 43; en 11 y 33 son los colores al revés). No se corrigen solas; están clavadas en `var.engine.spec.ts` y listadas en Datos. La fecha 10 encaja con el pendiente del gol en contra.
+
+### Firestore
+
+- `eventos/{id}`, `contadores/global` (un solo doc con todo lo que leen tabla, ficha y lista), `categorias/{id}`, `videos/{id}` (sólo los terminados), `admins/{uid}` (se carga a mano desde la consola).
+- **Cada evento viaja en el mismo batch que su contador** (`increment`, `merge`) y las reglas controlan las dos puntas: delta ±1 exacto en categoría, jugador y video, con `ultimoEvento` diciendo qué evento lo justifica. Pruebas: `npm run test:reglas` (19, contra el emulador).
+- Lectura pública, escritura con Google. Borra el autor o un admin.
+- **Nunca** leer `eventos` entero: la ficha pide `where jugador + orderBy creado limit 10` (índice compuesto en `firestore.indexes.json`), el video pide `where videoId`, la bitácora pagina de a 30.
+
+### Trampas que ya se pagaron
+
+- **`firebase` tiene que ser la misma versión que trae `@angular/fire`** (hoy 11.10). Con la 12 en la raíz había dos SDK: las instancias inyectadas eran del 11, las funciones importadas del 12, y `collection()` tiraba *Expected first argument to collection() to be a CollectionReference*. Los tests en memoria no lo ven: sólo aparece contra Firebase de verdad. `npm ls firebase` tiene que dar una sola versión.
+- `initializeAuth` no trae el resolver del popup: sin `browserPopupRedirectResolver`, el login con Google tira `auth/argument-error`.
+- Los datos del VAR salen de `VarFuente`/`Sesion` (abstractas). La app usa Firestore; las pruebas de pantallas, `MemoriaVarFuente`/`MemoriaSesion`.
+- Estilos del VAR en `src/theme/var.scss` (global): el emoji que vuela cuelga de `<body>` y la pantalla pasaba el presupuesto de 8 kB por componente.
+
+### Desarrollo
+
+- `npm run dev:emu` → app en el **4300** contra emuladores (Auth 9098, Firestore 8081, UI 4002: puertos distintos de sistema-minimo para poder correr los dos).
+- En el emulador existe `window.__entrarPrueba('Nombre')` para entrar sin el popup (el popup abre una ventana que un navegador automatizado no alcanza). En producción no existe.
+- `npm run deploy` = build + reglas + hosting. **Reglas antes que la app** si cambian las dos.
+
+### Pendiente
+
+- **Activar Google en Authentication** (consola de Firebase → Authentication → Comenzar → Google). No se puede por API: necesita un cliente OAuth que crea la consola. Hasta entonces el "Entrar con Google" de producción falla.
+- Cargar la temporada 2025 como liga (formaciones y equipos) — fuera de alcance de v5.
+- La app Android (Capacitor) no se probó con el login: `signInWithPopup` en un WebView necesita otro camino.
+
+---
+
 ## Pruebas
 
 ```bash
@@ -310,5 +350,5 @@ Cada barra se pinta por resultado: verde ganado, gris empatado, rojo perdido. Ll
 
 ---
 
-**Última actualización:** 2026-07-31  
-**Rama:** `v4` (desarrollo). Las versiones estables viven en `v1`, `v2`, `v3`
+**Última actualización:** 2026-09-18  
+**Rama:** `v5` (desarrollo, sale de `v4`). Las versiones estables viven en `v1`…`v4`
