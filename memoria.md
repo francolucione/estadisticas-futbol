@@ -249,56 +249,44 @@ npx cap run android      # requiere Android Studio / SDK
 
 ---
 
-## Sistema Visual
+## Sistema Visual (identidad Gallo, 18-sep-2026)
 
-**Modo:** Solo oscuro
+**Idea:** la camiseta del club en el vestuario de noche. Sale del logo del canal (gallo marino con cresta roja sobre blanco). Reemplazó al grafito + cyan + aurora de v1-v4.
 
-**Colores:**
-- **Base:** Grafito con filos brillantes sobre un fondo casi negro con aurora
-- **Acento:** Cyan (chrome: links, tab activo, foco, banda de podio)
-- **Datos:** Naranja/azul (equipos) + escala divergente azul-rojo
-- **Densidad:** Estilo Promiedos
+**Modo:** solo oscuro. **Tokens:** `src/theme/metal.css` (los nombres `--metal-*` y `--acento` quedaron de antes; los valores son nuevos).
 
-**Tokens:** `src/theme/metal.css`
+| rol | hex | regla |
+|---|---|---|
+| fondo carbón | `#0c0f16` | |
+| panel | `#141925` | superficie contra la que se validan los datos |
+| tinta hueso | `#f2ede3` | 15:1 sobre el panel |
+| pluma (secundario) | `#a3adc2` | 7,8:1 |
+| cresta | `#d42a3c` | **sólo marca**, nunca dato ni estado |
+| oro / plata / bronce | `#e0b54a` `#b9c1cf` `#c0835a` | sólo el podio de la tabla |
 
-**Importante:** Los colores de dato están validados para contraste y daltonismo. El cyan **nunca** pinta un dato (ambigüedad con azul de equipo). No cambiar hexadecimales sin revalidar.
+- **El chrome no tiene color.** Tab activo, links, foco, botón primario y columna resaltada van en hueso, con peso, subrayado o fondo. Naranja, azul, verde y rojo son **datos** y nada del chrome compite con ellos.
+- **Datos:** mismos hex de siempre. Re-validados el 18-sep-2026 contra `#141925` con el validador del skill `dataviz`: naranja y azul pasan los cinco controles. V/E/D "fallan" banda de luminosidad y croma igual que contra la superficie vieja: son colores de estado, siempre con su letra, y el contraste pasa.
+- **Tipografía** autoalojada con `@fontsource` (anda sin red en Android), cargada en `angular.json` > `styles`:
+  - **Big Shoulders Display** 700/800 (`--f-display`, clase `.cifra`): marcadores, números protagonistas, títulos.
+  - **Barlow Semi Condensed** 400-700 (`--f-texto`): todo lo demás, tablas incluidas.
+  - Escala en `--t-*`. **Sin mayúsculas espaciadas en ningún lado**: los títulos van en minúscula normal con display.
+- **Fondo:** las líneas de una cancha de fútbol 5 en SVG, tenues, fijas (`--metal-fondo`). Va en `ion-content { --background }`, no en `body` (ion-content lo tapa).
+- **El momento audaz es uno:** el marcador de la fecha (`fecha-detalle`), con franjas de equipo y dígitos de ~4rem. El resto se queda quieto.
+- **Pantalla ancha:** `.contenido.ancho` llega a 1120px (fechas y datos en 2 columnas, jugadores en 3, VAR en 4, la ficha en 2 con `columns`). La tabla de posiciones queda en 760px.
+
+### Marca
+
+- `resources/gallo.jpg` es el logo del canal (1024px). `python scripts/escudo.py` genera el escudo (`src/assets/marca/escudo-96|192.png`), el favicon, los íconos PWA y las fuentes de Android en `resources/`. Después: `npx capacitor-assets generate --android` con fondo `#0c0f16`.
+- `<app-escudo>` (`shared/components/escudo.component.ts`) va en la cabecera de las cinco pestañas; en Tabla, con el wordmark.
+- `src/manifest.webmanifest`: nombre, color y los íconos.
+
+### Textos
+
+`python scripts/tildes.py` revisa que el texto visible tenga tildes (templates, aria-label/title/placeholder y strings de TS), sin tocar comentarios ni código. Sin argumentos muestra lo que cambiaría; con `--aplicar`, lo cambia. Las ambiguas (esta/está, donde/dónde, quien/quién) van a mano. Hoy da 0.
 
 ### La trampa de especificidad de Ionic
 
-`global.scss` importa `@ionic/angular/css/palettes/dark.always.css`, que declara sus colores bajo **`:root.md`** y **`:root.ios`** (0-2-0), no bajo `:root` (0-1-0). Como `provideIonicAngular()` va sin `mode`, Ionic estampa `md` en `<html>`.
-
-Durante un tiempo esto hizo que el sistema visual **no se viera**: la app pintaba el `#121212` de fábrica en vez de nuestro plano, y `#1f1f1f` en la barra de tabs en vez de `#101014`. El orden de import no salva: hay que empatar la especificidad.
-
-Por eso el bloque de variables `--ion-*` en `metal.css` va con las tres formas del selector:
-
-```css
-:root, :root.md, :root.ios { --ion-background-color: #07070b; }
-```
-
-Si algún token `--ion-*` nuevo "no se aplica", el problema es casi siempre este.
-
-### Fondo de pantalla
-
-Negro `#06060a` con tres manchas de luz: cyan arriba-izquierda, violeta abajo-derecha e índigo de piso (`--metal-fondo`). Son **chrome**, igual que el cyan: nunca pintan un dato.
-
-Va en `ion-content { --background }`, **no** en `body`: `ion-content` dibuja su propio `<div id="background-content">` en `position:absolute inset:0` por encima, así que un fondo en `body` queda tapado. Ese div se apoya en el viewport y no en el largo del scroll, así que la aurora queda quieta mientras el contenido pasa por delante — sin ninguna animación corriendo.
-
-#### Dos trampas al calibrar la aurora
-
-El primer intento se veía exactamente igual que un negro plano. Los dos motivos, por si vuelve a pasar:
-
-1. **Los centros de los radiales tienen que caer DENTRO del viewport.** Puestos en los bordes (`at 4% -8%`, `at 100% 106%`) el pico queda fuera de pantalla y lo que se ve es la cola.
-2. **El alpha declarado es el del pico, y el pico ocupa un punto.** En la zona que realmente se ve, la intensidad ya cayó a la mitad o menos.
-
-Combinadas, dejaban la franja visible en `#081015` contra un plano `#07070b`: diez unidades de RGB, o sea nada. Con los centros adentro y el alpha en 0.26/0.22/0.18, la separación es de ~40 unidades.
-
-#### Por qué además se tiñó el chrome
-
-En el teléfono los paneles opacos tapan casi toda la pantalla y del fondo sólo quedan los 10px de canaleta de `.contenido`. Por eso el color no puede venir sólo del fondo: `--metal-panel-alto` (cabeceras de tabla, botones), `--metal-degradado` (toolbar y segmento), `--metal-borde` y `--metal-filo` están corridos hacia el azul. En pantalla ancha la aurora sí se luce, porque `.contenido` tiene `max-width: 720px` y los costados quedan libres.
-
-**`--metal-panel` (#141419) no se toca**: es la superficie contra la que están medidos los contrastes de dato. El chrome que sí se movió cambia los contrastes en 0.02 (verificado); los `--viz-*` de dato quedan idénticos porque `--viz-surface` sigue siendo #141419.
-
-Los paneles llevan además un halo cyan (`--metal-halo`) por `box-shadow`, que los despega del resplandor. Nada de `backdrop-filter`: en tablas largas sobre WebView de Android cuesta caro y encima movería la superficie validada.
+`global.scss` importa `@ionic/angular/css/palettes/dark.always.css`, que declara sus colores bajo **`:root.md`** y **`:root.ios`** (0-2-0), no bajo `:root` (0-1-0). Por eso el bloque `--ion-*` en `metal.css` va con las tres formas del selector (`:root, :root.md, :root.ios`). Si algún token `--ion-*` nuevo "no se aplica", el problema es casi siempre este.
 
 ### Contador de carga
 
