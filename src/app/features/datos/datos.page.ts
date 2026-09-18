@@ -4,6 +4,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/stan
 import { CATEGORIAS, CategoriaCuriosidad } from '../../core/models/curiosidad.model';
 import { StatsService } from '../../core/services/stats.service';
 import { PartidosService } from '../../core/services/partidos.service';
+import { VarService } from '../../core/services/var.service';
 import { ContadorDirective } from '../../shared/contador.directive';
 import { ContadorService } from '../../shared/contador.service';
 
@@ -20,6 +21,7 @@ export class DatosPage {
   private readonly statsSvc = inject(StatsService);
   private readonly partidosSvc = inject(PartidosService);
   private readonly contadores = inject(ContadorService);
+  private readonly varSvc = inject(VarService);
 
   ionViewWillEnter(): void {
     this.contadores.reiniciar();
@@ -30,6 +32,8 @@ export class DatosPage {
 
   readonly liga = this.statsSvc.liga;
   readonly avisos = this.partidosSvc.avisos;
+  readonly diferenciasTitulos = this.varSvc.diferenciasTitulos;
+  readonly diferenciasGoles = this.varSvc.diferenciasGoles;
 
   readonly curiosidades = computed(() => {
     const f = this.filtro();

@@ -114,5 +114,46 @@
         </div>
       </div>
     }
+
+    <!-- ------------------------------------------- planilla contra videos -->
+    @if (diferenciasTitulos().length || diferenciasGoles().length) {
+      <div class="barra-seccion">
+        <h2>La planilla contra los videos</h2>
+        <span class="nota">{{ diferenciasTitulos().length }} fechas no coinciden con el título</span>
+      </div>
+      <p class="explica">
+        La planilla manda: nada de esto cambia la tabla. Es para revisar a mano cuál de los dos tiene razón.
+      </p>
+      <div class="panel">
+        <div class="panel-cuerpo">
+          <ul class="lista-datos">
+            @for (d of diferenciasTitulos(); track d.fechaId) {
+              <li>
+                <span class="k">
+                  <a [routerLink]="['/tabs/fechas', d.fechaId]">Fecha {{ d.fechaId }}</a>
+                  <span class="sub">{{ d.tipo === 'invertido' ? 'colores al revés' : 'otro marcador' }}</span>
+                </span>
+                <span class="v">
+                  planilla {{ d.json.naranja }}-{{ d.json.azul }} ·
+                  <a [routerLink]="['/tabs/videos', d.youtubeId]">video {{ d.titulo.naranja }}-{{ d.titulo.azul }}</a>
+                </span>
+              </li>
+            }
+            @for (g of diferenciasGoles(); track g.completo.youtubeId) {
+              @for (x of g.diferencias; track x.jugador) {
+                <li>
+                  <span class="k">
+                    <a [routerLink]="['/tabs/videos', g.completo.youtubeId]">Fecha {{ g.completo.fechaId }}</a>
+                    <span class="sub">goles de {{ x.jugador }}</span>
+                  </span>
+                  <span class="v">planilla {{ x.json }} · VAR {{ x.video }}</span>
+                </li>
+              }
+            }
+          </ul>
+          <p class="explica">Marcador en orden naranja-azul. Las filas de goles salen de los videos que alguien dio por terminados en el VAR.</p>
+        </div>
+      </div>
+    }
   </div>
 </ion-content>

@@ -91,3 +91,16 @@
   text-align: center;
   color: var(--tinta-2);
 }
+
+.var-fecha {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  padding: 10px 12px;
+  font-size: 0.82rem;
+
+  .sub {
+    color: var(--tinta-2);
+    font-weight: 400;
+  }
+}

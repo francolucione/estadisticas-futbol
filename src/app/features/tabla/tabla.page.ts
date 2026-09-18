@@ -15,11 +15,14 @@ import { ClaveMetrica, METRICAS, Metrica, StatsJugador } from '../../core/models
 import { StatsService } from '../../core/services/stats.service';
 import { PartidosService } from '../../core/services/partidos.service';
 import { MIN_PARTIDOS_RANKING } from '../../core/services/stats.engine';
+import { VarService } from '../../core/services/var.service';
+import { totalDe } from '../../core/services/var.engine';
+import { Categoria } from '../../core/models/var.model';
 import { formatearValor } from '../../shared/formato';
 import { ContadorDirective } from '../../shared/contador.directive';
 import { ContadorService } from '../../shared/contador.service';
 
-type Vista = 'posiciones' | Metrica['familia'];
+type Vista = 'posiciones' | Metrica['familia'] | 'var';
 
 @Component({
   selector: 'app-tabla',
@@ -42,6 +45,7 @@ export class TablaPage {
   private readonly statsSvc = inject(StatsService);
   private readonly partidosSvc = inject(PartidosService);
   private readonly contadores = inject(ContadorService);
+  private readonly varSvc = inject(VarService);
 
   readonly minimo = MIN_PARTIDOS_RANKING;
 
@@ -50,6 +54,7 @@ export class TablaPage {
     { clave: 'ataque', etiqueta: 'Ataque' },
     { clave: 'resultados', etiqueta: 'Resultados' },
     { clave: 'goles', etiqueta: 'Goles' },
+    { clave: 'var', etiqueta: 'VAR' },
   ];
 
   readonly vista = signal<Vista>('posiciones');
@@ -74,8 +79,29 @@ export class TablaPage {
     return [...base].sort((a, b) => (menorEsMejor ? a[clave] - b[clave] : b[clave] - a[clave]));
   });
 
+  // --- VAR: rankings de lo marcado en los videos ---
+  readonly categoriasVar = this.varSvc.categoriasConDatos;
+  private readonly idVar = signal<string | null>(null);
+  readonly categoriaVar = computed<Categoria | null>(() => {
+    const todas = this.categoriasVar();
+    return todas.find((c) => c.id === this.idVar()) ?? todas[0] ?? null;
+  });
+  readonly rankingVar = computed(() => {
+    const c = this.categoriaVar();
+    return c ? this.varSvc.ranking(c.id) : [];
+  });
+  readonly totalVar = computed(() => {
+    const c = this.categoriaVar();
+    return c ? totalDe(this.varSvc.contadores(), c.id) : 0;
+  });
+
   constructor() {
     addIcons({ buildOutline });
+  }
+
+  elegirCategoriaVar(id: string): void {
+    this.idVar.set(id);
+    this.contadores.reiniciarGrupo('col-var');
   }
 
   /** Ionic la llama en cada entrada a la vista, tambien al volver a la pestana. */

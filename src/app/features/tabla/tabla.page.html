@@ -75,6 +75,58 @@
         La banda cyan marca el podio; la roja, los ultimos tres.
       </p>
     </div>
+  } @else if (vista() === 'var') {
+    <!-- ------------------------------------------------------- el VAR -->
+    @if (categoriasVar().length) {
+      <nav class="segmento metricas" aria-label="Categoría del VAR">
+        @for (c of categoriasVar(); track c.id) {
+          <button [class.activo]="categoriaVar()?.id === c.id" (click)="elegirCategoriaVar(c.id)">
+            {{ c.emoji }} {{ c.nombre }}
+          </button>
+        }
+      </nav>
+    }
+    <div class="contenido">
+      @if (categoriaVar(); as c) {
+        <div class="barra-seccion">
+          <h2>{{ c.emoji }} {{ c.nombre }}</h2>
+          <span class="nota"><span [appContador]="totalVar()"></span> marcadas en los videos</span>
+        </div>
+        @if (c.descripcion) {
+          <p class="explica">{{ c.descripcion }}</p>
+        }
+        <div class="panel">
+          <div class="tabla-scroll">
+            <table class="tabla-densa">
+              <thead>
+                <tr>
+                  <th class="col-puesto">#</th>
+                  <th class="col-nombre">Jugador</th>
+                  <th class="resaltada">Veces</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (f of rankingVar(); track f.nombre; let i = $index) {
+                  <tr>
+                    <td class="col-puesto"><span [appContador]="i + 1"></span></td>
+                    <td class="col-nombre">
+                      <a [routerLink]="['jugador', f.nombre]">{{ f.nombre }}</a>
+                    </td>
+                    <td class="resaltada"><span [appContador]="f.cantidad" grupo="col-var"></span></td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="explica">Sale de lo que el grupo marca mirando los videos. <a routerLink="/tabs/videos">Marcar en el VAR</a></p>
+      } @else {
+        <p class="explica vacio-var">
+          Todavía no hay nada marcado en los videos. Entrá al <a routerLink="/tabs/videos">VAR</a>, elegí un partido y
+          empezá: cada gesto, palo o robo que marques arma su propio ranking acá.
+        </p>
+      }
+    </div>
   } @else {
     <!-- --------------------------------------------- rankings por metrica -->
     <nav class="segmento metricas" aria-label="Metrica">

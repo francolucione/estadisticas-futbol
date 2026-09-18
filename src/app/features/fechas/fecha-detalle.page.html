@@ -34,6 +34,19 @@
         </div>
       }
 
+      @if (video(); as v) {
+        <a class="bt var-fecha" [routerLink]="['/tabs/videos', v.youtubeId]">
+          ▶ Ver el partido en el VAR
+          <span class="sub">{{ marcasVideo() }} {{ marcasVideo() === 1 ? 'marca' : 'marcas' }}</span>
+        </a>
+        @if (diferenciaTitulo(); as d) {
+          <p class="explica">
+            Ojo: el título del video dice naranja {{ d.titulo.naranja }} - {{ d.titulo.azul }} azul
+            {{ d.tipo === 'invertido' ? '(los colores al revés)' : '' }}. La tabla usa esta planilla.
+          </p>
+        }
+      }
+
       @if (figura(); as f) {
         <p class="figura-fecha">
           Figura de la fecha:

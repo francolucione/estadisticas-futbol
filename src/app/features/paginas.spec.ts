@@ -13,19 +13,42 @@ import { JugadorPage } from './jugador/jugador.page';
 import { CompararPage } from './comparar/comparar.page';
 import { DatosPage } from './datos/datos.page';
 import { AdminPage } from './admin/admin.page';
+import { VideosPage } from './videos/videos.page';
+import { VideoPage } from './videos/video.page';
+import { BitacoraPage } from './videos/bitacora.page';
+import { FabricaReproductor, Reproductor } from './videos/reproductor';
+import { MemoriaVarFuente, VarFuente } from '../core/services/var.fuente';
+import { MemoriaSesion, Sesion } from '../core/services/sesion';
+import { VarService } from '../core/services/var.service';
+import { CATEGORIAS_BASE } from '../core/data/categorias';
 
 /**
  * Estas pruebas montan cada pantalla con los datos reales. No revisan
  * estetica: revisan que las plantillas no revienten al renderizar, que es
  * donde la version anterior fallaba en silencio.
  */
+/** El VAR sin red: eventos en memoria, sesion falsa y un reproductor que nunca carga. */
+let fuente: MemoriaVarFuente;
+let sesion: MemoriaSesion;
+
 function montar<T>(componente: Type<T>, params: Record<string, string> = {}): ComponentFixture<T> {
+  fuente = new MemoriaVarFuente();
+  sesion = new MemoriaSesion();
   TestBed.configureTestingModule({
     imports: [componente],
     providers: [
       provideIonicAngular(),
       provideRouter([]),
-      { provide: ActivatedRoute, useValue: { paramMap: of(convertToParamMap(params)) } },
+      {
+        provide: ActivatedRoute,
+        useValue: {
+          paramMap: of(convertToParamMap(params)),
+          snapshot: { queryParamMap: convertToParamMap({}) },
+        },
+      },
+      { provide: VarFuente, useValue: fuente },
+      { provide: Sesion, useValue: sesion },
+      { provide: FabricaReproductor, useValue: { crear: () => new Promise<Reproductor>(() => {}) } },
     ],
   });
 
@@ -342,4 +365,85 @@ describe('contadores al entrar a una pantalla', () => {
       expect(espia).withContext(`${nombre} no larga la animacion`).toHaveBeenCalled();
     });
   }
+});
+
+describe('VAR', () => {
+  // Fecha 47: tiene video y planilla, asi que ofrece a sus 10 jugadores.
+  const F47 = 'uHYsPUzSOKU';
+  const cordones = CATEGORIAS_BASE.find((c) => c.id === 'cordones')!;
+
+  it('la lista arranca en 2025 con sus 16 fechas', () => {
+    const fixture = montar(VideosPage);
+    expect(fixture.componentInstance.lista().length).toBe(16);
+    fixture.componentInstance.temporada.set('2023-24');
+    fixture.detectChanges();
+    expect(fixture.componentInstance.lista().length).toBe(47);
+  });
+
+  it('en una fecha con planilla ofrece a los diez que jugaron', () => {
+    const fixture = montar(VideoPage, { id: F47 });
+    const nombres = fixture.componentInstance.jugadores().map((j) => j.nombre);
+    expect(nombres.length).toBe(10);
+    expect(nombres).toContain('Lucio');
+  });
+
+  it('sin sesion, la hoja pide entrar y no anota', async () => {
+    const fixture = montar(VideoPage, { id: F47 });
+    const page = fixture.componentInstance;
+    page.capturar(cordones);
+    page.elegir('Adri R');
+    fixture.detectChanges();
+    expect(fixture.nativeElement.textContent).toContain('Entrar con Google para anotar');
+  });
+
+  it('anotar mueve el contador, la tabla VAR y la ficha', async () => {
+    const fixture = montar(VideoPage, { id: F47 });
+    const page = fixture.componentInstance;
+    await sesion.entrar();
+    page.capturar(cordones);
+    page.elegir('Adri R');
+    expect(page.sePuedeAnotar()).toBeTrue();
+    await page.anotar();
+    fixture.detectChanges();
+
+    expect(page.captura()).toBeNull();
+    expect(page.eventos().length).toBe(1);
+    expect(page.aviso()).toContain('Adri R se ata los cordones');
+
+    const svc = TestBed.inject(VarService);
+    expect(svc.ranking('cordones')).toEqual([{ nombre: 'Adri R', cantidad: 1 }]);
+    expect(svc.categoriasConDatos().map((c) => c.id)).toEqual(['cordones']);
+  });
+
+  it('el control de goles compara contra la planilla', async () => {
+    const fixture = montar(VideoPage, { id: F47 });
+    const page = fixture.componentInstance;
+    await sesion.entrar();
+    page.capturar(CATEGORIAS_BASE[0]);
+    page.elegir('Lucio');
+    await page.anotar();
+    const ctl = page.control()!;
+    expect(ctl.marcados).toBe(1);
+    expect(ctl.json).toBe(23);
+    // Lucio hizo 3 en la planilla y hay 1 marcado.
+    expect(ctl.diferencias.find((d) => d.jugador === 'Lucio')).toEqual({ jugador: 'Lucio', json: 3, video: 1 });
+  });
+
+  it('la tabla muestra la vista VAR vacia sin romperse', () => {
+    const fixture = montar(TablaPage);
+    fixture.componentInstance.cambiarVista('var');
+    fixture.detectChanges();
+    expect(fixture.nativeElement.textContent).toContain('Todavía no hay nada marcado');
+  });
+
+  it('la bitacora monta vacia', () => {
+    const fixture = montar(BitacoraPage);
+    expect(fixture.nativeElement.textContent).toContain('Todavía nadie marcó nada');
+  });
+
+  it('Datos lista las fechas donde el titulo no coincide', () => {
+    const fixture = montar(DatosPage);
+    expect(fixture.nativeElement.textContent).toContain('La planilla contra los videos');
+    expect(fixture.nativeElement.textContent).toContain('colores al revés');
+  });
 });

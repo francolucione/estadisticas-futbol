@@ -18,6 +18,7 @@ import { createOutline } from 'ionicons/icons';
 import { Equipo } from '../../core/models/partido.model';
 import { PartidosService, marcadorDe } from '../../core/services/partidos.service';
 import { ContadorDirective } from '../../shared/contador.directive';
+import { VarService } from '../../core/services/var.service';
 import { ContadorService } from '../../shared/contador.service';
 
 @Component({
@@ -42,6 +43,7 @@ export class FechaDetallePage {
   private readonly route = inject(ActivatedRoute);
   private readonly partidosSvc = inject(PartidosService);
   private readonly contadores = inject(ContadorService);
+  private readonly varSvc = inject(VarService);
 
   ionViewWillEnter(): void {
     this.contadores.reiniciar();
@@ -57,6 +59,15 @@ export class FechaDetallePage {
     const p = this.partido();
     return p ? marcadorDe(p) : null;
   });
+
+  readonly video = computed(() => this.varSvc.videoDeFecha(this.id()) ?? null);
+  readonly marcasVideo = computed(() => {
+    const v = this.video();
+    return v ? Math.max(0, this.varSvc.contadores().porVideo[v.youtubeId] ?? 0) : 0;
+  });
+  readonly diferenciaTitulo = computed(
+    () => this.varSvc.diferenciasTitulos().find((d) => d.fechaId === this.id()) ?? null
+  );
 
   readonly editada = computed(() => this.partidosSvc.fueEditada(this.id()));
 

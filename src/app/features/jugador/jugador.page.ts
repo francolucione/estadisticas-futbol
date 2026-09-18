@@ -1,7 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { map } from 'rxjs';
+import { map, of, switchMap } from 'rxjs';
 import {
   IonBackButton,
   IonButtons,
@@ -11,6 +11,9 @@ import {
   IonToolbar,
 } from '@ionic/angular/standalone';
 import { StatsService } from '../../core/services/stats.service';
+import { VarService } from '../../core/services/var.service';
+import { conteosDe, fraseDe, hms, nombreDeVideo } from '../../core/services/var.engine';
+import { Evento } from '../../core/models/var.model';
 import { MIN_PARTIDOS_PAR, MIN_PARTIDOS_RANKING } from '../../core/services/stats.engine';
 import { GraficoEvolucionComponent } from '../../shared/components/grafico-evolucion.component';
 import { BarrasDeltaComponent } from '../../shared/components/barras-delta.component';
@@ -43,6 +46,7 @@ export class JugadorPage {
   private readonly router = inject(Router);
   private readonly statsSvc = inject(StatsService);
   private readonly contadores = inject(ContadorService);
+  private readonly varSvc = inject(VarService);
 
   ionViewWillEnter(): void {
     this.contadores.reiniciar();
@@ -71,6 +75,29 @@ export class JugadorPage {
       ? '/tabs/tabla/jugador'
       : '/tabs/jugadores/jugador'
   );
+
+  // --- VAR ---
+  readonly hms = hms;
+  readonly conteosVar = computed(() =>
+    conteosDe(this.varSvc.contadores(), this.varSvc.categorias(), this.nombre())
+  );
+  readonly momentos = toSignal(
+    toObservable(this.nombre).pipe(switchMap((n) => (n ? this.varSvc.eventosDeJugador(n, 10) : of([])))),
+    { initialValue: [] as Evento[] }
+  );
+
+  fraseVar(e: Evento): string {
+    return fraseDe(this.varSvc.categoria(e.categoriaId), e);
+  }
+
+  emojiVar(e: Evento): string {
+    return this.varSvc.categoria(e.categoriaId)?.emoji ?? '•';
+  }
+
+  videoVar(e: Evento): string {
+    const v = this.varSvc.video(e.videoId);
+    return v ? nombreDeVideo(v) : '';
+  }
 
   readonly medias = computed(() => this.perfil()?.evolucion.map((e) => e.mediaMovil) ?? []);
 
