@@ -17,9 +17,9 @@ export interface Curiosidad {
 }
 
 export const CATEGORIAS: { clave: CategoriaCuriosidad; etiqueta: string }[] = [
-  { clave: 'records', etiqueta: 'Records' },
+  { clave: 'records', etiqueta: 'Récords' },
   { clave: 'rachas', etiqueta: 'Rachas' },
-  { clave: 'quimica', etiqueta: 'Quimica' },
+  { clave: 'quimica', etiqueta: 'Química' },
   { clave: 'rarezas', etiqueta: 'Rarezas' },
   { clave: 'liga', etiqueta: 'La liga' },
 ];

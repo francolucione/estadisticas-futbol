@@ -139,9 +139,9 @@ export function diferenciasDeTitulos(videos: Video[], partidos: Partido[]): Dife
   return out.sort((a, b) => a.fechaId - b.fechaId);
 }
 
-/** Nombre corto para la lista y la cabecera: "Fecha 42", "2025 · #7", o el titulo. */
+/** Nombre corto para la cabecera y la bitacora: "Fecha 42", "Fecha 7 de 2025", o el titulo. */
 export function nombreDeVideo(v: Video): string {
   if (v.fechaId !== undefined) return `Fecha ${v.fechaId}`;
-  if (v.numero !== undefined) return `2025 · #${v.numero}`;
+  if (v.numero !== undefined) return `Fecha ${v.numero} de 2025`;
   return v.titulo;
 }

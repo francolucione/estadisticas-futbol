@@ -163,7 +163,7 @@ export const METRICAS: Metrica[] = [
   { clave: 'asistenciasPorPartido', etiqueta: 'Asist/PJ', familia: 'ataque', formato: 'decimal', columna: 'asistencias' },
   { clave: 'influencias', etiqueta: 'Influencias', familia: 'ataque', formato: 'entero', columna: 'influencias' },
   { clave: 'influenciasPorPartido', etiqueta: 'Infl/PJ', familia: 'ataque', formato: 'decimal', columna: 'influencias' },
-  { clave: 'participacionGoles', etiqueta: 'Participacion', familia: 'ataque', formato: 'porcentaje', columna: 'influencias' },
+  { clave: 'participacionGoles', etiqueta: 'Participación', familia: 'ataque', formato: 'porcentaje', columna: 'influencias' },
 
   { clave: 'PJ', etiqueta: 'PJ', familia: 'resultados', formato: 'entero', columna: 'PJ' },
   { clave: 'PG', etiqueta: 'PG', familia: 'resultados', formato: 'entero', columna: 'PG' },

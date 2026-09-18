@@ -65,7 +65,7 @@ function records(stats: StatsJugador[], partidos: Partido[]): Curiosidad[] {
       categoria: 'records',
       titular: 'El nueve',
       valor: `${goleador.h.goles} goles`,
-      detalle: `${goleador.nombre} en la fecha ${goleador.h.partidoId}, que termino ${goleador.h.golesFavor}-${goleador.h.golesContra}.`,
+      detalle: `${goleador.nombre} en la fecha ${goleador.h.partidoId}, que terminó ${goleador.h.golesFavor}-${goleador.h.golesContra}.`,
       jugadores: [goleador.nombre],
     });
   }
@@ -82,7 +82,7 @@ function records(stats: StatsJugador[], partidos: Partido[]): Curiosidad[] {
       categoria: 'records',
       titular: 'El partido perfecto',
       valor: `${actuacion.h.influencias}`,
-      detalle: `${actuacion.nombre} metio ${actuacion.h.goles} y asistio ${actuacion.h.asistencias} en la fecha ${actuacion.h.partidoId}.`,
+      detalle: `${actuacion.nombre} metió ${actuacion.h.goles} y asistió ${actuacion.h.asistencias} en la fecha ${actuacion.h.partidoId}.`,
       jugadores: [actuacion.nombre],
     });
   }
@@ -97,7 +97,7 @@ function records(stats: StatsJugador[], partidos: Partido[]): Curiosidad[] {
     salida.push({
       id: 'mas-definidor',
       categoria: 'records',
-      titular: 'El egoista',
+      titular: 'El egoísta',
       valor: (definidor.goles / definidor.asistencias).toFixed(2),
       detalle: `${definidor.nombre} hace ${(definidor.goles / definidor.asistencias).toFixed(2)} goles por cada asistencia: ${definidor.goles} contra ${definidor.asistencias}.`,
       jugadores: [definidor.nombre],
@@ -124,7 +124,7 @@ function records(stats: StatsJugador[], partidos: Partido[]): Curiosidad[] {
     salida.push({
       id: 'acaparador',
       categoria: 'records',
-      titular: 'Todo pasa por el',
+      titular: 'Todo pasa por él',
       valor: pct(acaparador.participacionGoles),
       detalle: `${acaparador.nombre} participa en ${pct(acaparador.participacionGoles)} de los goles de su equipo, entre goles y asistencias.`,
       jugadores: [acaparador.nombre],
@@ -143,7 +143,7 @@ function records(stats: StatsJugador[], partidos: Partido[]): Curiosidad[] {
       categoria: 'records',
       titular: 'Laburo perdido',
       valor: `${goles} goles`,
-      detalle: `${sinGanar.nombre} los hizo en partidos que no gano. Es ${pct(goles / sinGanar.goles)} de su obra.`,
+      detalle: `${sinGanar.nombre} los hizo en partidos que no ganó. Es ${pct(goles / sinGanar.goles)} de su obra.`,
       jugadores: [sinGanar.nombre],
     });
   }
@@ -157,7 +157,7 @@ function records(stats: StatsJugador[], partidos: Partido[]): Curiosidad[] {
     salida.push({
       id: 'max-goles-equipo',
       categoria: 'records',
-      titular: 'La maquina',
+      titular: 'La máquina',
       valor: `${Math.max(m.naranja, m.azul)}`,
       detalle: `Los ${m.naranja > m.azul ? 'naranjas' : 'azules'} metieron eso solos en la fecha ${equipazo.id} (${m.naranja}-${m.azul}).`,
       jugadores: [],
@@ -200,9 +200,9 @@ function rachas(stats: StatsJugador[]): Curiosidad[] {
     salida.push({
       id: 'peor-racha',
       categoria: 'rachas',
-      titular: 'La travesia',
+      titular: 'La travesía',
       valor: `${rachaMasLarga(perdedor, (r) => r === 'D')}`,
-      detalle: `${perdedor.nombre} perdio esa cantidad de partidos al hilo. Se le hizo largo.`,
+      detalle: `${perdedor.nombre} perdió esa cantidad de partidos al hilo. Se le hizo largo.`,
       jugadores: [perdedor.nombre],
     });
   }
@@ -228,7 +228,7 @@ function rachas(stats: StatsJugador[]): Curiosidad[] {
       categoria: 'rachas',
       titular: 'No paraba de meterla',
       valor: `${max}`,
-      detalle: `${goleador.nombre} marco en esa cantidad de fechas seguidas.`,
+      detalle: `${goleador.nombre} marcó en esa cantidad de fechas seguidas.`,
       jugadores: [goleador.nombre],
     });
   }
@@ -243,8 +243,8 @@ function rachas(stats: StatsJugador[]): Curiosidad[] {
       valor: `${presente.PJ} de ${total}`,
       detalle:
         presente.PJ === total
-          ? `${presente.nombre} jugo absolutamente todas las fechas.`
-          : `${presente.nombre} es el que mas veces se puso los cortos.`,
+          ? `${presente.nombre} jugó absolutamente todas las fechas.`
+          : `${presente.nombre} es el que más veces se puso los cortos.`,
       jugadores: [presente.nombre],
     });
   }
@@ -375,9 +375,9 @@ function rarezas(stats: StatsJugador[]): Curiosidad[] {
       categoria: 'rarezas',
       titular: 'El reloj',
       valor: desvio(regular).toFixed(2),
-      detalle: `${regular.nombre} es el mas parejo de todos: rinde casi lo mismo todas las fechas (promedio de ${regular.influenciasPorPartido.toFixed(1)} influencias).`,
+      detalle: `${regular.nombre} es el más parejo de todos: rinde casi lo mismo todas las fechas (promedio de ${regular.influenciasPorPartido.toFixed(1)} influencias).`,
       jugadores: [regular.nombre],
-      nota: 'Cuanto mas bajo el numero, menos varia entre un partido y otro.',
+      nota: 'Cuanto más bajo el número, menos varía entre un partido y otro.',
     });
 
     const irregular = conMuestra.reduce((a, b) => (desvio(b) > desvio(a) ? b : a));
@@ -386,7 +386,7 @@ function rarezas(stats: StatsJugador[]): Curiosidad[] {
       categoria: 'rarezas',
       titular: 'De un extremo al otro',
       valor: desvio(irregular).toFixed(2),
-      detalle: `${irregular.nombre} tiene partidos enormes y partidos en blanco, con poco termino medio.`,
+      detalle: `${irregular.nombre} tiene partidos enormes y partidos en blanco, con poco término medio.`,
       jugadores: [irregular.nombre],
     });
   }
@@ -416,7 +416,7 @@ function rarezas(stats: StatsJugador[]): Curiosidad[] {
         valor: '0',
         detalle: separados
           ? `${a.nombre} juega de la fecha ${rangoA[0]} a la ${rangoA[1]}; ${b.nombre}, de la ${rangoB[0]} a la ${rangoB[1]}. Cero superposicion.`
-          : `${a.nombre} y ${b.nombre} nunca estuvieron en la misma fecha, ni como companeros ni como rivales.`,
+          : `${a.nombre} y ${b.nombre} nunca estuvieron en la misma fecha, ni como compañeros ni como rivales.`,
         jugadores: [a.nombre, b.nombre],
         nota: separados
           ? 'Cuando dos nombres no se pisan nunca y ademas juegan en epocas distintas, puede tratarse de la misma persona. Se resuelve con un alias desde el panel admin.'
@@ -448,7 +448,7 @@ function liga(partidos: Partido[]): Curiosidad[] {
   salida.push({
     id: 'evolucion-goles',
     categoria: 'liga',
-    titular: segunda < primera ? 'Se puso mas trabada' : 'Cada vez mas goles',
+    titular: segunda < primera ? 'Se puso más trabada' : 'Cada vez más goles',
     valor: `${primera.toFixed(1)} → ${segunda.toFixed(1)}`,
     detalle: `Los goles por fecha pasaron de ${primera.toFixed(1)} en la primera mitad del historial a ${segunda.toFixed(1)} en la segunda.`,
     jugadores: [],
@@ -462,7 +462,7 @@ function liga(partidos: Partido[]): Curiosidad[] {
     salida.push({
       id: 'empates',
       categoria: 'liga',
-      titular: 'Nadie se saco ventaja',
+      titular: 'Nadie se sacó ventaja',
       valor: `${parejos.length}`,
       detalle: `Fechas que terminaron empatadas, de ${ordenados.length} jugadas: la ${parejos.map((p) => p.id).join(', la ')}.`,
       jugadores: [],
@@ -480,7 +480,7 @@ function liga(partidos: Partido[]): Curiosidad[] {
       categoria: 'liga',
       titular: 'La paliza',
       valor: `${Math.abs(m.naranja - m.azul)}`,
-      detalle: `La fecha ${goleada.id} termino ${m.naranja}-${m.azul}. La diferencia mas grande del historial.`,
+      detalle: `La fecha ${goleada.id} terminó ${m.naranja}-${m.azul}. La diferencia más grande del historial.`,
       jugadores: [],
     });
   }

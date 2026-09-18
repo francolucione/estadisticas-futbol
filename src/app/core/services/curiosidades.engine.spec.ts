@@ -126,7 +126,7 @@ describe('curiosidades', () => {
   it('mide como bajaron los goles por fecha', () => {
     const c = buscar('evolucion-goles')!;
     expect(c.valor).toBe('19.2 → 17.3');
-    expect(c.titular).toBe('Se puso mas trabada');
+    expect(c.titular).toBe('Se puso más trabada');
   });
 
   it('cuenta los empates de la liga', () => {

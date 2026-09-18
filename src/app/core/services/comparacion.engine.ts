@@ -59,6 +59,6 @@ export const METRICAS_COMPARACION: {
   { clave: 'influenciasPorPartido', etiqueta: 'Influencias por partido', formato: 'decimal', mayorEsMejor: true },
   { clave: 'pgPorcentaje', etiqueta: 'Victorias', formato: 'porcentaje', mayorEsMejor: true },
   { clave: 'puntosPorPartido', etiqueta: 'Puntos por partido', formato: 'decimal', mayorEsMejor: true },
-  { clave: 'participacionGoles', etiqueta: 'Participacion en goles', formato: 'porcentaje', mayorEsMejor: true },
+  { clave: 'participacionGoles', etiqueta: 'Participación en goles', formato: 'porcentaje', mayorEsMejor: true },
   { clave: 'DG', etiqueta: 'Diferencia de gol', formato: 'entero', mayorEsMejor: true },
 ];

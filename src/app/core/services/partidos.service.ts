@@ -33,7 +33,7 @@ export function aplicarAlias(archivo: ArchivoPartidos): Partido[] {
     for (const j of jugadores) {
       if (vistos.has(j.nombre)) {
         throw new Error(
-          `partido ${p.id}: "${j.nombre}" aparece dos veces despues de aplicar alias. ` +
+          `partido ${p.id}: "${j.nombre}" aparece dos veces después de aplicar alias. ` +
             `Revisa el mapa "alias" en partidos.json.`
         );
       }
