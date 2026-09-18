@@ -1,0 +1,679 @@
+[
+  {
+    "youtubeId": "Qto5JzOF1N8",
+    "titulo": "#16 (23-12-25)",
+    "duracionSeg": 4040,
+    "temporada": "2025",
+    "numero": 16,
+    "fechaReal": "2025-12-23"
+  },
+  {
+    "youtubeId": "3Mhs2Mck7Ws",
+    "titulo": "#15 (16-12-25)",
+    "duracionSeg": 3245,
+    "temporada": "2025",
+    "numero": 15,
+    "fechaReal": "2025-12-16"
+  },
+  {
+    "youtubeId": "SBiY6Uzs0e4",
+    "titulo": "#14 (25-11-25)",
+    "duracionSeg": 3125,
+    "temporada": "2025",
+    "numero": 14,
+    "fechaReal": "2025-11-25"
+  },
+  {
+    "youtubeId": "wixXTiLLl2w",
+    "titulo": "#13 (18-11-25)",
+    "duracionSeg": 3258,
+    "temporada": "2025",
+    "numero": 13,
+    "fechaReal": "2025-11-18"
+  },
+  {
+    "youtubeId": "6dBE67SQSFY",
+    "titulo": "#12 (11-11-25)",
+    "duracionSeg": 2787,
+    "temporada": "2025",
+    "numero": 12,
+    "fechaReal": "2025-11-11"
+  },
+  {
+    "youtubeId": "KNm7tP0zwSw",
+    "titulo": "#11 (07-10-25)",
+    "duracionSeg": 3057,
+    "temporada": "2025",
+    "numero": 11,
+    "fechaReal": "2025-10-07"
+  },
+  {
+    "youtubeId": "qEm_68VBdUg",
+    "titulo": "#10 (30-09-25)",
+    "duracionSeg": 3312,
+    "temporada": "2025",
+    "numero": 10,
+    "fechaReal": "2025-09-30"
+  },
+  {
+    "youtubeId": "r3M6rm8HhtU",
+    "titulo": "#9 (23-09-25)",
+    "duracionSeg": 3278,
+    "temporada": "2025",
+    "numero": 9,
+    "fechaReal": "2025-09-23"
+  },
+  {
+    "youtubeId": "JwBFNS1g3-s",
+    "titulo": "#8 (16-09-25)",
+    "duracionSeg": 3405,
+    "temporada": "2025",
+    "numero": 8,
+    "fechaReal": "2025-09-16"
+  },
+  {
+    "youtubeId": "FUdis4_lTv0",
+    "titulo": "#7 (09-09-25)",
+    "duracionSeg": 3518,
+    "temporada": "2025",
+    "numero": 7,
+    "fechaReal": "2025-09-09"
+  },
+  {
+    "youtubeId": "kgCjCzuMsS0",
+    "titulo": "#6 (02-09-25)",
+    "duracionSeg": 3253,
+    "temporada": "2025",
+    "numero": 6,
+    "fechaReal": "2025-09-02"
+  },
+  {
+    "youtubeId": "FYPmTNWpSVM",
+    "titulo": "#5 (27-08-25)",
+    "duracionSeg": 3294,
+    "temporada": "2025",
+    "numero": 5,
+    "fechaReal": "2025-08-27"
+  },
+  {
+    "youtubeId": "Xco9Hci4Prk",
+    "titulo": "#4 (19/08/25)",
+    "duracionSeg": 3151,
+    "temporada": "2025",
+    "numero": 4,
+    "fechaReal": "2025-08-19"
+  },
+  {
+    "youtubeId": "nkUeTyvtUaY",
+    "titulo": "#3  (12-08-25)",
+    "duracionSeg": 3240,
+    "temporada": "2025",
+    "numero": 3,
+    "fechaReal": "2025-08-12"
+  },
+  {
+    "youtubeId": "ChSa1qxUKOc",
+    "titulo": "#2(05/08/25) Falta primera parte.",
+    "duracionSeg": 2260,
+    "temporada": "2025",
+    "numero": 2,
+    "fechaReal": "2025-08-05"
+  },
+  {
+    "youtubeId": "VYcxnSohJ2I",
+    "titulo": "DartioTV#1 (17/6/25)",
+    "duracionSeg": 2492,
+    "temporada": "2025",
+    "numero": 1,
+    "fechaReal": "2025-06-17"
+  },
+  {
+    "youtubeId": "JyDdEYXHkxc",
+    "titulo": "FIN DE AÑO 2024",
+    "duracionSeg": 251,
+    "temporada": "especial"
+  },
+  {
+    "youtubeId": "0J0_pjxiF1U",
+    "titulo": "FIN DE AÑO 2023",
+    "duracionSeg": 247,
+    "temporada": "especial"
+  },
+  {
+    "youtubeId": "uHYsPUzSOKU",
+    "titulo": "Fecha N°47: Azules 14-9 Naranjas",
+    "duracionSeg": 4093,
+    "temporada": "2023-24",
+    "fechaId": 47,
+    "marcadorTitulo": {
+      "azul": 14,
+      "naranja": 9
+    }
+  },
+  {
+    "youtubeId": "aLOHVF3ear4",
+    "titulo": "Fecha N°46: Naranjas 16-14 Azules",
+    "duracionSeg": 4020,
+    "temporada": "2023-24",
+    "fechaId": 46,
+    "marcadorTitulo": {
+      "naranja": 16,
+      "azul": 14
+    }
+  },
+  {
+    "youtubeId": "zPnZG_2f4_M",
+    "titulo": "Fecha N°45: Naranjas 8-3 Azules",
+    "duracionSeg": 2921,
+    "temporada": "2023-24",
+    "fechaId": 45,
+    "marcadorTitulo": {
+      "naranja": 8,
+      "azul": 3
+    }
+  },
+  {
+    "youtubeId": "WeDn6NCqlAw",
+    "titulo": "Fecha N°44: Naranjas 9-7 Azules",
+    "duracionSeg": 2750,
+    "temporada": "2023-24",
+    "fechaId": 44,
+    "marcadorTitulo": {
+      "naranja": 9,
+      "azul": 7
+    }
+  },
+  {
+    "youtubeId": "gsDDbZgYFzQ",
+    "titulo": "Fecha N°43: Naranjas 8-6 Azules",
+    "duracionSeg": 3031,
+    "temporada": "2023-24",
+    "fechaId": 43,
+    "marcadorTitulo": {
+      "naranja": 8,
+      "azul": 6
+    }
+  },
+  {
+    "youtubeId": "glsVRSvKygg",
+    "titulo": "Fecha N°42: Naranjas 9-7 Azules - \"No cobres boludeces\".- Adrián \"El hacha\" B.",
+    "duracionSeg": 3118,
+    "temporada": "2023-24",
+    "fechaId": 42,
+    "marcadorTitulo": {
+      "naranja": 9,
+      "azul": 7
+    }
+  },
+  {
+    "youtubeId": "8fafZ4OLBDo",
+    "titulo": "Fecha N°41 Azules 8-8 Naranjas",
+    "duracionSeg": 3359,
+    "temporada": "2023-24",
+    "fechaId": 41,
+    "marcadorTitulo": {
+      "azul": 8,
+      "naranja": 8
+    }
+  },
+  {
+    "youtubeId": "jWvHKvuVW3M",
+    "titulo": "Fecha N°40 Azules 7-7 Naranjas",
+    "duracionSeg": 3368,
+    "temporada": "2023-24",
+    "fechaId": 40,
+    "marcadorTitulo": {
+      "azul": 7,
+      "naranja": 7
+    }
+  },
+  {
+    "youtubeId": "oDnCSUZr-k8",
+    "titulo": "Fecha N°39: Naranjas 14-7 Azules",
+    "duracionSeg": 3304,
+    "temporada": "2023-24",
+    "fechaId": 39,
+    "marcadorTitulo": {
+      "naranja": 14,
+      "azul": 7
+    }
+  },
+  {
+    "youtubeId": "ZT-uEVwJFks",
+    "titulo": "Fecha N°38: Azules 10-6 Naranjas",
+    "duracionSeg": 2970,
+    "temporada": "2023-24",
+    "fechaId": 38,
+    "marcadorTitulo": {
+      "azul": 10,
+      "naranja": 6
+    }
+  },
+  {
+    "youtubeId": "7qVmTdiYrWo",
+    "titulo": "Fecha N°37: Azules 9-5 Naranjas",
+    "duracionSeg": 2991,
+    "temporada": "2023-24",
+    "fechaId": 37,
+    "marcadorTitulo": {
+      "azul": 9,
+      "naranja": 5
+    }
+  },
+  {
+    "youtubeId": "XAwUxPZcu-w",
+    "titulo": "Fecha N°36: Naranjas 10-7 Azules",
+    "duracionSeg": 3037,
+    "temporada": "2023-24",
+    "fechaId": 36,
+    "marcadorTitulo": {
+      "naranja": 10,
+      "azul": 7
+    }
+  },
+  {
+    "youtubeId": "zwZcpSfX-ZI",
+    "titulo": "Fecha N°35: Naranjas 6-5 Azules",
+    "duracionSeg": 3214,
+    "temporada": "2023-24",
+    "fechaId": 35,
+    "marcadorTitulo": {
+      "naranja": 6,
+      "azul": 5
+    }
+  },
+  {
+    "youtubeId": "afSvfjzZ3fc",
+    "titulo": "Fecha N°34: Naranjas 9-8 Azules",
+    "duracionSeg": 3067,
+    "temporada": "2023-24",
+    "fechaId": 34,
+    "marcadorTitulo": {
+      "naranja": 9,
+      "azul": 8
+    }
+  },
+  {
+    "youtubeId": "PgodtYgo8sk",
+    "titulo": "Fecha N°33: Naranjas 14-9 Azules",
+    "duracionSeg": 3447,
+    "temporada": "2023-24",
+    "fechaId": 33,
+    "marcadorTitulo": {
+      "naranja": 14,
+      "azul": 9
+    }
+  },
+  {
+    "youtubeId": "Xe_SRnXLTiY",
+    "titulo": "Fecha N°32: Azules 12-8 Naranjas",
+    "duracionSeg": 3838,
+    "temporada": "2023-24",
+    "fechaId": 32,
+    "marcadorTitulo": {
+      "azul": 12,
+      "naranja": 8
+    }
+  },
+  {
+    "youtubeId": "F7LrEngfEtg",
+    "titulo": "Fecha N°31: Naranjas 10-8 Azules",
+    "duracionSeg": 3455,
+    "temporada": "2023-24",
+    "fechaId": 31,
+    "marcadorTitulo": {
+      "naranja": 10,
+      "azul": 8
+    }
+  },
+  {
+    "youtubeId": "OfZpKwWDRHo",
+    "titulo": "Fecha N°30: Naranjas 12-10 Azules",
+    "duracionSeg": 3451,
+    "temporada": "2023-24",
+    "fechaId": 30,
+    "marcadorTitulo": {
+      "naranja": 12,
+      "azul": 10
+    }
+  },
+  {
+    "youtubeId": "j1ma5Qt4V5w",
+    "titulo": "Fecha N°29: Azules 9-6 Naranjas",
+    "duracionSeg": 3499,
+    "temporada": "2023-24",
+    "fechaId": 29,
+    "marcadorTitulo": {
+      "azul": 9,
+      "naranja": 6
+    }
+  },
+  {
+    "youtubeId": "rVMv2stuSWA",
+    "titulo": "Fecha N°28: Azules 8-3 Naranjas",
+    "duracionSeg": 3535,
+    "temporada": "2023-24",
+    "fechaId": 28,
+    "marcadorTitulo": {
+      "azul": 8,
+      "naranja": 3
+    }
+  },
+  {
+    "youtubeId": "c-K94g6PYmc",
+    "titulo": "Fecha N°27: Azules 15-8 Naranjas",
+    "duracionSeg": 3794,
+    "temporada": "2023-24",
+    "fechaId": 27,
+    "marcadorTitulo": {
+      "azul": 15,
+      "naranja": 8
+    }
+  },
+  {
+    "youtubeId": "8nx54Suh5TU",
+    "titulo": "Fecha N°26: Naranjas 10-7 Azules",
+    "duracionSeg": 3319,
+    "temporada": "2023-24",
+    "fechaId": 26,
+    "marcadorTitulo": {
+      "naranja": 10,
+      "azul": 7
+    }
+  },
+  {
+    "youtubeId": "TQcYeHMc9Aw",
+    "titulo": "Fecha N°25: Azules 10-8 Naranjas",
+    "duracionSeg": 3812,
+    "temporada": "2023-24",
+    "fechaId": 25,
+    "marcadorTitulo": {
+      "azul": 10,
+      "naranja": 8
+    }
+  },
+  {
+    "youtubeId": "uLX2MImydmI",
+    "titulo": "Fecha N°24: Naranjas 8-7 Azules",
+    "duracionSeg": 4255,
+    "temporada": "2023-24",
+    "fechaId": 24,
+    "marcadorTitulo": {
+      "naranja": 8,
+      "azul": 7
+    }
+  },
+  {
+    "youtubeId": "zFYvpuceK3M",
+    "titulo": "Fecha N°23: Naranjas 8-7 Azules",
+    "duracionSeg": 3332,
+    "temporada": "2023-24",
+    "fechaId": 23,
+    "marcadorTitulo": {
+      "naranja": 8,
+      "azul": 7
+    }
+  },
+  {
+    "youtubeId": "7DvwhQ3vsUA",
+    "titulo": "Fecha N°22: Azules 13-9 Naranjas (Gallo 21-05-24)",
+    "duracionSeg": 4325,
+    "temporada": "2023-24",
+    "fechaId": 22,
+    "fechaReal": "2024-05-21",
+    "marcadorTitulo": {
+      "azul": 13,
+      "naranja": 9
+    }
+  },
+  {
+    "youtubeId": "v9qSIeqzkGM",
+    "titulo": "Fecha N°21: Azules 8-7 Naranjas (Gallo 14-05-24)",
+    "duracionSeg": 3769,
+    "temporada": "2023-24",
+    "fechaId": 21,
+    "fechaReal": "2024-05-14",
+    "marcadorTitulo": {
+      "azul": 8,
+      "naranja": 7
+    }
+  },
+  {
+    "youtubeId": "lzdCyB2xiII",
+    "titulo": "Fecha N°20: Azules 15-7 Naranjas (Gallo 07-05-24)",
+    "duracionSeg": 3327,
+    "temporada": "2023-24",
+    "fechaId": 20,
+    "fechaReal": "2024-05-07",
+    "marcadorTitulo": {
+      "azul": 15,
+      "naranja": 7
+    }
+  },
+  {
+    "youtubeId": "q-2gwy7BMX0",
+    "titulo": "Fecha N°19: Azules 14-4 Naranjas - \"Parejito eh\" - (Gallo 30-04-24)",
+    "duracionSeg": 3635,
+    "temporada": "2023-24",
+    "fechaId": 19,
+    "fechaReal": "2024-04-30",
+    "marcadorTitulo": {
+      "azul": 14,
+      "naranja": 4
+    }
+  },
+  {
+    "youtubeId": "wGDJ20r9DfE",
+    "titulo": "Fecha N°18: Naranjas 14-13 Azules - c pikó (Gallo 23-4-24)",
+    "duracionSeg": 3838,
+    "temporada": "2023-24",
+    "fechaId": 18,
+    "fechaReal": "2024-04-23",
+    "marcadorTitulo": {
+      "naranja": 14,
+      "azul": 13
+    }
+  },
+  {
+    "youtubeId": "lxTYoTSgymA",
+    "titulo": "Fecha N°17: Naranjas 13-5 Azules (Gallo 16 04 24)",
+    "duracionSeg": 3431,
+    "temporada": "2023-24",
+    "fechaId": 17,
+    "marcadorTitulo": {
+      "naranja": 13,
+      "azul": 5
+    }
+  },
+  {
+    "youtubeId": "xjSYuEI0AZY",
+    "titulo": "Fecha N°16: Naranjas 11-8 Azules (Gallo 09-04-24)",
+    "duracionSeg": 3907,
+    "temporada": "2023-24",
+    "fechaId": 16,
+    "fechaReal": "2024-04-09",
+    "marcadorTitulo": {
+      "naranja": 11,
+      "azul": 8
+    }
+  },
+  {
+    "youtubeId": "j794wAt_W64",
+    "titulo": "Fecha N°15: Azules 18-12 Naranjas (Gallo 26-03-24)",
+    "duracionSeg": 3466,
+    "temporada": "2023-24",
+    "fechaId": 15,
+    "fechaReal": "2024-03-26",
+    "marcadorTitulo": {
+      "azul": 18,
+      "naranja": 12
+    }
+  },
+  {
+    "youtubeId": "TvgZ_9sN5Cw",
+    "titulo": "Fecha N°14: Naranjas 15-11 Azules",
+    "duracionSeg": 3786,
+    "temporada": "2023-24",
+    "fechaId": 14,
+    "marcadorTitulo": {
+      "naranja": 15,
+      "azul": 11
+    }
+  },
+  {
+    "youtubeId": "ucpCvmD96SI",
+    "titulo": "Fecha N°13: Azules 8-6 Naranjas (Gallo 30-01-24)",
+    "duracionSeg": 3962,
+    "temporada": "2023-24",
+    "fechaId": 13,
+    "fechaReal": "2024-01-30",
+    "marcadorTitulo": {
+      "azul": 8,
+      "naranja": 6
+    }
+  },
+  {
+    "youtubeId": "sZmJM7UPy-Q",
+    "titulo": "Fecha N°12: Azules 19-8 Naranjas (Gallo 26-12-23)",
+    "duracionSeg": 3616,
+    "temporada": "2023-24",
+    "fechaId": 12,
+    "fechaReal": "2023-12-26",
+    "marcadorTitulo": {
+      "azul": 19,
+      "naranja": 8
+    }
+  },
+  {
+    "youtubeId": "NgNPApTiJdA",
+    "titulo": "Fecha N°11: Azules 14-10 Naranjas (Gallo 19-12-23)",
+    "duracionSeg": 3512,
+    "temporada": "2023-24",
+    "fechaId": 11,
+    "fechaReal": "2023-12-19",
+    "marcadorTitulo": {
+      "azul": 14,
+      "naranja": 10
+    }
+  },
+  {
+    "youtubeId": "bfn6jwFURkI",
+    "titulo": "Fecha N°10: Azules 9-5 Naranjas (Gallo 12-12-23)",
+    "duracionSeg": 3592,
+    "temporada": "2023-24",
+    "fechaId": 10,
+    "fechaReal": "2023-12-12",
+    "marcadorTitulo": {
+      "azul": 9,
+      "naranja": 5
+    }
+  },
+  {
+    "youtubeId": "7HGrdlm_22A",
+    "titulo": "Fecha N°9: Azules 9-9 Naranjas - Empate por Escritorio? (Gallo 06-12-23)",
+    "duracionSeg": 3383,
+    "temporada": "2023-24",
+    "fechaId": 9,
+    "fechaReal": "2023-12-06",
+    "marcadorTitulo": {
+      "azul": 9,
+      "naranja": 9
+    }
+  },
+  {
+    "youtubeId": "k_L9Q2hKdJQ",
+    "titulo": "Fecha N°8: Azules 9-8 Naranjas - Victoria por Escritorio (Gallo 28-11-23)",
+    "duracionSeg": 3434,
+    "temporada": "2023-24",
+    "fechaId": 8,
+    "fechaReal": "2023-11-28",
+    "marcadorTitulo": {
+      "azul": 9,
+      "naranja": 8
+    }
+  },
+  {
+    "youtubeId": "lOAlC3RNALA",
+    "titulo": "Fecha N°7: Azules 13-6 Naranjas (Gallo 21-11-23)",
+    "duracionSeg": 3564,
+    "temporada": "2023-24",
+    "fechaId": 7,
+    "fechaReal": "2023-11-21",
+    "marcadorTitulo": {
+      "azul": 13,
+      "naranja": 6
+    }
+  },
+  {
+    "youtubeId": "-7KMjPLDWtI",
+    "titulo": "Fecha N°6: Naranjas 9-8 Azules (Gallo 14-11-23)",
+    "duracionSeg": 3548,
+    "temporada": "2023-24",
+    "fechaId": 6,
+    "fechaReal": "2023-11-14",
+    "marcadorTitulo": {
+      "naranja": 9,
+      "azul": 8
+    }
+  },
+  {
+    "youtubeId": "BpEE7bHv9FM",
+    "titulo": "Fecha N°5: Azules 8-7 Naranjas - La Batalla por la Cancha (Gallo 7-11-23)",
+    "duracionSeg": 2962,
+    "temporada": "2023-24",
+    "fechaId": 5,
+    "fechaReal": "2023-11-07",
+    "marcadorTitulo": {
+      "azul": 8,
+      "naranja": 7
+    }
+  },
+  {
+    "youtubeId": "E_NwX4rKU80",
+    "titulo": "Fecha N°4: Naranjas 14-11 Azules (Gallo 31-10-23)",
+    "duracionSeg": 3487,
+    "temporada": "2023-24",
+    "fechaId": 4,
+    "fechaReal": "2023-10-31",
+    "marcadorTitulo": {
+      "naranja": 14,
+      "azul": 11
+    }
+  },
+  {
+    "youtubeId": "k_CaHXvv9h0",
+    "titulo": "Fecha N°3: Azules 8-6 Naranjas (Gallo 24-10-23)",
+    "duracionSeg": 3314,
+    "temporada": "2023-24",
+    "fechaId": 3,
+    "fechaReal": "2023-10-24",
+    "marcadorTitulo": {
+      "azul": 8,
+      "naranja": 6
+    }
+  },
+  {
+    "youtubeId": "IjXMgwg3sMw",
+    "titulo": "Fecha N°2: Naranjas 9-7 Azules (Gallo 10-10-23)",
+    "duracionSeg": 3198,
+    "temporada": "2023-24",
+    "fechaId": 2,
+    "fechaReal": "2023-10-10",
+    "marcadorTitulo": {
+      "naranja": 9,
+      "azul": 7
+    }
+  },
+  {
+    "youtubeId": "81aZP73_zi8",
+    "titulo": "Fecha N°1: Naranjas 8-6 Azules (Gallo 03-10-23)",
+    "duracionSeg": 3668,
+    "temporada": "2023-24",
+    "fechaId": 1,
+    "fechaReal": "2023-10-03",
+    "marcadorTitulo": {
+      "naranja": 8,
+      "azul": 6
+    }
+  }
+]
