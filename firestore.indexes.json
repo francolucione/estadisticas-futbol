@@ -1,0 +1,13 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "eventos",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "jugador", "order": "ASCENDING" },
+        { "fieldPath": "creado", "order": "DESCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

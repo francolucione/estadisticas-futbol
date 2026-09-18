@@ -1,0 +1,157 @@
+rules_version = '2';
+
+// Gallo League — el VAR.
+//
+// Todo se lee sin login: la estadistica es publica. Para escribir hay que entrar con
+// Google, y cada evento viaja en el MISMO batch que el cambio de `contadores/global`.
+// Las dos puntas se controlan entre si: un evento no se crea ni se borra sin mover su
+// contador, y el contador no se mueve sin un evento que aparezca o desaparezca, con un
+// delta de exactamente +1 o -1 en su categoria, su jugador y su video.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function logueado() {
+      return request.auth != null;
+    }
+
+    function esAdmin() {
+      return logueado() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    function rutaGlobal() {
+      return /databases/$(database)/documents/contadores/global;
+    }
+
+    function rutaEvento(id) {
+      return /databases/$(database)/documents/eventos/$(id);
+    }
+
+    // Lo que habia en contadores/global antes de este batch (vacio si no existia).
+    function porVideoAntes(videoId) {
+      return exists(rutaGlobal()) ? get(rutaGlobal()).data.porVideo.get(videoId, 0) : 0;
+    }
+
+    function porVideoDespues(videoId) {
+      return getAfter(rutaGlobal()).data.porVideo.get(videoId, 0);
+    }
+
+    function textoCorto(v, max) {
+      return v is string && v.size() > 0 && v.size() <= max;
+    }
+
+    match /eventos/{id} {
+      allow read: if true;
+
+      allow create: if logueado()
+        && request.resource.data.keys().hasOnly(
+             ['videoId', 't', 'categoriaId', 'jugador', 'jugador2', 'nota', 'autorUid', 'autorNombre', 'creado'])
+        && request.resource.data.keys().hasAll(
+             ['videoId', 't', 'categoriaId', 'jugador', 'autorUid', 'autorNombre', 'creado'])
+        && request.resource.data.autorUid == request.auth.uid
+        && request.resource.data.creado == request.time
+        && textoCorto(request.resource.data.videoId, 20)
+        && textoCorto(request.resource.data.categoriaId, 40)
+        && textoCorto(request.resource.data.jugador, 40)
+        && textoCorto(request.resource.data.autorNombre, 60)
+        && (!('jugador2' in request.resource.data) || textoCorto(request.resource.data.jugador2, 40))
+        && (!('nota' in request.resource.data) || textoCorto(request.resource.data.nota, 200))
+        && request.resource.data.t is number
+        && request.resource.data.t >= 0
+        && request.resource.data.t < 36000
+        && porVideoDespues(request.resource.data.videoId) == porVideoAntes(request.resource.data.videoId) + 1;
+
+      // Un evento marcado no se edita: se borra y se vuelve a marcar.
+      allow update: if false;
+
+      allow delete: if (esAdmin() || (logueado() && resource.data.autorUid == request.auth.uid))
+        && porVideoDespues(resource.data.videoId) == porVideoAntes(resource.data.videoId) - 1;
+    }
+
+    match /contadores/global {
+      allow read: if true;
+
+      // `ultimoEvento` dice cual evento justifica este cambio. Si aparece en el batch es
+      // un alta (+1); si desaparece, una baja (-1). Cualquier otra cosa se rechaza.
+      function alta(e) {
+        return existsAfter(rutaEvento(e)) && !exists(rutaEvento(e));
+      }
+
+      function baja(e) {
+        return exists(rutaEvento(e)) && !existsAfter(rutaEvento(e));
+      }
+
+      function antes() {
+        return resource == null ? { 'categorias': {}, 'porVideo': {} } : resource.data;
+      }
+
+      function catAntes(cat) {
+        return antes().categorias.get(cat, { 'total': 0, 'porJugador': {} });
+      }
+
+      function movio(ev, delta) {
+        let nuevo = request.resource.data;
+        let cat = ev.categoriaId;
+        let despues = nuevo.categorias.get(cat, { 'total': 0, 'porJugador': {} });
+        return nuevo.keys().hasOnly(['categorias', 'porVideo', 'ultimoEvento'])
+          && nuevo.categorias.diff(antes().categorias).affectedKeys().hasOnly([cat])
+          && despues.total == catAntes(cat).total + delta
+          && despues.porJugador.diff(catAntes(cat).porJugador).affectedKeys().hasOnly([ev.jugador])
+          && despues.porJugador.get(ev.jugador, 0) == catAntes(cat).porJugador.get(ev.jugador, 0) + delta
+          && nuevo.porVideo.diff(antes().porVideo).affectedKeys().hasOnly([ev.videoId])
+          && nuevo.porVideo.get(ev.videoId, 0) == antes().porVideo.get(ev.videoId, 0) + delta;
+      }
+
+      allow create, update: if logueado()
+        && request.resource.data.ultimoEvento is string
+        && (
+          (alta(request.resource.data.ultimoEvento)
+            && movio(getAfter(rutaEvento(request.resource.data.ultimoEvento)).data, 1))
+          || (baja(request.resource.data.ultimoEvento)
+            && movio(get(rutaEvento(request.resource.data.ultimoEvento)).data, -1))
+        );
+
+      allow delete: if false;
+    }
+
+    // Las categorias que inventa el grupo. Las de fabrica viven en el codigo.
+    match /categorias/{id} {
+      allow read: if true;
+
+      allow create: if logueado()
+        && id.matches('^[a-z0-9-]{2,40}$')
+        && request.resource.data.keys().hasOnly(['id', 'emoji', 'nombre', 'frase', 'descripcion', 'tipo', 'creadaPor'])
+        && request.resource.data.id == id
+        && request.resource.data.creadaPor == request.auth.uid
+        && textoCorto(request.resource.data.emoji, 16)
+        && textoCorto(request.resource.data.nombre, 30)
+        && textoCorto(request.resource.data.frase, 80)
+        && request.resource.data.frase.matches('.*[{]j[}].*')
+        && (!('descripcion' in request.resource.data) || textoCorto(request.resource.data.descripcion, 200))
+        && request.resource.data.tipo in ['juego', 'gesto', 'graciosa'];
+
+      allow update, delete: if esAdmin();
+    }
+
+    // Existe solo si alguien tildo el video como marcado completo. Guarda los goles de
+    // ese momento para controlarlos contra el JSON sin leer eventos.
+    match /videos/{youtubeId} {
+      allow read: if true;
+
+      allow create, update: if logueado()
+        && request.resource.data.keys().hasOnly(['youtubeId', 'fechaId', 'goles', 'por', 'cuando'])
+        && request.resource.data.youtubeId == youtubeId
+        && request.resource.data.goles is map
+        && textoCorto(request.resource.data.por, 60)
+        && request.resource.data.cuando == request.time;
+
+      allow delete: if logueado();
+    }
+
+    // Se cargan a mano desde la consola. Cada uno puede leer solo el suyo, que es lo que
+    // la app necesita para saber si mostrar el borrar en eventos ajenos.
+    match /admins/{uid} {
+      allow read: if logueado() && request.auth.uid == uid;
+      allow write: if false;
+    }
+  }
+}

@@ -72,3 +72,6 @@ Thumbs.db
 # Entorno
 .env
 .env.local
+
+# Firebase
+/.firebase
