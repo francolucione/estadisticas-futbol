@@ -47,10 +47,24 @@ import {
       }
 
       ion-tab-button {
-        --padding-top: 5px;
-        --padding-bottom: 4px;
-        font-size: 0.62rem;
-        letter-spacing: 0.03em;
+        --padding-top: 6px;
+        --padding-bottom: 5px;
+        position: relative;
+        font-family: var(--f-texto);
+        font-size: 0.74rem;
+        font-weight: 600;
+      }
+
+      /* La pestana activa: hueso y una costura arriba, como el cuello de la camiseta. */
+      ion-tab-button.tab-selected::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 28%;
+        right: 28%;
+        height: 2px;
+        border-radius: 0 0 2px 2px;
+        background: var(--tinta);
       }
 
       ion-icon {

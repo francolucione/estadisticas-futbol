@@ -33,9 +33,16 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "assets"
-              }
+              },
+              "src/manifest.webmanifest"
             ],
             "styles": [
+              "node_modules/@fontsource/barlow-semi-condensed/400.css",
+              "node_modules/@fontsource/barlow-semi-condensed/500.css",
+              "node_modules/@fontsource/barlow-semi-condensed/600.css",
+              "node_modules/@fontsource/barlow-semi-condensed/700.css",
+              "node_modules/@fontsource/big-shoulders-display/700.css",
+              "node_modules/@fontsource/big-shoulders-display/800.css",
               "src/global.scss",
               "src/theme/variables.scss"
             ],
@@ -128,6 +135,12 @@
               }
             ],
             "styles": [
+              "node_modules/@fontsource/barlow-semi-condensed/400.css",
+              "node_modules/@fontsource/barlow-semi-condensed/500.css",
+              "node_modules/@fontsource/barlow-semi-condensed/600.css",
+              "node_modules/@fontsource/barlow-semi-condensed/700.css",
+              "node_modules/@fontsource/big-shoulders-display/700.css",
+              "node_modules/@fontsource/big-shoulders-display/800.css",
               "src/global.scss",
               "src/theme/variables.scss"
             ],

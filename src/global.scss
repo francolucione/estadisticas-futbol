@@ -36,7 +36,30 @@ body {
   /* Solo se ve en las zonas seguras y en el rebote del scroll. */
   background: var(--metal-plano);
   color: var(--tinta);
-  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-family: var(--f-texto);
+  font-size: var(--t-base);
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * Links: en hueso, como todo el chrome. Se reconocen por el peso y por el subrayado
+ * al pasar, no por un color: el color en esta app es de los datos.
+ */
+a {
+  color: var(--tinta);
+}
+
+:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 2px;
+}
+
+/* Numeros protagonistas: la tipografia de camiseta. */
+.cifra {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
 }
 
 /*
@@ -44,7 +67,7 @@ body {
  * <div id="background-content"> en position:absolute inset:0 por encima, asi que un
  * background en body queda tapado y no se ve nunca.
  *
- * Ese div se apoya en el host, que es el viewport y no el largo del scroll: la aurora
+ * Ese div se apoya en el host, que es el viewport y no el largo del scroll: las lineas de la cancha
  * queda quieta mientras el contenido pasa por delante. No hay ninguna animacion
  * corriendo, asi que en el telefono no cuesta bateria.
  */
@@ -68,9 +91,26 @@ ion-toolbar {
 }
 
 ion-title {
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-family: var(--f-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+/* El escudo en las cabeceras de las pestanas principales. */
+.escudo-cabecera {
+  margin-left: 10px;
+}
+
+/* ------------------------------------------------------------ utilidades */
+
+/* El back button de Ionic trae su texto en mayusculas: aca va en minuscula normal. */
+ion-back-button {
+  --color: var(--tinta-2);
+  text-transform: none;
+  font-family: var(--f-texto);
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 /* ----------------------------------------------------------- ancho util */
@@ -81,8 +121,19 @@ ion-title {
  */
 .contenido,
 .segmento {
-  max-width: 720px;
+  max-width: 760px;
   margin-inline: auto;
+}
+
+/* Las pantallas que son grillas (fechas, jugadores, datos, videos) aprovechan el ancho. */
+.contenido.ancho,
+.segmento.ancho {
+  max-width: 1120px;
+}
+
+/* Un segmento adentro de un contenido ancho ocupa todo ese ancho, no los 760 de siempre. */
+.contenido.ancho .segmento {
+  max-width: none;
 }
 
 /* ---------------------------------------------------------------- panel */
@@ -90,7 +141,7 @@ ion-title {
 /*
  * El filo de un pixel arriba es lo que hace que el panel lea como chapa.
  * Sin el es un rectangulo gris. La sombra de afuera lo despega del resplandor del
- * fondo: apoyado directamente sobre la aurora parecia pegado con cinta.
+ * fondo: apoyado directamente sobre el fondo parecia pegado con cinta.
  */
 .panel {
   background: var(--metal-panel);
@@ -128,28 +179,29 @@ ion-title {
   align-items: baseline;
   justify-content: space-between;
   gap: 10px;
-  margin: 18px 0 8px;
-  padding-left: 8px;
-  border-left: 3px solid var(--acento);
+  margin: 22px 0 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--metal-borde);
 
   h2 {
     margin: 0;
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    font-family: var(--f-display);
+    font-size: var(--t-titulo);
+    font-weight: 800;
+    line-height: 1.1;
     color: var(--tinta);
   }
 
   .nota {
-    font-size: 0.7rem;
+    font-size: var(--t-mini);
     color: var(--tinta-2);
   }
 }
 
 .explica {
   margin: 0 0 10px;
-  font-size: 0.75rem;
+  max-width: 68ch;
+  font-size: var(--t-chico);
   line-height: 1.45;
   color: var(--tinta-2);
 }
@@ -164,7 +216,7 @@ ion-title {
 .tabla-densa {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.78rem;
+  font-size: var(--t-tabla);
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 
@@ -191,10 +243,8 @@ ion-title {
     top: 0;
     z-index: 2;
     background: var(--metal-panel-alto);
-    font-size: 0.62rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    font-size: var(--t-mini);
+    font-weight: 600;
     color: var(--tinta-2);
     white-space: nowrap;
   }
@@ -240,9 +290,14 @@ ion-title {
   }
 
   a {
-    color: var(--acento);
+    color: var(--tinta);
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
+
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
   }
 
   .sub {
@@ -252,6 +307,7 @@ ion-title {
   }
 
   /* Columna resaltada por la metrica activa. */
+  /* La columna activa se marca con fondo y peso, no con un color. */
   .resaltada {
     background: var(--acento-tenue);
     color: var(--tinta);
@@ -259,7 +315,8 @@ ion-title {
   }
 
   thead .resaltada {
-    color: var(--acento);
+    color: var(--tinta);
+    box-shadow: inset 0 -2px 0 var(--tinta);
   }
 
   .negativo {
@@ -282,8 +339,22 @@ ion-title {
   width: 3px;
 }
 
-.zona-podio .col-puesto::before {
-  background: var(--acento);
+/* Podio con medallas: el puesto dice oro, plata o bronce, y el numero va al lado. */
+.zona-podio:nth-child(1) .col-puesto::before {
+  background: var(--oro);
+}
+
+.zona-podio:nth-child(2) .col-puesto::before {
+  background: var(--plata);
+}
+
+.zona-podio:nth-child(3) .col-puesto::before {
+  background: var(--bronce);
+}
+
+.zona-podio .col-puesto {
+  color: var(--tinta);
+  font-weight: 700;
 }
 
 .zona-fondo .col-puesto::before {
@@ -314,9 +385,10 @@ ion-title {
   min-width: 0;
 
   .valor {
-    font-size: 1.45rem;
-    font-weight: 700;
-    line-height: 1.1;
+    font-family: var(--f-display);
+    font-size: var(--t-grande);
+    font-weight: 800;
+    line-height: 1;
 
     &.negativo {
       color: var(--viz-negativo);
@@ -324,12 +396,12 @@ ion-title {
   }
 
   .rotulo {
-    font-size: 0.74rem;
+    font-size: var(--t-chico);
     font-weight: 600;
   }
 
   .pie {
-    font-size: 0.68rem;
+    font-size: var(--t-mini);
     color: var(--tinta-2);
   }
 }
@@ -388,11 +460,9 @@ ion-title {
     border-bottom: 2px solid transparent;
     color: var(--tinta-2);
     font: inherit;
-    font-size: 0.72rem;
+    font-size: var(--t-chico);
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    padding: 8px 10px;
+    padding: 9px 11px 7px;
     cursor: pointer;
     white-space: nowrap;
 
@@ -417,7 +487,7 @@ ion-title {
   border-radius: 4px;
   color: var(--tinta);
   font: inherit;
-  font-size: 0.75rem;
+  font-size: var(--t-chico);
   font-weight: 600;
   padding: 7px 12px;
   cursor: pointer;
@@ -429,14 +499,14 @@ ion-title {
   }
 
   &.mini {
-    font-size: 0.68rem;
+    font-size: var(--t-mini);
     padding: 4px 8px;
   }
 
   &.primario {
     background: var(--acento);
     border-color: var(--acento);
-    color: #06202a;
+    color: var(--metal-plano);
     box-shadow: none;
   }
 
@@ -534,6 +604,45 @@ input[type='number'] {
  */
 .contador {
   font-variant-numeric: tabular-nums;
+}
+
+/*
+ * Avatar: iniciales en hueso sobre el panel, con un aro del color del equipo con el que
+ * mas jugo (equipoHabitual). Cada pagina solo le pone el tamano.
+ */
+.avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--metal-panel-alto);
+  box-shadow:
+    inset 0 0 0 2px var(--acento-borde),
+    0 1px 3px rgba(0, 0, 0, 0.5);
+  color: var(--tinta);
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+
+  &.naranja {
+    box-shadow:
+      inset 0 0 0 2px var(--viz-naranja),
+      0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  &.azul {
+    box-shadow:
+      inset 0 0 0 2px var(--viz-azul),
+      0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  &.tenue {
+    color: var(--tinta-2);
+    box-shadow: inset 0 0 0 1px var(--metal-borde);
+  }
 }
 
 /* Texto solo para lectores de pantalla. */

@@ -1,80 +1,84 @@
 /*
- * Sistema visual de Gallo League.
+ * Sistema visual de Gallo League: la camiseta del club en el vestuario de noche.
  *
- * Grafito con filos brillantes y acento cyan. Solo modo oscuro: la estetica
- * metalica vive de superficies oscuras con degradados y bordes iluminados,
- * y en claro no existe.
+ * Sale del escudo del canal (un gallo marino con cresta roja sobre blanco): carbon
+ * azulado de fondo, tinta hueso, el gris azulado de las plumas para lo secundario y la
+ * cresta SOLO para la marca. Solo modo oscuro.
  *
- * Los colores de DATO (equipos y escala divergente) estan validados con el
- * script de la skill dataviz contra la superficie #141419: banda de
- * luminosidad, piso de croma, separacion para daltonismo y contraste.
- * No cambiar un hex sin volver a correrlo.
+ * Los nombres de variable (--metal-*, --acento) quedaron de la version anterior (grafito
+ * y cyan) para no tocar cada archivo; los valores son los nuevos.
  *
- * El cyan es CHROME, nunca un dato. Separa 20.4 del azul de equipo bajo
- * daltonismo, pero si pintara una barra al lado de una azul seguiria siendo
- * una lectura ambigua. Se usa para links, tab activo, foco y banda de podio.
+ * Reglas que no se negocian:
+ *
+ * 1. El chrome no tiene color. Tab activo, links, foco y botones van en HUESO, con peso y
+ *    subrayado. Naranja, azul, verde y rojo son DATOS y nada del chrome compite con ellos.
+ * 2. La cresta es marca: escudo y wordmark. Nunca un estado ni un dato.
+ * 3. Los colores de dato (--viz-*) estan validados con el script del skill dataviz contra
+ *    --viz-surface (#141925, re-corrido el 18-sep-2026: equipos pasan los cinco controles).
+ *    No cambiar un hex de dato sin volver a correrlo.
  */
 :root {
   color-scheme: dark;
 
+  /* --- Tipografia --- */
+  /* Display: marcadores, numeros protagonistas, titulos. Condensada de camiseta. */
+  --f-display: 'Big Shoulders Display', 'Barlow Semi Condensed', system-ui, sans-serif;
+  /* Todo lo demas, tablas incluidas. Condensada: entra la densidad de Promiedos con
+     cuerpo legible. */
+  --f-texto: 'Barlow Semi Condensed', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Escala (texto). La tabla vive en --t-tabla; el resto sube o baja un escalon. */
+  --t-mini: 0.72rem;
+  --t-chico: 0.8rem;
+  --t-tabla: 0.86rem;
+  --t-base: 0.95rem;
+  --t-titulo: 1.25rem;
+  --t-grande: 1.9rem;
+  --t-marcador: 4.2rem;
+
   /* --- Superficies --- */
-  --metal-plano: #06060a;
-  /*
-   * --metal-panel es la superficie contra la que estan medidos los contrastes de
-   * dato. No se toca. El color de la pantalla entra por el fondo y por el chrome
-   * (barras, cabeceras de tabla, filos), que no participan de ninguna medicion.
-   */
-  --metal-panel: #141419;
-  --metal-fila: #17171a;
-  /* Chrome: cabeceras de tabla y botones. Levemente azulado, no gris neutro. */
-  --metal-panel-alto: #1b1c26;
-  --metal-borde: #262835;
-  /*
-   * Mas apagado que --metal-borde. Separa columnas dentro de una tabla sin
-   * competir con la linea de fila, que tiene que seguir leyendose primero:
-   * si las dos pesaran igual quedaria una cuadricula.
-   */
-  --metal-borde-suave: #20212b;
-  /* El filo de arriba es lo que hace que lea como chapa y no como gris. */
-  --metal-filo: #3a3f52;
-  --metal-degradado: linear-gradient(180deg, #1e1f2b 0%, #14141c 100%);
+  --metal-plano: #0c0f16;
+  /* La superficie contra la que estan medidos los contrastes de dato. */
+  --metal-panel: #141925;
+  --metal-fila: #171d2a;
+  --metal-panel-alto: #1b2130;
+  --metal-borde: #262e40;
+  /* Separa columnas sin competir con la linea de fila. */
+  --metal-borde-suave: #1f2636;
+  /* El filo de arriba de cada panel: la costura de la camiseta. */
+  --metal-filo: #39445e;
+  --metal-degradado: linear-gradient(180deg, #1d2434 0%, #151a26 100%);
+  /* Sombra de los paneles: sin halo de color, solo los despega del fondo. */
+  --metal-halo: rgba(0, 0, 0, 0.35);
 
   /*
-   * Aurora del fondo de pagina. Es CHROME, igual que el cyan: nunca pinta un dato.
-   *
-   * Dos cosas que hay que respetar si se toca:
-   *
-   * 1. Los centros van DENTRO del viewport. Puestos en los bordes (-8%, 106%) el
-   *    pico del radial cae fuera de la pantalla y lo que se ve es la cola: la
-   *    diferencia contra el plano queda en unas diez unidades de RGB, o sea nada.
-   * 2. El alpha es el del pico, y el pico ocupa un punto. En la zona que de verdad
-   *    se ve la intensidad ya cayo a la mitad. Por 0.11 no se ve nada.
-   *
-   * Para subir o bajar la intensidad general, mover estos tres alphas a la vez.
+   * Fondo: las lineas de una cancha de futbol 5, muy tenues, quietas detras del
+   * contenido. Es chrome: nunca pinta un dato.
    */
-  --aurora-cyan: rgba(34, 211, 238, 0.26);
-  --aurora-violeta: rgba(139, 92, 246, 0.22);
-  --aurora-indigo: rgba(56, 89, 220, 0.18);
   --metal-fondo:
-    radial-gradient(62% 48% at 10% 14%, var(--aurora-cyan), transparent 72%),
-    radial-gradient(58% 46% at 90% 86%, var(--aurora-violeta), transparent 72%),
-    /* Piso frio, para que la mitad de abajo no caiga a gris plano. */
-    radial-gradient(130% 42% at 50% 100%, var(--aurora-indigo), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 640' fill='none' stroke='%23f2ede3' stroke-opacity='.055' stroke-width='2'%3E%3Crect x='20' y='20' width='360' height='600' rx='6'/%3E%3Cpath d='M20 320h360'/%3E%3Ccircle cx='200' cy='320' r='58'/%3E%3Ccircle cx='200' cy='320' r='3' fill='%23f2ede3' fill-opacity='.08'/%3E%3Cpath d='M110 20v26a90 90 0 0 0 180 0V20M110 620v-26a90 90 0 0 1 180 0v26'/%3E%3Cpath d='M170 20v-8h60v8M170 620v8h60v-8'/%3E%3C/svg%3E")
+      center 56px / min(92vw, 560px) auto no-repeat,
+    radial-gradient(120% 60% at 50% 0%, #121827 0%, transparent 70%),
     var(--metal-plano);
 
-  /* Halo de los paneles: se apoya sobre la aurora y los despega del fondo. */
-  --metal-halo: rgba(34, 211, 238, 0.16);
+  /* --- Tinta (contraste medido sobre #141925) --- */
+  --tinta: #f2ede3;
+  --tinta-2: #a3adc2;
+  --tinta-3: #a3adc2;
 
-  /* --- Tinta (contraste medido sobre #141419) --- */
-  --tinta: #ffffff;        /* 18.4:1 */
-  --tinta-2: #a1a1aa;      /*  7.2:1 */
-  --tinta-3: #a1a1aa;      /*  7.2:1 — el gris apagado anterior daba 3.8 */
+  /* --- Chrome activo: hueso, no un color --- */
+  --acento: #f2ede3;
+  --acento-fuerte: #ffffff;
+  --acento-tenue: rgba(242, 237, 227, 0.08);
+  --acento-borde: rgba(242, 237, 227, 0.32);
 
-  /* --- Acento --- */
-  --acento: #22d3ee;       /* 10.2:1 */
-  --acento-fuerte: #67e8f9;
-  --acento-tenue: rgba(34, 211, 238, 0.12);
-  --acento-borde: rgba(34, 211, 238, 0.35);
+  /* --- Marca --- */
+  --cresta: #d42a3c;
+
+  /* --- Podio: medallas de verdad, porque dicen algo --- */
+  --oro: #e0b54a;
+  --plata: #b9c1cf;
+  --bronce: #c0835a;
 
   /* --- Equipos (DATO, validado) --- */
   --viz-naranja: #d95926;
@@ -87,62 +91,51 @@
   --viz-medio: #383835;
 
   /* --- Resultados. Van siempre con la letra V/E/D al lado. --- */
-  --viz-victoria: #22c55e;  /* 8.1:1 */
+  --viz-victoria: #22c55e;
   --viz-empate: #898781;
-  --viz-derrota: #ef4444;   /* 4.9:1 — el #d03b3b anterior daba 3.8 */
+  --viz-derrota: #ef4444;
 
-  /*
-   * --- Chrome de los graficos ---
-   *
-   * Espeja al chrome de la app, no a los colores de dato. --viz-surface es la unica
-   * que importa para la validacion: es la superficie contra la que estan medidas las
-   * barras, y sigue siendo #141419.
-   */
-  --viz-surface: #141419;
-  --viz-grid: #262835;
-  --viz-axis: #3a3f52;
-  --viz-muted: #a1a1aa;
-  --viz-ink: #ffffff;
-  --viz-ink-2: #a1a1aa;
-  --viz-tarjeta: #1b1c26;
-  --viz-fila: #17171a;
+  /* --- Chrome de los graficos --- */
+  --viz-surface: #141925;
+  --viz-grid: #262e40;
+  --viz-axis: #39445e;
+  --viz-muted: #a3adc2;
+  --viz-ink: #f2ede3;
+  --viz-ink-2: #a3adc2;
+  --viz-tarjeta: #1b2130;
+  --viz-fila: #171d2a;
 }
 
 /*
- * Variables de Ionic, alineadas al sistema.
- *
- * Van con las tres formas del selector a proposito. La paleta oscura de Ionic
- * (@ionic/angular/css/palettes/dark.always.css, importada en global.scss) declara sus
- * colores bajo :root.md y :root.ios, que le ganan por especificidad a un :root pelado
- * sin importar el orden de import. Como provideIonicAngular() va sin `mode`, Ionic
- * estampa `md` en <html> y sin esta repeticion la app pinta su #121212 de fabrica:
- * estos hexadecimales no se ven nunca. Empatados en especificidad, gana metal.css
- * porque se importa despues.
+ * Variables de Ionic. Van con las tres formas del selector a proposito: la paleta oscura
+ * de Ionic declara sus colores bajo :root.md y :root.ios, que le ganan a un :root pelado.
+ * Empatados en especificidad, gana este archivo porque se importa despues.
  */
 :root,
 :root.md,
 :root.ios {
-  --ion-background-color: #07070b;
-  --ion-background-color-rgb: 7, 7, 11;
-  --ion-text-color: #ffffff;
-  --ion-text-color-rgb: 255, 255, 255;
-  --ion-border-color: #26262e;
+  --ion-font-family: var(--f-texto);
+  --ion-background-color: #0c0f16;
+  --ion-background-color-rgb: 12, 15, 22;
+  --ion-text-color: #f2ede3;
+  --ion-text-color-rgb: 242, 237, 227;
+  --ion-border-color: #262e40;
   --ion-toolbar-background: var(--metal-panel-alto);
-  --ion-toolbar-color: #ffffff;
-  --ion-tab-bar-background: #101014;
-  --ion-tab-bar-color: #a1a1aa;
-  --ion-tab-bar-color-selected: var(--acento);
+  --ion-toolbar-color: #f2ede3;
+  --ion-tab-bar-background: #0f131c;
+  --ion-tab-bar-color: #8e98ad;
+  --ion-tab-bar-color-selected: #f2ede3;
   --ion-item-background: transparent;
 
-  --ion-color-primary: #22d3ee;
-  --ion-color-primary-rgb: 34, 211, 238;
-  --ion-color-primary-contrast: #06202a;
-  --ion-color-primary-contrast-rgb: 6, 32, 42;
-  --ion-color-primary-shade: #1eb9d1;
-  --ion-color-primary-tint: #38d7f0;
+  --ion-color-primary: #f2ede3;
+  --ion-color-primary-rgb: 242, 237, 227;
+  --ion-color-primary-contrast: #0c0f16;
+  --ion-color-primary-contrast-rgb: 12, 15, 22;
+  --ion-color-primary-shade: #d5d0c8;
+  --ion-color-primary-tint: #f3efe6;
 
-  --ion-color-medium: #a1a1aa;
-  --ion-color-medium-rgb: 161, 161, 170;
+  --ion-color-medium: #a3adc2;
+  --ion-color-medium-rgb: 163, 173, 194;
   --ion-color-danger: #ef4444;
   --ion-color-success: #22c55e;
   --ion-color-warning: #facc15;
